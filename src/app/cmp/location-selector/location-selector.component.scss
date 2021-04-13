@@ -1,0 +1,18 @@
+@import "../../../appcssvars.scss";
+
+// :host {
+//   display: flex !important;
+//   flex-direction: column !important;
+//   flex: 1 1 0 !important;
+//   background: red;
+// }
+:host{
+  // background-color: blue;
+  // height:200px;
+  flex: 1 1 0 !important;
+  display: flex !important;
+}
+// ::ng-deep.mat-dialog-container{
+//   background-color: yellow !important;
+//   height:300px;
+// }

@@ -1,0 +1,151 @@
+<app-app-form-a [readOnly]="AccessMode=='view'" (beforePosting)="BeforeDataPosting($event)"
+    (afterFormCreate)="AfterFormCreate($event)">
+
+    <!-- TAB SECTION -->
+    <app-data-tabs #t [height]="tabHeight" activeBackground="white" [fluidIds]="[2,3,4]"
+        [tabLabels]="'Details,Position,Assessment,Failure Threats, Attachments,Related Survey Events,Related Anomalies'">
+        <app-panel-a *ngIf="toggleDisplay && t.a(0)">
+            <app-panel-a [PR]="2">
+                <app-panel-a [horizontal]="true">
+                    <app-panel-a [PR]="2" [labelWidth]="80">
+                        <app-app-input-a fieldName="SVY_HDR_NOD_ID" [LPL]="0"
+                            [actionIcon]="isViewMode ? null : 'fa-sitemap' " label="Asset"></app-app-input-a>
+                        <app-app-input-a fieldName="SVY_MAIN_TITLE" label="Campaign:"></app-app-input-a>
+                        <app-app-input-a fieldName="SVY_EVT_DESC" label="Event:"></app-app-input-a>
+                        <app-app-input-a fieldName="SVY_HDR_EVT_NUM" label="Event #:"></app-app-input-a>
+                        <app-app-input-a fieldName="SVY_HDR_RECORDER" label="Recorder:"></app-app-input-a>
+                        <app-app-input-a fieldName="SVY_HDR_UPDATE_BY" label="Updated By:"></app-app-input-a>
+
+                    </app-panel-a>
+                    <app-panel-a [PL]="2" [labelWidth]="90">
+                        <app-app-input-a fieldName="SVY_HDR_UPDATE_DATE" label="Updated Date:"></app-app-input-a>
+                        <app-app-input-a fieldName="SVY_HDR_COMMENT" label="Comments:" [rows]="3"></app-app-input-a>
+                        <app-app-input-a fieldName="SVY_TEXT_A" label="Item or Area:"></app-app-input-a>
+                        <app-app-input-a fieldName="SVY_TEXT_B" label="Defect Summary:"></app-app-input-a>
+
+                    </app-panel-a>
+                    <app-panel-a [PL]="2" [labelWidth]="90">
+                        <app-app-input-a fieldName="SVY_TEXT_C" label="Defect Marked:"></app-app-input-a>
+                        <app-app-input-a fieldName="SVY_TEXT_D" label="Driver or Inspector:"></app-app-input-a>
+                        <app-app-input-a fieldName="SVY_TEXT_E" label="Data Recorder:"></app-app-input-a>
+                        <app-app-input-a fieldName="SVY_TEXT_F" label="Report reference:"></app-app-input-a>
+                        <app-app-input-a fieldName="SVY_TEXT_G" label="Other Reference:"></app-app-input-a>
+                        <app-app-input-a fieldName="NUM" label="Inspection Date:"></app-app-input-a>
+                    </app-panel-a>
+
+                </app-panel-a>
+            </app-panel-a>
+        </app-panel-a>
+        <app-panel-a *ngIf="AccessMode=='view' && t.a(1)">
+            <app-panel-a [PR]="2">
+                <app-panel-a [horizontal]="true">
+                    <app-panel-a [PR]="2">
+                        &nbsp;Start Position Details
+                        <app-panel-a [horizontal]="true">&nbsp;
+                            <app-panel-a [PR]="2" [labelWidth]="60">
+                                <app-app-input-a fieldName="SVY_POS_DATE_TIME" label="Date Time:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_KP" label="KP:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_EASTING" label="Easting:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_NORTHING" label="Northing:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_LONGITUDE" label="Longitude:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_LATITUDE" label="Latitude:"></app-app-input-a>
+                            </app-panel-a>
+                            &nbsp;
+                            <app-panel-a [PR]="2" [labelWidth]="70">
+                                <app-app-input-a fieldName="SVY_POS_TEMPERATURE" label="Temperature:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_ALTITUDE" label="Altitude:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_HEADING" label="Heading:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_PITCH" label="Pitch:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_ROLL" label="Roll:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_VIDEO_CTR" label="Video Ctr:"></app-app-input-a>
+                            </app-panel-a>
+                            &nbsp;
+                            <app-panel-a [PR]="2" [labelWidth]="50">
+                                <app-app-input-a fieldName="SVY_POS_OFFSET" label="Offset:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_XCOORD" label="X Coord:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_YCOORD" label="Y Coord:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_ZCOORD" label="Z Coord:"></app-app-input-a>
+                            </app-panel-a>
+
+                        </app-panel-a>
+                    </app-panel-a>
+                    &nbsp; &nbsp;
+                    <app-panel-a [PR]="2">
+                        End Position Details
+                        <app-panel-a [horizontal]="true">
+                            <app-panel-a [PR]="2" [labelWidth]="60">
+                                <app-app-input-a fieldName="SVY_POS_DATE_TIME" label="Date Time:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_KP" label="KP:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_EASTING" label="Easting:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_NORTHING" label="Northing:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_LONGITUDE" label="Longitude:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_LATITUDE" label="Latitude:"></app-app-input-a>
+                            </app-panel-a>
+                            &nbsp;
+                            <app-panel-a [PR]="2" [labelWidth]="70">
+                                <app-app-input-a fieldName="SVY_POS_TEMPERATURE" label="Temperature:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_ALTITUDE" label="Altitude:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_HEADING" label="Heading:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_PITCH" label="Pitch:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_ROLL" label="Roll:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_VIDEO_CTR" label="Video Ctr:"></app-app-input-a>
+                            </app-panel-a>
+                            &nbsp;
+                            <app-panel-a [PR]="2" [labelWidth]="50">
+                                <app-app-input-a fieldName="SVY_POS_OFFSET" label="Offset:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_XCOORD" label="X Coord:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_YCOORD" label="Y Coord:"></app-app-input-a>
+                                <app-app-input-a fieldName="SVY_POS_ZCOORD" label="Z Coord:"></app-app-input-a>
+                            </app-panel-a>
+                        </app-panel-a>
+                    </app-panel-a>
+
+                </app-panel-a>
+            </app-panel-a>
+        </app-panel-a>
+        <app-panel-a *ngIf="AccessMode=='view' && t.a(2)">
+            <h2>Under Construction..</h2>
+        </app-panel-a>
+        <app-panel-a *ngIf="AccessMode=='view' && t.a(3)">
+            <!-- failure threats -->
+            <app-data-grid-b #ftGrid [parentTableCode]="TableCode" [dataSet]="DataSet" noExtras="true" tableCode="ft"
+                forwardLink="true" noMaskOnInit="true" [title]="'Linked = {RECS}'" [gridManagementData]="dataManageFT"
+                [parentGrid]="moduleExchangeInfo.gridObject" [parentKeyValue]="moduleExchangeInfo.state.dataKeyValue"
+                [noInitFocus]="true" [rights]="{allowManage:true}" customGrid="gridColumnsInSurvey" noFooter="true">
+            </app-data-grid-b>
+        </app-panel-a>
+        <app-panel-a *ngIf="AccessMode=='view' && t.a(4)">
+            <!-- Attachments -->
+            <app-attachments [pathKeyParam]="16003" [parentGrid]="moduleExchangeInfo.gridObject"
+                [parentTableCode]="TableCode" [parentKeyValue]="moduleExchangeInfo.state.dataKeyValue">
+            </app-attachments>
+
+        </app-panel-a>
+        <app-panel-a *ngIf="AccessMode=='view' && t.a(5)">
+            <!-- related Survey Events! -->
+            <app-data-grid-b #svyEvtGrid [parentTableCode]="TableCode" [dataSet]="DataSet" tableCode="svyhdr"
+                linkChildType="" forwardLink="true" noExtras="true" noFooter="true" customGrid="gridRelatedEvents"
+                noMaskOnInit="true" [title]="'Linked = {RECS}'" manageTitle="Manage Survey Events"
+                [parentGrid]="moduleExchangeInfo.gridObject" [parentKeyValue]="moduleExchangeInfo.state.dataKeyValue"
+                [gridManagementData]="dataManageSvyEvt" [noInitFocus]="true" [rights]="{allowManage:true}">
+            </app-data-grid-b>
+            <!--Grid using Query-->
+            <!-- <app-data-grid-b #svyEvtGrid [parentTableCode]="TableCode" [dataSet]="DataSet" tableCode="svyqrelev" linkChildType=""
+                forwardLink="true" noExtras="true" noFooter="true" customGrid="gridRelatedEvents"
+                noMaskOnInit="true" [title]="'Linked = {RECS}'" manageTitle="Manage Survey Events"
+                [parentGrid]="moduleExchangeInfo.gridObject" [parentKeyValue]="moduleExchangeInfo.state.dataKeyValue"
+                [gridManagementData]="dataManageSvyEvt" [noInitFocus]="true" [rights]="{allowManage:true}">
+            </app-data-grid-b> -->
+        </app-panel-a>
+        <app-panel-a *ngIf="AccessMode=='view' && t.a(6)">
+            <!-- related anomalies! -->
+            <app-data-grid-b #anGrid [parentTableCode]="TableCode" [dataSet]="DataSet" tableCode="an" linkChildType=""
+                forwardLink="true" noExtras="true" noFooter="true" customGrid="gridRelatedAnomalies"
+                noMaskOnInit="true" [title]="'Linked = {RECS}'" manageTitle="Manage Related Anomalies"
+                [parentGrid]="moduleExchangeInfo.gridObject" [parentKeyValue]="moduleExchangeInfo.state.dataKeyValue"
+                [gridManagementData]="dataManageAN" [noInitFocus]="true" [rights]="{allowManage:true}">
+            </app-data-grid-b>
+        </app-panel-a>
+
+    </app-data-tabs>
+</app-app-form-a>
