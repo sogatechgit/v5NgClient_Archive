@@ -133,15 +133,15 @@ export class AppDataset extends DatasetBase {
     this.tblTreeStruc.tableRelations.push(new Relation("an", "1tom", this.tblTreeStruc, this.tblAnomalies, "TRE_DAT_TAG", "AN_ASSET_ID", true));
     this.tblTreeStruc.tableRelations.push(new Relation("rf", "1tom", this.tblTreeStruc, this.tblRefFiles, "TRE_DAT_TAG", "RF_ASSET", true));
     this.tblTreeStruc.tableRelations.push(new Relation("svyhdr", "1tom", this.tblTreeStruc, this.tblSurveyHeader, "TRE_DAT_TAG", "SVY_HDR_NOD_ID", true));
-    //</RELATIONS>
+//</RELATIONS>
 
     //<DECLARE>
-    this.apiCommon.PARAMS_DELIM_CHAR = '`';
-    this.apiCommon.PARAMS_VAL_DELIM_CHAR = ',';
-    this.apiCommon.FIELD_PARENT_LINK_ALIAS = 'lnk_id';
-    this.apiCommon.FIELD_CHILD_FIRST_ALIAS = 'lnk_child_first';
-    this.apiCommon.FIELD_CHILD_COUNT_ALIAS = 'lnk_child_count';
-    //</DECLARE>
+  this.apiCommon.PARAMS_DELIM_CHAR = '`';
+  this.apiCommon.PARAMS_VAL_DELIM_CHAR = ',';
+  this.apiCommon.FIELD_PARENT_LINK_ALIAS = 'lnk_id';
+  this.apiCommon.FIELD_CHILD_FIRST_ALIAS = 'lnk_child_first';
+  this.apiCommon.FIELD_CHILD_COUNT_ALIAS = 'lnk_child_count';
+  //</DECLARE>
   }
 
   async InitDS() {
@@ -162,48 +162,48 @@ export class AppDataset extends DatasetBase {
   }
 
   //<INSTANTIATE>
-  public tblAnomaliesAction: TblAnomaliesAction = this.AddTable(new TblAnomaliesAction(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblAnomalies: TblAnomalies = this.AddTable(new TblAnomalies(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblAnomaliesArchive: TblAnomaliesArchive = this.AddTable(new TblAnomaliesArchive(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblAnomaliesSub: TblAnomaliesSub = this.AddTable(new TblAnomaliesSub(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblAnomalyTypes: TblAnomalyTypes = this.AddTable(new TblAnomalyTypes(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChangeTracker: TblChangeTracker = this.AddTable(new TblChangeTracker(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBBAC: TblChemDBBAC = this.AddTable(new TblChemDBBAC(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBcorr: TblChemDBcorr = this.AddTable(new TblChemDBcorr(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBGAP: TblChemDBGAP = this.AddTable(new TblChemDBGAP(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBglycol: TblChemDBglycol = this.AddTable(new TblChemDBglycol(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBHeader: TblChemDBHeader = this.AddTable(new TblChemDBHeader(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBHFA: TblChemDBHFA = this.AddTable(new TblChemDBHFA(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBowa: TblChemDBowa = this.AddTable(new TblChemDBowa(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBpwa: TblChemDBpwa = this.AddTable(new TblChemDBpwa(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBQUAL: TblChemDBQUAL = this.AddTable(new TblChemDBQUAL(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBrsd: TblChemDBrsd = this.AddTable(new TblChemDBrsd(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBscale: TblChemDBscale = this.AddTable(new TblChemDBscale(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBSubModule: TblChemDBSubModule = this.AddTable(new TblChemDBSubModule(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBtreat: TblChemDBtreat = this.AddTable(new TblChemDBtreat(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBwhru: TblChemDBwhru = this.AddTable(new TblChemDBwhru(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBwhruwater: TblChemDBwhruwater = this.AddTable(new TblChemDBwhruwater(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblChemDBwqa: TblChemDBwqa = this.AddTable(new TblChemDBwqa(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblDesignData: TblDesignData = this.AddTable(new TblDesignData(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblDesignDataHistory: TblDesignDataHistory = this.AddTable(new TblDesignDataHistory(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblDesignDataKP: TblDesignDataKP = this.AddTable(new TblDesignDataKP(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblDesignDataParams: TblDesignDataParams = this.AddTable(new TblDesignDataParams(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblFailureThreats: TblFailureThreats = this.AddTable(new TblFailureThreats(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public sysLocks: SysLocks = this.AddTable(new SysLocks(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblLookups: TblLookups = this.AddTable(new TblLookups(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblMatrix: TblMatrix = this.AddTable(new TblMatrix(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblNodesAttrib: TblNodesAttrib = this.AddTable(new TblNodesAttrib(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblUserParam: TblUserParam = this.AddTable(new TblUserParam(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblRefFiles: TblRefFiles = this.AddTable(new TblRefFiles(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblSurvey: TblSurvey = this.AddTable(new TblSurvey(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblSurveyEvent: TblSurveyEvent = this.AddTable(new TblSurveyEvent(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblSurveyHeader: TblSurveyHeader = this.AddTable(new TblSurveyHeader(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblSurveyPosition: TblSurveyPosition = this.AddTable(new TblSurveyPosition(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblSurveyRelEventsHeader: TblSurveyRelEventsHeader = this.AddTable(new TblSurveyRelEventsHeader(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblTreeStruc: TblTreeStruc = this.AddTable(new TblTreeStruc(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblUsers: TblUsers = this.AddTable(new TblUsers(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public qryRefLinks: QryRefLinks = this.AddTable(new QryRefLinks(this.http, this.apiUrl, this.tables, this.apiCommon));
-  //</INSTANTIATE>
+  public tblAnomaliesAction:TblAnomaliesAction = this.AddTable(new TblAnomaliesAction(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblAnomalies:TblAnomalies = this.AddTable(new TblAnomalies(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblAnomaliesArchive:TblAnomaliesArchive = this.AddTable(new TblAnomaliesArchive(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblAnomaliesSub:TblAnomaliesSub = this.AddTable(new TblAnomaliesSub(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblAnomalyTypes:TblAnomalyTypes = this.AddTable(new TblAnomalyTypes(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChangeTracker:TblChangeTracker = this.AddTable(new TblChangeTracker(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBBAC:TblChemDBBAC = this.AddTable(new TblChemDBBAC(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBcorr:TblChemDBcorr = this.AddTable(new TblChemDBcorr(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBGAP:TblChemDBGAP = this.AddTable(new TblChemDBGAP(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBglycol:TblChemDBglycol = this.AddTable(new TblChemDBglycol(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBHeader:TblChemDBHeader = this.AddTable(new TblChemDBHeader(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBHFA:TblChemDBHFA = this.AddTable(new TblChemDBHFA(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBowa:TblChemDBowa = this.AddTable(new TblChemDBowa(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBpwa:TblChemDBpwa = this.AddTable(new TblChemDBpwa(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBQUAL:TblChemDBQUAL = this.AddTable(new TblChemDBQUAL(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBrsd:TblChemDBrsd = this.AddTable(new TblChemDBrsd(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBscale:TblChemDBscale = this.AddTable(new TblChemDBscale(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBSubModule:TblChemDBSubModule = this.AddTable(new TblChemDBSubModule(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBtreat:TblChemDBtreat = this.AddTable(new TblChemDBtreat(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBwhru:TblChemDBwhru = this.AddTable(new TblChemDBwhru(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBwhruwater:TblChemDBwhruwater = this.AddTable(new TblChemDBwhruwater(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblChemDBwqa:TblChemDBwqa = this.AddTable(new TblChemDBwqa(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblDesignData:TblDesignData = this.AddTable(new TblDesignData(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblDesignDataHistory:TblDesignDataHistory = this.AddTable(new TblDesignDataHistory(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblDesignDataKP:TblDesignDataKP = this.AddTable(new TblDesignDataKP(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblDesignDataParams:TblDesignDataParams = this.AddTable(new TblDesignDataParams(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblFailureThreats:TblFailureThreats = this.AddTable(new TblFailureThreats(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public sysLocks:SysLocks = this.AddTable(new SysLocks(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblLookups:TblLookups = this.AddTable(new TblLookups(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblMatrix:TblMatrix = this.AddTable(new TblMatrix(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblNodesAttrib:TblNodesAttrib = this.AddTable(new TblNodesAttrib(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblUserParam:TblUserParam = this.AddTable(new TblUserParam(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblRefFiles:TblRefFiles = this.AddTable(new TblRefFiles(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblSurvey:TblSurvey = this.AddTable(new TblSurvey(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblSurveyEvent:TblSurveyEvent = this.AddTable(new TblSurveyEvent(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblSurveyHeader:TblSurveyHeader = this.AddTable(new TblSurveyHeader(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblSurveyPosition:TblSurveyPosition = this.AddTable(new TblSurveyPosition(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblSurveyRelEventsHeader:TblSurveyRelEventsHeader = this.AddTable(new TblSurveyRelEventsHeader(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblTreeStruc:TblTreeStruc = this.AddTable(new TblTreeStruc(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblUsers:TblUsers = this.AddTable(new TblUsers(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public qryRefLinks:QryRefLinks = this.AddTable(new QryRefLinks(this.http, this.apiUrl, this.tables, this.apiCommon));
+//</INSTANTIATE>
 
   /*
   this.tblTableClass = this.AddTable(new TblTableClass(this.http,this.apiUrl,this.tables));

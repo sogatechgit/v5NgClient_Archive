@@ -484,24 +484,8 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!ctrl) frm.addControl(key, new FormControl(value));
       else ctrl.setValue(value);
 
-      //if
     }
-    // if (!xtra) return;
-    // if (row) {
-    //   // if patching form object with values in row.XTRA object
-    //   for (let xtraKey in row.XTRA) {
-    //     const ctrl = frm.get(xtraKey);
-    //     if (ctrl) ctrl.setValue(row.XTRA[xtraKey]);
-    //   }
-    // } else {
-    //   // if creating extra controls in the form object
-    //   const xtraArr = xtra.split('`');
-    //   xtraArr.forEach((xtr) => {
-    //     const fldDef = (xtr + '@').split('@');
-    //     const fldName = fldDef[1] ? fldDef[1] : fldDef[0];
-    //     if (!frm.get(fldName)) frm.addControl(fldName, new FormControl(null));
-    //   });
-    // }
+
   }
 
   /******************************** Primary Row *********************************/

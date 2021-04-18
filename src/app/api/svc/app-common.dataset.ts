@@ -462,10 +462,14 @@ export class DatasetBase extends AppCommonMethods {
 
               if ((data ? data.length : false) && config) {
                 const retParams = data[0].returnDataParams;
+
+
                 config.serverStamp = new Date(retParams.serverStamp);
 
+                // If  set initial server and client dates
                 if (!this._csInfo) {
-                  // set initial server and client dates
+                  console.log("@@@@@ _csInfo... retParams: " ,JSON.stringify(retParams), ", DATA: ",JSON.stringify(data))
+
                   this._csInfo = {
                     clientStamp: config.clientStamp,
                     serverStamp: config.serverStamp,

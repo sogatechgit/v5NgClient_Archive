@@ -14,6 +14,7 @@ import {
   Input,
 } from '@angular/core';
 import { RequestParams } from '../../mod/app-params.model';
+import { Console } from 'node:console';
 
 @Component({
   selector: 'app-login',
@@ -59,11 +60,44 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
     this.form.addControl('USER_NAME', new FormControl());
     this.form.addControl('USER_PASSWORD', new FormControl());
+
+
+
+    this.TestDataAccess()
+  }
+
+
+  TestDataAccess(){
+
+    const prms: RequestParams = new RequestParams({
+      // code:'an',
+      // fields:'AN_ID`AN_TITLE',
+      // filter: `{AN_ID|1}`,
+      code:'users|-param,USER_ID,USER_PARAM_USER_ID`param@p2,USER_PARAM_USER_ID,USER_PARAM_USER_ID;',
+      fields:'USER_ID`USER_NAME`USER_PREFERENCES`USER_UPDATE_DATE`PARAM_TEXT@login`p2.PARAM_TEXT@pwd',
+      // filter: `({PARAM_TEXT|"alv"}^{PARAM_ID|8000})^{p2.PARAM_ID|8002}`,
+      filter: `{PARAM_ID|8000}`,
+      snap: true,
+    });
+
+    setTimeout(() => {
+      this.ds.Get([prms], {
+        onSuccess: (data) => {
+          console.log("Test data success: " , data)
+        },
+        onError: (err) => {
+          console.log("Test data error: " ,err);
+        },
+      });
+    }, 500); // set timeout end
+
+
   }
 
   ngAfterViewInit() {
     this.Focus();
   }
+
 
   Focus(onPassword?: boolean) {
     setTimeout(() => {
@@ -115,8 +149,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
 
     setTimeout(() => {
+      console.log("Login params: ",prms);
       this.ds.Get([prms], {
         onSuccess: (data) => {
+          console.log("LoginData: " ,data)
           this.loggingIn = false;
           // if(data.processed.data)
           let isValidUser: boolean = false;
@@ -127,7 +163,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
             rec = data.processed.data[0][0];
 
-            const upwd = rec.XTRA.pwd;
+            const upwd = rec.XTRA.PWD;
+
+
 
             if (upwd === pwd) {
               console.log('User Authenticatd!!');
