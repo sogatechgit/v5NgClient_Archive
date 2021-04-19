@@ -84,7 +84,7 @@ export class MainFrameBComponent implements OnInit, AfterViewInit {
         {
           code: 'chgTrack',
           key: '0',
-          keyField: 'trk_id',
+          keyField: 'TRK_ID',
           forceRequest: true,
         },
       ],

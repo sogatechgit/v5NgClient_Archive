@@ -22,7 +22,7 @@ export class MainFramesetComponent implements OnInit, AfterViewInit {
   @ViewChild('mainTree') treeView: TreeViewComponent;
   @ViewChild('t') mainTabs: DataTabsComponent;
 
-  constructor(public dataSource: AppMainServiceService) {}
+  constructor(public dataSource: AppMainServiceService) { }
 
   public menuList: Array<any> = this.ds ? this.ds.menuList : [];
   public get subMenu(): Array<any> {
@@ -40,9 +40,8 @@ export class MainFramesetComponent implements OnInit, AfterViewInit {
     const lbl = menuItem.label;
     if (lbl == 'user-info') {
       return this.ds.userInfo
-        ? `Hi ${this.ds.userInfo.name} ${
-            this.ds.userInfo.id ? `[${this.ds.userInfo.id}]` : ''
-          }`
+        ? `Hi ${this.ds.userInfo.name} ${this.ds.userInfo.id ? `[${this.ds.userInfo.id}]` : ''
+        }`
         : 'Visitor';
     } else {
       return menuItem.label;
@@ -244,7 +243,7 @@ export class MainFramesetComponent implements OnInit, AfterViewInit {
 
   navWidth: number = 300;
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngAfterViewInit() {
     this.InitComponent();
@@ -329,14 +328,14 @@ export class MainFramesetComponent implements OnInit, AfterViewInit {
   }
 
   private _KeepAlive: any;
-  KeepAlive(onSuccess?: Function) {
+  KeepAlive(onSuccess?: Function, runOnce?: boolean) {
     // console.log("KeepAlive: ",new Date())
     this.ds.Get(
       [
         {
           code: 'chgTrack',
           key: '0',
-          keyField: 'trk_id',
+          keyField: 'TRK_ID',
           forceRequest: true,
         },
       ],
@@ -355,11 +354,13 @@ export class MainFramesetComponent implements OnInit, AfterViewInit {
     );
 
     // set interval of 10 mins to keep api component running
-    const minSecs = 60 * 1000;
-    const mins = 5;
-    setTimeout(() => {
-      this.KeepAlive();
-    }, mins * minSecs);
+    if (!runOnce) {
+      const minSecs = 60 * 1000;
+      const mins = 5;
+      setTimeout(() => {
+        this.KeepAlive();
+      }, mins * minSecs);
+    }
   }
 
   SecondsUpdate() {

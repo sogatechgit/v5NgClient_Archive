@@ -1,5 +1,5 @@
 /***********************************************************************
-* Automatically generated on 4/16/2021 3:03:00 PM
+* Automatically generated on 4/19/2021 4:10:48 PM
 ***********************************************************************/
 
 import { AppCommonMethodsService } from '../api/svc/app-common-methods.service';
@@ -848,7 +848,7 @@ export class TblChangeTracker extends TableBase {
 
   public rows:Array<TblChangeTrackerRow> = [];
 
-  public tableFieldPrefix="trk_";
+  public tableFieldPrefix="TRK_";
 	private _tableLinks:Array<string> = [];
 	private _links:Array<any> = [];
 	public clientConfig:any = {};
@@ -860,7 +860,14 @@ export class TblChangeTracker extends TableBase {
 
     this.tableCode="chgTrack";
 
-	this.columns.push(new ColumnInfo('trk_id', 'number', '', '', '', 0, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('TRK_ID', 'number', '', '', '', 0, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('TRK_USER_LOGIN', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('TRK_TABLE_CODE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('TRK_FIELD_NAME', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('TRK_ACTION', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('TRK_KEY_VALUE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('TRK_STAMP', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('TRK_REC_INFO', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 
     this.InitializeTable();
 
@@ -885,7 +892,14 @@ export class TblChangeTracker extends TableBase {
 
 export class TblChangeTrackerRow extends TableRowBase{
 	constructor(
-		public trk_id?:number){
+		public TRK_ID?:number, 
+		public TRK_USER_LOGIN?:string, 
+		public TRK_TABLE_CODE?:string, 
+		public TRK_FIELD_NAME?:string, 
+		public TRK_ACTION?:string, 
+		public TRK_KEY_VALUE?:string, 
+		public TRK_STAMP?:string, 
+		public TRK_REC_INFO?:string){
     super();
 
   }

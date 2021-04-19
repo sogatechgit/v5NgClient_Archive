@@ -383,6 +383,8 @@ export class AppDataset extends DatasetBase {
       ],
     };
 
+    console.log("LockDate:" ,formData)
+
     const subs = this.Post(formData).subscribe(
       (data) => {
         onSuccess(data);
