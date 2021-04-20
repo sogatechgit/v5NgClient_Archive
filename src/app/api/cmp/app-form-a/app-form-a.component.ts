@@ -609,7 +609,6 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
             this.OnRecordTypeChanged();
             break;
           case '_dataKeyValue':
-            console.log('to requery...');
             this.Requery();
             break;
 
@@ -1635,7 +1634,6 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
       );
     }
 
-    console.log('Data... ', this.formRow, this.formRowSub, this.formLock);
   }
 
   ScatterData() {}

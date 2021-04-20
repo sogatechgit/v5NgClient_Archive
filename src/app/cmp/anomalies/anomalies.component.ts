@@ -73,7 +73,6 @@ export class AnomaliesComponent extends ModuleCommon {
           { tableCode: 'mtx' }, // Anomaly Risk Matrix data
         ],
         (data) => {
-          console.log('#####Matrix Data: ', data)
           const mtx = ds.riskMatrixData.mtx;
           riskColumn.lookupParams.lookupSource = mtx;
           riskColumn.matrixData = ds.riskMatrixData;

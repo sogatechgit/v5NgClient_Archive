@@ -663,10 +663,6 @@ export class AppDataset extends DatasetBase {
     // get cached raw lookup source
     const lkp = this._AppLookupData[key];
 
-    if (key == 'mtx') {
-      console.log('##### MATRIX INFO: ', lkp, ', mapInfo:', mapInfo)
-    }
-
     if (sort) {
     }
     if (filter) {
@@ -837,9 +833,6 @@ export class AppDataset extends DatasetBase {
             // this is normally the table code
             const code = raw[idx].returnCode;
 
-            if (code == 'mtx') {
-                console.log('!!!! SetLookupData, Matrix Processed Data: ',ret)
-            }
             if (code == 'lkp') {
               // if lookup type
               if (rows.length) {

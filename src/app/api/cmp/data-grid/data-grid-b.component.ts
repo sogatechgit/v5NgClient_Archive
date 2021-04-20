@@ -1447,8 +1447,8 @@ export class DataGridBComponent
         // set to false.
         opt.AddColumn(colDef, colDef.tableAlias ? false : true);
 
-        if (fieldName == 'LKP_MEMO_1')
-          console.log('MEMO FIELD!!!: ', colDef, ', included: ', opt.FieldList);
+        // if (fieldName == 'LKP_MEMO_1')
+        //   console.log('MEMO FIELD!!!: ', colDef, ', included: ', opt.FieldList);
         return;
       }
     }
