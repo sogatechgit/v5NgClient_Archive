@@ -57,6 +57,7 @@ h3 {
   // height:100%;
   box-sizing: border-box;
   display: grid;
+  align-content: center;
   grid-template: 1fr / 1fr; // shorthand for grid-template-rows / grid-template-columns
 }
 
