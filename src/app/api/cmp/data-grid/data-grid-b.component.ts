@@ -996,7 +996,7 @@ export class DataGridBComponent
       reqParam.pageSize = pageSize;
     }
 
-    this.dataSet.cl(['Grid-B reqParam: ', reqParam]);
+    // this.dataSet.cl(['Grid-B reqParam: ', reqParam]);
     return reqParam;
   }
 

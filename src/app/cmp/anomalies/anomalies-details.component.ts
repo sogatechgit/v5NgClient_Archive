@@ -34,7 +34,10 @@ export class AnomaliesDetailsComponent extends DetailsCommon {
   modOnInit() {}
 
   modAfterViewInit() {
-    //console.log("\nDataset Matrix data: ", this.DataSet.riskMatrixData)
+    // setTimeout(()=>{
+    //   console.log("\n@@@@@ Dataset Matrix data: ", this.DataSet.riskMatrixData)
+    // },5000)
+    
   }
 
   AssignEvents() {}
@@ -122,7 +125,6 @@ export class AnomaliesDetailsComponent extends DetailsCommon {
       console.log('\nmatrixData no dataset!');
       return null;
     }
-    // console.log("\nthis.DataSet.riskMatrixData: ",this.DataSet.riskMatrixData)
     return this.DataSet.riskMatrixData;
   }
 

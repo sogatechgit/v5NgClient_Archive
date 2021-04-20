@@ -1569,14 +1569,14 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
     // get main table row
     this.formRow = this.GetRowByTableCode(allData, this.TableCode);
 
-    console.log(
-      '##### ProcessData tbl:',
-      this.TableCode,
-      'sub: ',
-      this.TableCodeSub,
-      ', data: ',
-      data
-    );
+    // console.log(
+    //   '##### ProcessData tbl:',
+    //   this.TableCode,
+    //   'sub: ',
+    //   this.TableCodeSub,
+    //   ', data: ',
+    //   data
+    // );
 
     this.formRowSub = null;
     this.formLock = null;

@@ -5,6 +5,7 @@ import { CoreModule } from './../core.module';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ModuleCommon } from '../module.common';
+import { Console } from 'node:console';
 
 @Component({
   selector: 'app-anomalies',
@@ -72,6 +73,7 @@ export class AnomaliesComponent extends ModuleCommon {
           { tableCode: 'mtx' }, // Anomaly Risk Matrix data
         ],
         (data) => {
+          console.log('#####Matrix Data: ', data)
           const mtx = ds.riskMatrixData.mtx;
           riskColumn.lookupParams.lookupSource = mtx;
           riskColumn.matrixData = ds.riskMatrixData;
@@ -107,7 +109,6 @@ export class AnomaliesComponent extends ModuleCommon {
     ///const data = e.data;
     //const sender = e.sender;
     // console.log("RowId's: ", e ,this.grid.rowIds)
-    console.log("RowId's: ", e, data, sender, sample)
 
   }
 
