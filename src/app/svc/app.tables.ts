@@ -1,5 +1,5 @@
 /***********************************************************************
-* Automatically generated on 4/20/2021 3:17:31 PM
+* Automatically generated on 4/21/2021 10:20:09 AM
 ***********************************************************************/
 
 import { AppCommonMethodsService } from '../api/svc/app-common-methods.service';
@@ -74,15 +74,15 @@ export class TblAnomaliesAction extends TableBase {
 	this.columns.push(new ColumnInfo('AI_MHOURS', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AI_NO', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AI_AN_ID', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('AI_DETAILS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('AI_NOTES', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('AI_DETAILS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
+	this.columns.push(new ColumnInfo('AI_NOTES', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('AI_UPDATED_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AI_RAISED_BY_NUM', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AI_RAISED_BY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AI_RAISED_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AI_UPDATED_BY_NUM', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AI_UPDATED_BY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('AI_TITLE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('AI_TITLE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 
     this.InitializeTable();
 
@@ -316,15 +316,15 @@ export class TblAnomalies extends TableBase {
 	this.columns.push(new ColumnInfo('AN_START_NORTH', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AN_END_NORTH', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AN_NOTIFICATION_REF', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('AN_RECCMD', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('AN_RECCMD', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('AN_NOTIFICATION_STATUS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('AN_ASSMNT', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('AN_ASSMNT', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('AN_DELETED', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AN_DELETED_BY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AN_DELETED_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('AN_AVAIL_COMMENTS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('AN_AVAIL_COMMENTS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('AN_ATTACHMENTS', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('AN_RISK_RANK_COMMENTS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('AN_RISK_RANK_COMMENTS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('ITV_ANOM_REF', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ITV_DATE_MOBIL', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ITV_DATE_PROD_RSTO', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
@@ -347,10 +347,10 @@ export class TblAnomalies extends TableBase {
 	this.columns.push(new ColumnInfo('ITV_WBS_NUMBER', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ITV_UPDATED', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ITV_UPDATED_BY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('ITV_SUMMARY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('ITV_SUMMARY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('ITV_VESSEL_NAME', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ITV_PARENT_ANOM_REV', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('ITV_LEARNING', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('ITV_LEARNING', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('ITV_AFE_SHELL_SHARE', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ITV_VESSEL_DAY_RATE', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ITV_WELL_DOWNTIME', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
@@ -532,20 +532,20 @@ export class TblAnomaliesArchive extends TableBase {
 	this.columns.push(new ColumnInfo('AN_RISK_RANK_LIKELIHOOD', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AN_START_EAST', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AN_END_EAST', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('AN_DESC', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('AN_DESC', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('AN_START_NORTH', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AN_END_NORTH', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AN_NOTIFICATION_REF', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('AN_RECCMD', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('AN_RECCMD', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('AN_NOTIFICATION_STATUS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('AN_ASSMNT', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('AN_ASSMNT', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('AN_DELETED', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AN_DELETED_BY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AN_DELETED_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('AN_AVAIL_COMMENTS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('AN_AVAIL_COMMENTS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('AN_TITLE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('AN_ATTACHMENTS', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('AN_RISK_RANK_COMMENTS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('AN_RISK_RANK_COMMENTS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('ITV_ANOM_REF', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ITV_DATE_MOBIL', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ITV_DATE_PROD_RSTO', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
@@ -568,10 +568,10 @@ export class TblAnomaliesArchive extends TableBase {
 	this.columns.push(new ColumnInfo('ITV_WBS_NUMBER', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ITV_UPDATED', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ITV_UPDATED_BY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('ITV_SUMMARY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('ITV_SUMMARY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('ITV_VESSEL_NAME', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ITV_PARENT_ANOM_REV', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('ITV_LEARNING', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('ITV_LEARNING', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('ITV_AFE_SHELL_SHARE', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ITV_VESSEL_DAY_RATE', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ITV_WELL_DOWNTIME', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
@@ -793,8 +793,8 @@ export class TblAnomalyTypes extends TableBase {
 	this.columns.push(new ColumnInfo('ANTYPE_GROUP', 'number', '', '', 'lkpgroup', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ANTYPE_APPLIESTO', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ANTYPE_CORR_REL', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('ANTYPE_COMMENTS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('ANTYPE_LIMITS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('ANTYPE_COMMENTS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
+	this.columns.push(new ColumnInfo('ANTYPE_LIMITS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('ANTYPE_UPDATE_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('ANTYPE_LOOKUP', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 
@@ -867,7 +867,7 @@ export class TblChangeTracker extends TableBase {
 	this.columns.push(new ColumnInfo('TRK_ACTION', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('TRK_KEY_VALUE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('TRK_STAMP', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('TRK_REC_INFO', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('TRK_REC_INFO', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 
     this.InitializeTable();
 
@@ -1446,7 +1446,7 @@ export class TblChemDBHeader extends TableBase {
 	this.columns.push(new ColumnInfo('CHD_HDR_DBL', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('CHD_HDR_TXT1', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('CHD_HDR_TXT2', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('CHD_HDR_COMMENTS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CHD_HDR_COMMENTS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('CHD_HDR_LAST_UPDATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('CHD_HDR_LAST_UPDATE_BY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('CHD_HDR_CLASS_OVERRIDE_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
@@ -2495,8 +2495,8 @@ export class TblDesignData extends TableBase {
 	this.columns.push(new ColumnInfo('DD_PARAM_UNIT', 'number', 'Unit', '', '@lookupgroup=110', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('DD_UPDATE_DATE', 'Date', '', '', 'datestamp', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('DD_PARAM_VALUE', 'string', 'Value', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('DD_PARAM_NOTES', 'string', 'Notes', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('DD_PARAM_REF', 'string', 'References', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('DD_PARAM_NOTES', 'string', 'Notes', '', '', -1, -1, -1, -1, -1, false, false, true, this));
+	this.columns.push(new ColumnInfo('DD_PARAM_REF', 'string', 'References', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('DD_DELETED', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('DD_DELETED_BY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('DD_DELTED_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
@@ -2591,7 +2591,7 @@ export class TblDesignDataHistory extends TableBase {
 	this.columns.push(new ColumnInfo('DD_HIST_ASSET_FR', 'number', '', '', '@lookuptable=node', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('DD_HIST_ASSET_TO', 'number', '', '', '@lookuptable=node', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('DD_HIST_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('DD_HIST_DESC', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('DD_HIST_DESC', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('DD_HIST_USERNAME', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 
     this.InitializeTable();
@@ -2834,7 +2834,7 @@ export class TblFailureThreats extends TableBase {
 	this.columns.push(new ColumnInfo('FT_CODE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('FT_NAME', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('FT_CORR_REL', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('FT_DESC', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('FT_DESC', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('FT_INCLUDE', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 
     this.InitializeTable();
@@ -2992,8 +2992,8 @@ export class TblLookups extends TableBase {
 	this.columns.push(new ColumnInfo('LKP_DATE_1', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('LKP_ORDER', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('LKP_SWITCHES', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('LKP_MEMO_1', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('LKP_OLE_1', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('LKP_MEMO_1', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
+	this.columns.push(new ColumnInfo('LKP_OLE_1', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('LKP_UPDATE_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 
     this.InitializeTable();
@@ -3373,18 +3373,18 @@ export class TblRefFiles extends TableBase {
 	this.columns.push(new ColumnInfo('RF_PATH', 'number', '', '', '@lookupgroup=142', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('RF_CLASS', 'number', '', '', '@lookupgroup=140', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('RF_TYPE', 'number', '', '', '@lookupgroup=139', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('RF_DESC', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('RF_DESC', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('RF_UPLDATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('RF_REF_NO', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('RF_REVNO', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('RF_REVDATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('RF_FILENAME', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('RF_FILENAME', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('RF_REFNOX', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('RF_CONTRACTOR', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('RF_LLID', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('RF_UPDBY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('RF_UPDDATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('RF_NOTES', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('RF_NOTES', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('RF_DELETED', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('RF_DELETED_BY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('RF_DELETED_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
@@ -3643,7 +3643,7 @@ export class TblSurveyHeader extends TableBase {
 	this.columns.push(new ColumnInfo('SVY_HDR_START_POS_ID', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SVY_HDR_END_POS_ID', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SVY_HDR_RECORDER', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SVY_HDR_COMMENT', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SVY_HDR_COMMENT', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('SVY_HDR_UPDATE_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SVY_HDR_UPDATE_BY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SVY_HDR_ASS_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
@@ -3669,10 +3669,10 @@ export class TblSurveyHeader extends TableBase {
 	this.columns.push(new ColumnInfo('SVY_TEXT_H', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SVY_TEXT_I', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SVY_TEXT_J', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SVY_MEMO_A', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SVY_MEMO_B', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SVY_MEMO_C', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SVY_MEMO_D', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SVY_MEMO_A', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
+	this.columns.push(new ColumnInfo('SVY_MEMO_B', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
+	this.columns.push(new ColumnInfo('SVY_MEMO_C', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
+	this.columns.push(new ColumnInfo('SVY_MEMO_D', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('SVY_DATETIME_A', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SVY_DATETIME_B', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SVY_DATETIME_C', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
@@ -3684,11 +3684,11 @@ export class TblSurveyHeader extends TableBase {
 	this.columns.push(new ColumnInfo('SVY_INTEGER_C', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SVY_INTEGER_D', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SVY_INTEGER_E', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SVY_HDR_ASS_DETAILS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SVY_HDR_ASS_DETAILS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('SVY_AB_HDR_ID', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SVY_HDR_PAR_ID', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SVY_HDR_ANOM_CODE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SVY_HDR_ANOM_COMMENT', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SVY_HDR_ANOM_COMMENT', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 	this.columns.push(new ColumnInfo('SVY_SINGLE_F', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SVY_SINGLE_G', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SVY_SINGLE_H', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
@@ -4113,7 +4113,7 @@ export class TblUsers extends TableBase {
 	this.columns.push(new ColumnInfo('USER_ID', 'number', '', '', '', 0, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('USER_NAME', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('USER_UPDATE_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('USER_PREFERENCES', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('USER_PREFERENCES', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
 
     this.InitializeTable();
 
@@ -4179,9 +4179,10 @@ export class QryRefLinks extends TableBase {
 
     this.tableCode="vwrfl";
 
-	this.columns.push(new ColumnInfo('RFL_ID', 'string', '', '', '', 0, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('RFL_ID', 'number', '', '', '', 0, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('RFL_SOURCE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('RFL_DESC', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('RFL_GROUP', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 
     this.InitializeTable();
 
@@ -4206,9 +4207,10 @@ export class QryRefLinks extends TableBase {
 
 export class QryRefLinksRow extends TableRowBase{
 	constructor(
-		public RFL_ID?:string, 
+		public RFL_ID?:number, 
 		public RFL_SOURCE?:string, 
-		public RFL_DESC?:string){
+		public RFL_DESC?:string, 
+		public RFL_GROUP?:number){
     super();
 
   }

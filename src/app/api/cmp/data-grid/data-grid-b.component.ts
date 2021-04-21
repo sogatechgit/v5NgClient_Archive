@@ -171,8 +171,8 @@ export class DataGridBComponent
     }
   }
 
-  ngOnDestroy() {}
-  ngAfterViewChecked() {}
+  ngOnDestroy() { }
+  ngAfterViewChecked() { }
 
   @HostListener('window:resize', ['$event']) handleResize(event: any) {
     // simply adding this event declaration, triggers recalculation of column widths
@@ -275,9 +275,8 @@ export class DataGridBComponent
 
   get deletePrompt(): string {
     const cnt = this.SelectedCount;
-    const defPrompt = `You are about to delete ${
-      cnt == 1 ? 'the current' : String(cnt) + ' selected'
-    } record${cnt > 1 ? 's' : ''}.<br/>Do you want to continue?`;
+    const defPrompt = `You are about to delete ${cnt == 1 ? 'the current' : String(cnt) + ' selected'
+      } record${cnt > 1 ? 's' : ''}.<br/>Do you want to continue?`;
 
     const prompt = this.promptTexts ? this.promptTexts.delete : null;
     return prompt ? prompt : defPrompt;
@@ -1138,8 +1137,8 @@ export class DataGridBComponent
           let v: any = isDate
             ? this.periodStartDate(f.value, dataFormat)
             : isNaN(f.value)
-            ? f.value
-            : +f.value;
+              ? f.value
+              : +f.value;
 
           if (isDate) {
             v = this.periodStartDate(f.value, dataFormat);
@@ -1840,7 +1839,7 @@ export class DataGridBComponent
     // }
   }
 
-  SetFormGroupParams(): void {}
+  SetFormGroupParams(): void { }
 
   ngAfterViewInit(): void {
     if (!this._options) return;
@@ -1867,7 +1866,7 @@ export class DataGridBComponent
       // supresses rendering error when grid details resizing is made
       this._ready = true;
       this.handleResize(null);
-      console.log("REPORT LISTING!@!!@: ", this.dataSet.reportList," CurrentTreeNode:" , this.CurrentTreeNode)
+      console.log("REPORT LISTING!@!!@: ", this.dataSet.reportList, " CurrentTreeNode:", this.CurrentTreeNode)
     }, 1);
   }
 
@@ -2044,8 +2043,8 @@ export class DataGridBComponent
     const recordType = this._parentKeyValue
       ? this._parentKeyValue
       : tblCfg
-      ? e[tblCfg.recordTypeField]
-      : null;
+        ? e[tblCfg.recordTypeField]
+        : null;
 
     if (this.options.keyColumnName) {
       this.keyValue = e[this.options.keyColumnName];
@@ -2673,8 +2672,7 @@ export class DataGridBComponent
     const cnt = postDataArr.length;
 
     this.ShowMask(
-      `Deleting ${cnt > 1 ? String(cnt) : ''} record${
-        cnt > 1 ? 's' : ''
+      `Deleting ${cnt > 1 ? String(cnt) : ''} record${cnt > 1 ? 's' : ''
       }. Please wait ...`
     );
 
@@ -2722,7 +2720,7 @@ export class DataGridBComponent
     if (this.excelListener) this.excelListener({ e: e, sender: this });
   }
 
-  OpenPreview(e:any){
+  OpenPreview(e: any) {
     this.openClick.emit(e);
   }
 
@@ -2790,6 +2788,7 @@ export class DataGridBComponent
     this.ExtractDataCall({
       message: 'Reloading list. Please wait...',
       onSuccess: (data) => {
+        console.log("Reload Data: ", data, "showMask: ", showMask)
         this.refreshClick.emit(data);
         if (onSuccess) onSuccess(data);
       },
@@ -2941,7 +2940,7 @@ export class DataGridBComponent
       }
   }
 
-  AcceptChanges(args: any) {}
+  AcceptChanges(args: any) { }
 
   /**
    *       [pageNumber]="reqInfo.pageNumber"
@@ -3002,7 +3001,9 @@ export class DataGridBComponent
     setTimeout(() => (this.isLoadingRecords = true));
   }
   HideMask(): void {
-    this.isLoadingRecords = false;
-    this.maskMessage = 'Loading. Please wait...';
+    setTimeout(() => {
+      this.isLoadingRecords = false;
+      this.maskMessage = 'Loading. Please wait...';
+    })
   }
 }

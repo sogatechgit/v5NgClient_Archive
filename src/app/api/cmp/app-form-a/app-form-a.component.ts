@@ -96,7 +96,7 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
   get lockedDateTime(): string {
     if (!this.locked) return '';
     return this.formLock
-      ? this.DataSet.dateToString(new Date(this.formLock.LOCK_START),true)
+      ? this.DataSet.dateToString(new Date(this.formLock.LOCK_START), true)
       : '';
   }
 
@@ -179,8 +179,8 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
           const source = xtra.details
             ? xtra.details
             : xtra.gridColumns
-            ? xtra.gridColumns
-            : null;
+              ? xtra.gridColumns
+              : null;
           if (source) {
             if (source.joins && !this._TableConfig.extraJoins)
               this._TableConfig.extraJoins = source.joins;
@@ -638,7 +638,7 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
 
     console.log('@@@@@ FORM DESTROYED! @@@@@');
   }
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   ngAfterViewInit() {
     // setTimeout(()=>{
     //   console.clear();
@@ -1331,8 +1331,7 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
         (event) => {
           if (event.type === HttpEventType.UploadProgress) {
             console.log(
-              `Progress: ${
-                Math.round((10000 * event.loaded) / event.total) / 100
+              `Progress: ${Math.round((10000 * event.loaded) / event.total) / 100
               }`
             );
           } else if (event.type === HttpEventType.Response) {
@@ -1636,8 +1635,8 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  ScatterData() {}
-  ScatterDataSub() {}
+  ScatterData() { }
+  ScatterDataSub() { }
 
   SetupSources() {
     if (this.DataSet) {
@@ -1816,7 +1815,7 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
       },
-      (err) => {},
+      (err) => { },
       () => {
         subs.unsubscribe();
       }
@@ -1863,8 +1862,11 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   HideMask(): void {
     if (!this.isLoadingDetail) return;
-    this.isLoadingDetail = false;
-    this.maskMessage = 'Loading. Please wait...';
+    setTimeout(() => {
+      this.isLoadingDetail = false;
+      this.maskMessage = 'Loading. Please wait...';
+    }
+    )
   }
 
   get ProgressDisplaySingle(): string {
