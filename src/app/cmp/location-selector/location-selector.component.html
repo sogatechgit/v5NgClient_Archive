@@ -1,12 +1,13 @@
 
 
 
-<app-tree-view style="flex:1 1 0;border:1px solid  #ebf1fa;" #mainTree [treeData]="ds.assetSelectorTreeData"
+<app-tree-view style="flex:1 1 0;border:1px solid  #ebf1fa;margin-top: 0px;" #mainTree [treeData]="ds.assetSelectorTreeData"
   [colorDefinitions]="colorDefinitions" [rootId]="ds.rootNodeId"
   [nodeHeight]="22" (nodeClick)="TreeClick($event)"
   [rollupColorData]="ds.treeColorData"
   [searchMaxDisplayRows]="6"
   [gridPortHeight]="122"
+  [marginTop]="-20"
   (searchTreeClick)="ds.SearchTree($event)"
   (searchResultClick)="ds.SearchTreeDirectChildren($event)"
   (selectSearchedItem)="this.ds.SearchTreeDirectChildren($event)"

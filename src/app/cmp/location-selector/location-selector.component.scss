@@ -7,10 +7,18 @@
 //   background: red;
 // }
 :host{
-  // background-color: blue;
+  // parent container div is set to display flex, flex direction column
+  // border: 2px solid red;
+  padding: 0px;
+  flex:1 1 0 !important;
+  //display: flex !important;
+  //align-self: stretch !important;
+  //justify-self: stretch !important;
+  background-color: white !important;
   // height:200px;
-  flex: 1 1 0 !important;
-  display: flex !important;
+  //flex: 1 1 0 !important;
+  //display: flex !important;
+  //display: ;
 }
 // ::ng-deep.mat-dialog-container{
 //   background-color: yellow !important;

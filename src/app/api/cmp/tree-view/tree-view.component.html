@@ -1,4 +1,4 @@
-<div id="tree-wrapper" #treeWrapper>
+<div id="tree-wrapper" #treeWrapper [style.margin-top.px]="marginTop">
   <div id="tree-toolbar">
     <div>
 
@@ -78,9 +78,9 @@
   <div class="hsp" *ngIf="searchCount > 1 && searched"></div>
 
   <ng-content *ngIf="treeData.length==0"></ng-content>
-
   <cdk-virtual-scroll-viewport *ngIf="treeData.length!=0" #treeViewPort id="tree-view-port" [itemSize]="nodeHeight">
-    <div [attr.id]="'n_' + n.id" [class]="'node' + (n.current ? ' current' : '')" *cdkVirtualFor="let n of FlatTree"
+    <div [attr.id]="'n_' + n.id" [class]="'node' + (n.current ? ' current' : '')" 
+      *cdkVirtualFor="let n of FlatTree"
       [style.padding-left.px]="treeLeftPadding + (n.level * nodeIndent)" [style.height.px]="nodeHeight">
       <div (click)="NodePMClick(n)"><i [ngClass]="NodePM(n)"></i></div>
       <span class="node-icon fa-stack">

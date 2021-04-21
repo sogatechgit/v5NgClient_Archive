@@ -1,16 +1,21 @@
 @import "../../../../appcssvars.scss";
 
 
-
+:host{
+  // height:100%;
+  background-color: lime;
+  // flex:1 1 0;
+}
 
 
 #tree-wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
-  margin: 0px;
+  
   height: 100%;
   font-family: $tree_node_font_family;
+
   // background-color: beige;
 
 

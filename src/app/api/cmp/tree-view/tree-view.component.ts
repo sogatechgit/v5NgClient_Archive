@@ -20,8 +20,8 @@ import {
 })
 export class TreeViewComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('treeWrapper') treeWrapper:any;
-  @ViewChild('searchInput') searchInput:any;
+  @ViewChild('treeWrapper') treeWrapper: any;
+  @ViewChild('searchInput') searchInput: any;
   @ViewChild('searchGrid') searchGrid: DataGridComponent;
   @ViewChild('treeViewPort') treeViewPort: CdkVirtualScrollViewport;
 
@@ -38,8 +38,8 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
   @Input() showCode: boolean = true;
   @Input() statusColor: {};
 
-  @Input() searchMaxDisplayRows:number = 10;
-  @Input() gridPortHeight:number = 200;
+  @Input() searchMaxDisplayRows: number = 10;
+  @Input() gridPortHeight: number = 200;
 
   @Output() nodeClick: EventEmitter<any> = new EventEmitter();
   @Output() nodePMClick: EventEmitter<any> = new EventEmitter();
@@ -48,7 +48,9 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
   @Output() searchTreeClick: EventEmitter<any> = new EventEmitter();
   @Output() selectSearchedItem: EventEmitter<any> = new EventEmitter();
 
-  constructor() {}
+  @Input() marginTop: number = 0;
+
+  constructor() { }
 
   public panelOpenState: boolean = false;
   public gridOptions = new DataGridOption([]);
@@ -78,9 +80,9 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
       .SetRowHeaderWidth(6)
       .NoFooter()
 
-      .AddColumn({ caption: 'Code', fieldName: 'code', maxWidth: 100 ,allowFilter:false})
-      .AddColumn({ caption: 'Name', fieldName: 'text', minWidth: 100 ,allowFilter:false})
-      .ShowColumns(['code','text'])
+      .AddColumn({ caption: 'Code', fieldName: 'code', maxWidth: 100, allowFilter: false })
+      .AddColumn({ caption: 'Name', fieldName: 'text', minWidth: 100, allowFilter: false })
+      .ShowColumns(['code', 'text'])
       .SetKeyColumnName('id');
 
   }
@@ -95,8 +97,8 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
     return this._topNode;
   }
 
-  gotoTopNode():TreeViewNode{
-    if(this._topNode){
+  gotoTopNode(): TreeViewNode {
+    if (this._topNode) {
       this.SetCurrentNode(this._topNode.loc);
     }
     return this._topNode;
@@ -224,7 +226,7 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
 
     node.level = level;
 
-    if(!this._topNode && level == 0) this._topNode = node;
+    if (!this._topNode && level == 0) this._topNode = node;
 
     // set icon color here! ******************************************************************************
 
@@ -404,10 +406,10 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
   }
 
   InpuKeyEvent(e: any) {
-    let code:string = ''
-    if(e.type=='click'){
+    let code: string = ''
+    if (e.type == 'click') {
       code = 'Enter';
-    }else{
+    } else {
       code = e.code;
     }
 
@@ -479,7 +481,7 @@ export class TreeViewComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onFocus(e:any){
+  onFocus(e: any) {
     e.srcElement.blur();
   }
 
@@ -676,13 +678,13 @@ export class TreeViewNode {
   }
 }
 
-export interface ITreeFilterParams{
-  treeTableCode:string;           // tre. ie. heirarchy table
-  treeTableLocationField:string;  //TRE_NOD_LOC. field in tree table representing node location in the tree
-  treeTableDataField:string;      //TRE_DAT_TAG. field in tree table representing node details record
+export interface ITreeFilterParams {
+  treeTableCode: string;           // tre. ie. heirarchy table
+  treeTableLocationField: string;  //TRE_NOD_LOC. field in tree table representing node location in the tree
+  treeTableDataField: string;      //TRE_DAT_TAG. field in tree table representing node details record
 
-  treeDataTableCode:string;       // node. eg. asset details table
-  localTreeDataField:string;      // eg. asset field in the table being queried
+  treeDataTableCode: string;       // node. eg. asset details table
+  localTreeDataField: string;      // eg. asset field in the table being queried
 
 
 }

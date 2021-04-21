@@ -25,7 +25,7 @@ export class AnomaliesDetailsComponent extends DetailsCommon {
     this.popWidth = 900;
     this.tabHeight = 270;
     // this.popButtons= []
-    this.titleEdit = 'Edit Anomaly!';
+    this.titleEdit = 'Edit Anomaly';
     this.titleNew = 'New Anomaly';
 
     // set view configurations

@@ -64,7 +64,15 @@ h3 {
 .wrapper {
   display: grid;
   grid-template: $form_header_height 1fr 40px/ 1fr; // shorthand for grid-template-rows / grid-template-columns
+  // background-color: yellow !important;
 
+  #content{
+    // background-color: magenta;
+    // border: 2px lime solid;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 }
 .no-action {
   grid-template: $form_header_height 1fr / 1fr; // shorthand for grid-template-rows / grid-template-columns
