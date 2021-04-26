@@ -102,19 +102,19 @@ export class AnomActionItemsDetailsComponent extends DetailsCommon {
       const frm: FormGroup = e.sender.formObject;
       const row: any = e.sender.formRow;
       const rows = this.GetCurrentRows(e);
-      console.log(
-        '\n#### AfterFormCreate this.moduleExchangeInfo.gridObject.parentGrid(parentRow): ',
-        parentRow,
-        frm,
-        '\nAfterFormCreate args: ',
-        e,
-        '\nAccessmode: ',
-        access,
-        '\nRow: ',
-        row,
-        '\nRows: ',
-        rows
-      );
+      // console.log(
+      //   '\n#### AfterFormCreate this.moduleExchangeInfo.gridObject.parentGrid(parentRow): ',
+      //   parentRow,
+      //   frm,
+      //   '\nAfterFormCreate args: ',
+      //   e,
+      //   '\nAccessmode: ',
+      //   access,
+      //   '\nRow: ',
+      //   row,
+      //   '\nRows: ',
+      //   rows
+      // );
 
       let newId:string = parentRow.AN_REF + '-01'
       if (rows.length) {

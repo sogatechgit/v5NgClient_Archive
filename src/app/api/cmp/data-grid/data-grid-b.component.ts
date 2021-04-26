@@ -694,6 +694,7 @@ export class DataGridBComponent
     if (this.isFilteredByRecordType)
       this.moduleExchangeInfo.state.recordType = this._parentKeyValue;
 
+    console.log('@@## ParentKeyValue set !!!!')
     this.SetSubTableCode();
 
     // if (subTable) this.tableCodeSub = subTable;
@@ -2465,7 +2466,7 @@ export class DataGridBComponent
   }
 
   AddClick(e: any) {
-    console.log('this.RecordTypeInfo: ', this.RecordTypeInfo);
+
     if (!this.RecordTypeInfo) {
       // if record type information is not available, OpenRecordTypeSelect is not necessary
       this.OpenAddRecord({ e: e, data: null, defaultValues: {} });
@@ -2539,8 +2540,12 @@ export class DataGridBComponent
       this.osb(`Cannot launch 'undefined' add row details view...`, 'x', 3000);
       return;
     }
+
+    console.log("OpenAddRecord()! (obs) ", obs)
+
     const subs = obs.subscribe(
       (data) => {
+        console.log("@@@@@@@ OpenAddRecord() data ", data)
         this.UpdateView(data);
       },
       (err) => {
@@ -2846,6 +2851,7 @@ export class DataGridBComponent
   }
 
   UpdateView(data: any) {
+
     const detForm = this.moduleExchangeInfo.detailsObject.form;
     if (data.mode == 'edit') {
       // update details form view
@@ -2894,6 +2900,7 @@ export class DataGridBComponent
         },
       });
     } else if (data.mode == 'add') {
+
       // get new return id
       const res = data.data.find((r) => r.returnCode == detForm.TableCode);
       const newKey = res ? res.returnDataParams.newKey : -1;

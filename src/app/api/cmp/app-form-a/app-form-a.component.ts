@@ -274,6 +274,7 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const tbl: any = this.DataSet.tables[tableCode];
     if (!tbl) return;
+
     const tblCfg: IRegularTableConfig = tbl.TableConfig;
     const assetField: ColumnInfo = tbl.AssetField;
 
@@ -354,6 +355,14 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
               formObject.get(key).setValue(this.defaultValues[key]);
             }
           }
+        }
+        console.log('#### Form-A AfterFormCreate!',this.formRow);
+
+        if (!this.formRow) {
+          //console.log('Form row does not exist!')
+          this.Requery()
+        } else {
+          console.log('Form row created!')
         }
 
         this.HideMask();
@@ -614,6 +623,7 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
             this.OnRecordTypeChanged();
             break;
           case '_dataKeyValue':
+            console.log('****** Data dataKeyValue changed!')
             this.Requery();
             break;
 
@@ -1283,6 +1293,7 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
     // timeout is required to allow setting of required propeties
     // first before invoking data extraction...
     setTimeout(() => {
+      console.log("### REQUERY!")
       this.ExecuteRequery(args);
     });
   }
@@ -1307,9 +1318,10 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
   ExecuteRequery(args?: { onSuccess?: Function; onError?: Function }) {
     // initiate request to API
     /// check required objects if available
-    if (this.destroyed) return;
-    if (!this.DataSet) return;
-    if (!this.TableCode) return;
+
+    if (this.destroyed) { console.log("##### DESTROYED! ", this.destroyed); return; }
+    if (!this.DataSet) { console.log("##### NO DATASET! "); return; }
+    if (!this.TableCode) { console.log("##### NO TABLE CODE! "); return; }
 
     this.isLoadingDetail = true;
 
