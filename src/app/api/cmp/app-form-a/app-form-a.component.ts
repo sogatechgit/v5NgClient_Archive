@@ -116,6 +116,7 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
   public treeColorReset: boolean;
 
   private _isLoadingDetail: boolean = true;
+  // private _isLoadingDetail: boolean = false;
   get isLoadingDetail(): boolean {
     return this._isLoadingDetail;
   }
@@ -354,11 +355,13 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           }
         }
+
+        this.HideMask();
       }, delay); // end of setTimeout
     }
 
     setTimeout(
-      () =>
+      () => {
         this.afterFormCreate.emit({
           // form containing the current selected row's data AppFormA
           currentForm: currentForm,
@@ -368,10 +371,12 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
           code: tableCode,
           // Add - AppFormAComponent
           sender: this,
-        }),
+        })
+
+      },
       (isNew ? delay : 0) + 5
     );
-  }
+  }  // AfterFormCreate
 
   /******************************** Primary Table Source *********************************/
   private _sourceTable: any = null;
@@ -687,12 +692,12 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
         : ''
       : '';
 
-    console.log(
-      '~~~~~~~ fileFieldName:: ',
-      fileFieldName,
-      'this.LinkedInputField: ',
-      this.LinkedInputField
-    );
+    // console.log(
+    //   '~~~~~~~ fileFieldName:: ',
+    //   fileFieldName,
+    //   'this.LinkedInputField: ',
+    //   this.LinkedInputField
+    // );
 
     let ret: IDataChanged = {
       data: {},
@@ -714,6 +719,8 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
     // console.log("\ntreeRecolorOnUpdateFields: ", treeRecolorOnUpdateFields,",  this.treeColorReset:",  this.treeColorReset,", tblCfg.treeRecolorOnUpdate: ",tblCfg.treeRecolorOnUpdate,"...",", tblCfg: ",tblCfg)
 
     let changed: boolean = false;
+
+    console.log("this.formRow:", this.formRow, ", this.formRowSub:", this.formRowSub, ', row:', row, ', form value:', frm.value)
 
     tbl.columns.forEach((c: ColumnInfo) => {
       const ctl: AbstractControl = frm.get(c.name);
@@ -834,6 +841,7 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get changed(): IDataChanged {
+
     return this.GetChanged(false);
   }
   get changedSub(): IDataChanged {
@@ -1119,6 +1127,7 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
             // if (onError) onError(err);
           },
           () => {
+
             this.HideMask();
             subs.unsubscribe();
           }
@@ -1855,12 +1864,16 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ShowMask(message?: string) {
+    console.log('ShowMask!')
     // if (!message) message = 'Loading. Please wait...';
     this.HideMask();
     if (message) this.maskMessage = message;
     setTimeout(() => (this.isLoadingDetail = true));
   }
   HideMask(): void {
+
+    console.log('HideMask!')
+
     if (!this.isLoadingDetail) return;
     setTimeout(() => {
       this.isLoadingDetail = false;
