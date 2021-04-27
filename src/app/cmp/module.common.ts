@@ -104,7 +104,7 @@ export abstract class ModuleCommon implements OnInit, AfterViewInit {
   }
 
   CallReports(args:any){
-    console.log("CallReports...",args)
+    // console.log("CallReports...",args)
   }
 
   get DataSet(): AppDataset {

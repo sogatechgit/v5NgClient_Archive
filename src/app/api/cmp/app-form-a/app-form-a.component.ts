@@ -623,7 +623,6 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
             this.OnRecordTypeChanged();
             break;
           case '_dataKeyValue':
-            console.log('****** Data dataKeyValue changed!')
             this.Requery();
             break;
 
@@ -642,8 +641,6 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroyed = true;
-
-    console.log('this._lockId: ', this._lockId);
 
     if (this._lockId != -1) {
       this.DataSet.UnlockRecordByLockId(this._lockId, (data) => {
@@ -1293,7 +1290,6 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
     // timeout is required to allow setting of required propeties
     // first before invoking data extraction...
     setTimeout(() => {
-      console.log("### REQUERY!")
       this.ExecuteRequery(args);
     });
   }
@@ -1876,15 +1872,11 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ShowMask(message?: string) {
-    console.log('ShowMask!')
-    // if (!message) message = 'Loading. Please wait...';
     this.HideMask();
     if (message) this.maskMessage = message;
     setTimeout(() => (this.isLoadingDetail = true));
   }
   HideMask(): void {
-
-    console.log('HideMask!')
 
     if (!this.isLoadingDetail) return;
     setTimeout(() => {

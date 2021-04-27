@@ -293,7 +293,6 @@ export class DatasetBase extends AppCommonMethods {
     }
 
     //let options = new RequestO({ headers: headers });
-    console.log("Post Data Body: ", body)
     return this.http.post(url, body, { headers: headers });
   }
 
@@ -469,8 +468,6 @@ export class DatasetBase extends AppCommonMethods {
 
                 // If  set initial server and client dates
                 if (!this._csInfo) {
-                  // console.log("@@@@@ _csInfo... retParams: " ,JSON.stringify(retParams), ", DATA: ",JSON.stringify(data))
-                  console.log("@@@@@ _csInfo... retParams: " ,JSON.stringify(retParams))
 
                   this._csInfo = {
                     clientStamp: config.clientStamp,

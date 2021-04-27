@@ -694,7 +694,6 @@ export class DataGridBComponent
     if (this.isFilteredByRecordType)
       this.moduleExchangeInfo.state.recordType = this._parentKeyValue;
 
-    console.log('@@## ParentKeyValue set !!!!')
     this.SetSubTableCode();
 
     // if (subTable) this.tableCodeSub = subTable;
@@ -1042,7 +1041,6 @@ export class DataGridBComponent
 
   private _ExcludedFilterColumn: DataGridColumn = null;
   InsertColumnFilters(): void {
-    console.log('\nInsertColumnFilters....');
     const opt: DataGridOption = this.options;
 
     let withFilters: boolean = false;
@@ -1060,8 +1058,6 @@ export class DataGridBComponent
 
       // if filters does not contain any element, process next column
       if (c.filters.length == 0) return;
-
-      console.log('\nc.filters: ', c.filters);
 
       // if column is to be excluded in filtering
       if (this._ExcludedFilterColumn)
@@ -1081,8 +1077,6 @@ export class DataGridBComponent
       // nothing to filter
       return;
     }
-
-    console.log('\nfilteredColumns: ', filteredColumns);
 
     // Iterate through filteredColumns
     filteredColumns.forEach((c) => {
@@ -1867,7 +1861,6 @@ export class DataGridBComponent
       // supresses rendering error when grid details resizing is made
       this._ready = true;
       this.handleResize(null);
-      console.log("REPORT LISTING!@!!@: ", this.dataSet.reportList, " CurrentTreeNode:", this.CurrentTreeNode)
     }, 1);
   }
 
@@ -2379,15 +2372,6 @@ export class DataGridBComponent
                     res.mode = compForm.AccessMode;
                     res.listRequery = compForm.listRequery;
                     res.treeColorReset = compForm.treeColorReset;
-
-                    console.log(
-                      'compForm.PostUpdates DATA: ',
-                      res,
-                      ' ref:',
-                      ref,
-                      ', compData:',
-                      compData
-                    );
 
                     // close add/edit popup window and return post
                     // results to the calling method

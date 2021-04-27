@@ -81,7 +81,6 @@ export class DataGridComponent implements OnInit, AfterViewInit, OnDestroy {
   private mouseTimeout: any;
   @HostListener('window:mouseup', ['$event'])
   onMouseUp(event: MouseEvent) {
-    console.log('\nMouse Up!');
     this.ApplyColumnSize();
     this.ResetHover(event);
   }

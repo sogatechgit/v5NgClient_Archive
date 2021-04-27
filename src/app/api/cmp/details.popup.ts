@@ -74,7 +74,7 @@ export class DetailsPopup implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     // console.log('\nngAfterViewInit detailsDirective:', this.host);
-    console.log('this.detailsItem: ', this.detailsItem.data.componentInstance);
+    // console.log('this.detailsItem: ', this.detailsItem.data.componentInstance);
   }
 
   get withForm(): boolean {
@@ -115,7 +115,7 @@ export class DetailsPopup implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.LoadComponent();
-    console.log('This.data!', this.data);
+    // console.log('This.data!', this.data);
   }
 
   public get previewMode(): boolean {

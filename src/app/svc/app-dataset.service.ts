@@ -64,7 +64,6 @@ import { TblSurvey, TblSurveyRow } from './app.tables';
 import { TblSurveyEvent, TblSurveyEventRow } from './app.tables';
 import { TblSurveyHeader, TblSurveyHeaderRow } from './app.tables';
 import { TblSurveyPosition, TblSurveyPositionRow } from './app.tables';
-import { TblSurveyRelEventsHeader, TblSurveyRelEventsHeaderRow } from './app.tables';
 import { TblTreeStruc, TblTreeStrucRow } from './app.tables';
 import { TblUsers, TblUsersRow } from './app.tables';
 import { QryRefLinks, QryRefLinksRow } from './app.tables';
@@ -126,7 +125,6 @@ export class AppDataset extends DatasetBase {
     this.tblDesignData.tableRelations.push(new Relation("node", "lkp", this.tblDesignData, this.tblNodesAttrib, "DD_ASSET", "REC_TAG", false));
     this.tblNodesAttrib.tableRelations.push(new Relation("an", "1tom", this.tblNodesAttrib, this.tblAnomalies, "REC_TAG", "AN_ASSET_ID", true));
     this.tblSurveyHeader.tableRelations.push(new Relation("node", "lkp", this.tblSurveyHeader, this.tblNodesAttrib, "SVY_HDR_NOD_ID", "REC_TAG", false));
-    this.tblSurveyRelEventsHeader.tableRelations.push(new Relation("node", "lkp", this.tblSurveyRelEventsHeader, this.tblNodesAttrib, "SVY_HDR_NOD_ID", "REC_TAG", false));
     this.tblTreeStruc.tableRelations.push(new Relation("node", "1to1", this.tblTreeStruc, this.tblNodesAttrib, "TRE_DAT_TAG", "", false));
     this.tblTreeStruc.tableRelations.push(new Relation("tre", "1tom", this.tblTreeStruc, this.tblTreeStruc, "", "TRE_NOD_TAG_PAR", true));
     this.tblTreeStruc.tableRelations.push(new Relation("desdat", "1tom", this.tblTreeStruc, this.tblDesignData, "TRE_DAT_TAG", "DD_ASSET", true));
@@ -199,7 +197,6 @@ export class AppDataset extends DatasetBase {
   public tblSurveyEvent:TblSurveyEvent = this.AddTable(new TblSurveyEvent(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblSurveyHeader:TblSurveyHeader = this.AddTable(new TblSurveyHeader(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblSurveyPosition:TblSurveyPosition = this.AddTable(new TblSurveyPosition(this.http, this.apiUrl, this.tables, this.apiCommon));
-  public tblSurveyRelEventsHeader:TblSurveyRelEventsHeader = this.AddTable(new TblSurveyRelEventsHeader(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblTreeStruc:TblTreeStruc = this.AddTable(new TblTreeStruc(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblUsers:TblUsers = this.AddTable(new TblUsers(this.http, this.apiUrl, this.tables, this.apiCommon));
   public qryRefLinks:QryRefLinks = this.AddTable(new QryRefLinks(this.http, this.apiUrl, this.tables, this.apiCommon));

@@ -183,9 +183,10 @@
     "url_deploy": "http://ngimsa.ivideolib.com/api/app",
     "url_use_deploy": false,
     "app_version": {
-      "ver": "Alpha 2.3.1",
-      "build": "20210224",
+      "ver": "Alpha 2.3.2",
+      "build": "20210427",
       "updates": [
+        "Implemented Oracle Database Backend",
         "Fixed tree search result grid display",
         "Set fluid grid display on survey data module",
         "Attachment preview window launch on preview thumbnail",
@@ -206,6 +207,16 @@
         "NOTE: Anomaly module testing and bug fixing is ongoing; ChemDB, Design Data, Reference Library and Survey Data modules under development ... "
       ],
       "history": [
+        {
+          "ver": "Alpha 2.3.1",
+          "build": "20210224",
+          "updates": [
+            "Fixed tree search result grid display",
+            "Set fluid grid display on survey data module",
+            "Attachment preview window launch on preview thumbnail"
+          ]
+
+        },
         {
           "ver": "Alpha 2.3.0",
           "build": "20210223",

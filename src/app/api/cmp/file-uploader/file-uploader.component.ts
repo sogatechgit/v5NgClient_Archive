@@ -20,7 +20,7 @@ export class FileUploaderComponent implements OnInit {
 
     // re-check file status
     this.forUpload0.ProcessFileSelectEvent();
-    console.log('SUBFOLDER: ', value);
+    // console.log('SUBFOLDER: ', value);
   }
   get SubFolder(): string {
     return this._SubFolder;
