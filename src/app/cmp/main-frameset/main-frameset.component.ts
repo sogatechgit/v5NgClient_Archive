@@ -281,7 +281,7 @@ export class MainFramesetComponent implements OnInit, AfterViewInit {
   }
 
   InitComponent(): void {
-    console.log('\nInitComponent....');
+
     if (this.ds.isAuthenticated) {
       this.ds.GetTreeData({
         treeView: this.treeView,
@@ -289,13 +289,28 @@ export class MainFramesetComponent implements OnInit, AfterViewInit {
           this.treeView.ProcessTree();
           this.treeView.gotoTopNode();
           if (this.fileUploader) this.ds.fileUploader = this.fileUploader;
+
         },
       });
+
+
+      // set current module if available
+      // console.log("active module: ",this.mainTabs.activeTab)
+      if(this.activeSubMenu){
+        console.log('Active activeSubMenu: ',this.activeSubMenu)
+        this.subMenuClick(this.activeSubMenu.id)
+      }else{
+        console.log('No active menu!')
+      }
+
+
     }
 
     this.KeepAlive((data) => {
       this.SecondsUpdate();
     });
+
+
   }
 
   NotifyClick() {

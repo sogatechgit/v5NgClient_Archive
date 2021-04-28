@@ -17,3 +17,11 @@ export class FreespanComponent  extends FormCommon implements OnInit{
   }
 
 }
+
+
+export interface ISurveyEvent{
+  type:string;
+  startKp:number;
+  end
+  Kp:number;
+}

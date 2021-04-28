@@ -117,7 +117,7 @@
           "id": 6,
           "label": "Freespan",
           "active": false,
-          "ready": false,
+          "ready": true,
           "loaded": false
         },
         {

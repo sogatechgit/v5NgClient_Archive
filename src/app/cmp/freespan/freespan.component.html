@@ -1,1 +1,76 @@
-<app-form-header [title]="moduleTitle"></app-form-header>
+<!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quasi maiores labore voluptas, nihil impedit, eum reiciendis eaque tempore odio molestiae voluptatibus repellat modi. Iusto nobis, vitae saepe adipisci dolorem amet blanditiis repellendus soluta facere cupiditate sunt nam natus suscipit nostrum laborum officiis commodi aliquam cum reprehenderit laboriosam consequuntur pariatur optio. Non veritatis porro quod facilis, a commodi minus mollitia repudiandae? Aliquid sit dolores molestiae tempore accusantium quibusdam voluptatem ipsam perferendis odit dolorem ipsa in delectus suscipit hic ut aperiam unde, quod voluptatibus modi dolorum maiores amet natus laborum. Quasi nulla blanditiis a temporibus sed inventore ducimus ratione similique quaerat.</p> -->
+<!-- <app-span-mark></app-span-mark>
+<app-span-pipe></app-span-pipe> -->
+
+<div class="wrapper">
+    <div id="controls">
+        <label for="sel_pipeline">Select  Pipeline/Umbilical to Plot:</label>
+        <select name="sel_pipeline" id="sel_pipeline">
+            <option value="">Pipeline 1</option>
+            <option value="">Pipeline 2</option>
+            <option value="">Pipeline 3</option>
+        </select>
+        <label for="sel_range">KP Range:</label>
+        <select name="sel_range" id="sel_range" style="width:80px;">
+            <option value="">All</option>
+            <option value="">500m</option>
+            <option value="">1km</option>
+            <option value="">5km</option>
+            <option value="">10km</option>
+            <option value="">20km</option>
+            <option value="">50km</option>
+        </select>    
+        <div id="grp_actions">
+            <button>Show Data</button>
+            <button>Choose Survey</button>
+        </div>
+    </div>
+    <div id="pipes">
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
+        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+    </div>
+    <div id="footer"></div>
+</div>
