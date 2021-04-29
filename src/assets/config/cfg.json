@@ -116,7 +116,7 @@
         {
           "id": 6,
           "label": "Freespan",
-          "active": false,
+          "active": true,
           "ready": true,
           "loaded": false
         },
