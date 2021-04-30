@@ -4,11 +4,10 @@
 
 <div class="wrapper">
     <div id="controls">
-        <label for="sel_pipeline">Select  Pipeline/Umbilical to Plot:</label>
+        <label for="sel_pipeline">Select Pipeline/Umbilical to Plot:</label>
         <select name="sel_pipeline" id="sel_pipeline">
-            <option value="">Pipeline 1</option>
-            <option value="">Pipeline 2</option>
-            <option value="">Pipeline 3</option>
+            <option value="0">Select a pipeline ...</option>
+            <option [value]="pipe.id" *ngFor="let pipe of pipes">{{pipe.name}}</option>
         </select>
         <label for="sel_range">KP Range:</label>
         <select name="sel_range" id="sel_range" style="width:80px;">
@@ -19,58 +18,17 @@
             <option value="">10km</option>
             <option value="">20km</option>
             <option value="">50km</option>
-        </select>    
+        </select>
         <div id="grp_actions">
-            <button>Show Data</button>
-            <button>Choose Survey</button>
+            <button (click)="ShowData($event)">Show Data</button>
+            <button (click)="ChooseSurveys($event)">Choose Survey</button>
         </div>
     </div>
     <div id="pipes">
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2020 C1 - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2019 HBL - Seabed Assets Inspection Scope'"></app-span-pipe>
-        <app-span-pipe [campaignTitle]="'2018 C4A - Basline Survey (Cold) During CSU'"></app-span-pipe>
+        <ng-container *ngFor="let survey of surveys">
+            <!-- <app-span-pipe *ngIf="survey.active" [campaignTitle]="survey.name"></app-span-pipe> -->
+            <app-span-pipe  [campaignTitle]="survey.name"></app-span-pipe>
+        </ng-container>
     </div>
     <div id="footer"></div>
 </div>
