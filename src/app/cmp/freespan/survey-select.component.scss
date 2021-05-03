@@ -1,0 +1,26 @@
+:host{
+    background-color: lime;
+    flex:1 1 0;
+    
+    .wrapper{
+        background-color: blue;
+        height: 100%;
+        overflow: hidden;
+    }
+// :host{
+//     display: flex;
+//     flex-direction: column;
+//     background-color: lime;
+// }
+
+// .wrapper{
+//     width:750px;
+//     height:550px;
+//     display: flex;
+//     flex-direction: column;
+//     flex:1 1 0;
+//     overflow: hidden;
+//     border: 2px solid red;
+// }
+
+}

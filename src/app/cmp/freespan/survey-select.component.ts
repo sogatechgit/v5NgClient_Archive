@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppDataset } from 'src/app/svc/app-dataset.service';
+import { AppMainServiceService } from 'src/app/svc/app-main-service.service';
 
 @Component({
   selector: 'app-survey-select',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SurveySelectComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dataSource: AppMainServiceService) { }
+
+  get ds():AppDataset{
+    return this.dataSource.ActiveSource.appDataset;
+  }
 
   ngOnInit(): void {
   }

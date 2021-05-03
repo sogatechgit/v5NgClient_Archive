@@ -1,5 +1,5 @@
 /***********************************************************************
-* Automatically generated on 4/30/2021 11:16:07 AM
+* Automatically generated on 5/3/2021 2:56:30 PM
 ***********************************************************************/
 
 import { AppCommonMethodsService } from '../api/svc/app-common-methods.service';
@@ -3463,7 +3463,12 @@ export class TblSurvey extends TableBase {
 	private _tableLinks:Array<string> = [];
 	private _links:Array<any> = [];
 	public clientConfig:any = {
-  "keyField": "SVY_MAIN_ID"
+  "keyField": "SVY_MAIN_ID",
+  "gridColumns": [
+    "SVY_MAIN_TITLE|cap=Campaign",
+    "SVY_MAIN_DATE_START|cap=Start Date;wd=87",
+    "SVY_MAIN_DATE_END|cap=End Date;wd=87"
+  ]
 };
 
   constructor(public http:HttpClient,public apiUrl:string, public tables:Array<any>, public apiCommon:AppCommonMethodsService) {

@@ -147,6 +147,8 @@ export class DataGridBComponent
       opt.BaseFilterDefineOff();
     }
 
+    console.log("this.autoGrid || this.customGrid : ", this.autoGrid ," ### ")
+
     if (this.autoGrid || this.customGrid) {
       // perform data grid columns definition using the
       // gridColumns definition in table configuration
@@ -1335,6 +1337,7 @@ export class DataGridBComponent
   }
 
   SetGridColumnDef(gridColumn: string) {
+    console.log("SetGridColumnDef ....")
     // Define datagir column found in table configuration's  gridColumns or customGridColumns
     let opt: DataGridOption = this.options;
     let colDef: IDataGridColumn = {};
@@ -1714,6 +1717,8 @@ export class DataGridBComponent
     let reqParam: RequestParams = this.ReqParam;
 
     if (!noMask) this.ShowMask(message);
+
+    console.log("reqParam: ", reqParam)
 
     const subsb: Subscription = this.dataSet.Get([reqParam], {
       onSuccess: (data) => {
