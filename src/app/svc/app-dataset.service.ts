@@ -66,6 +66,7 @@ import { TblSurveyHeader, TblSurveyHeaderRow } from './app.tables';
 import { TblSurveyPosition, TblSurveyPositionRow } from './app.tables';
 import { TblTreeStruc, TblTreeStrucRow } from './app.tables';
 import { TblUsers, TblUsersRow } from './app.tables';
+import { QrySpansHeader, QrySpansHeaderRow } from './app.tables';
 import { QryRefLinks, QryRefLinksRow } from './app.tables';
 //</INCLUDES>
 
@@ -199,6 +200,7 @@ export class AppDataset extends DatasetBase {
   public tblSurveyPosition:TblSurveyPosition = this.AddTable(new TblSurveyPosition(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblTreeStruc:TblTreeStruc = this.AddTable(new TblTreeStruc(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblUsers:TblUsers = this.AddTable(new TblUsers(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public qrySpansHeader:QrySpansHeader = this.AddTable(new QrySpansHeader(this.http, this.apiUrl, this.tables, this.apiCommon));
   public qryRefLinks:QryRefLinks = this.AddTable(new QryRefLinks(this.http, this.apiUrl, this.tables, this.apiCommon));
 //</INSTANTIATE>
 

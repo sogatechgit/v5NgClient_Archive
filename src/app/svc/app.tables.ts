@@ -1,5 +1,5 @@
 /***********************************************************************
-* Automatically generated on 5/3/2021 2:56:30 PM
+* Automatically generated on 5/5/2021 9:03:58 AM
 ***********************************************************************/
 
 import { AppCommonMethodsService } from '../api/svc/app-common-methods.service';
@@ -4078,6 +4078,90 @@ export class TblUsersRow extends TableRowBase{
 
   // Returs the table object where the row is a member of.
   public get Table():TblUsers{ return super._Table(); }
+
+
+}
+
+
+
+
+export class QrySpansHeader extends TableBase {
+
+  public rows:Array<QrySpansHeaderRow> = [];
+
+  public tableFieldPrefix="SP_";
+	private _tableLinks:Array<string> = [];
+	private _links:Array<any> = [];
+	public clientConfig:any = {
+  "roles": "",
+  "keyField": "SP_ID",
+  "gridColumns": [
+    "SP_KS|cap=Start Kp;center;wd=80",
+    "SP_KE|cap=End Kp;center;wd=80"
+  ]
+};
+
+  constructor(public http:HttpClient,public apiUrl:string, public tables:Array<any>, public apiCommon:AppCommonMethodsService) {
+    super(http, apiUrl,tables,apiCommon);
+
+    this.derivedTable = this;
+
+    this.tableCode="vwfspan";
+
+	this.columns.push(new ColumnInfo('SP_ID', 'number', '', '', '', 0, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SP_SV', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SP_LOC', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SV_KS', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SV_KE', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SVY_HDR_COLOUR', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SV_HT', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SV_LEN', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SV_STS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SV_STE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SV_STI', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SV_TP', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+
+    this.InitializeTable();
+
+  }
+
+  Add(row?:QrySpansHeaderRow):QrySpansHeaderRow
+  {
+    return super.Add(row);
+  }
+
+  NewRow():QrySpansHeaderRow{return new QrySpansHeaderRow();}
+  GetRows():Array<QrySpansHeaderRow>{return this.rows;}
+  public set currentRow(value:QrySpansHeaderRow){super.__currentRow(value);}
+  public get currentRow():QrySpansHeaderRow{return super.__currentRow();}
+  public TableLinks():Array<string>{return this._tableLinks;}
+  public Links():Array<any>{return this._links;}
+  public get dirtyRows():Array<QrySpansHeaderRow>{return super.__dirtyRows();}
+  public get newRows():Array<QrySpansHeaderRow>{return super.__newRows();}
+
+
+}
+
+export class QrySpansHeaderRow extends TableRowBase{
+	constructor(
+		public SP_ID?:number, 
+		public SP_SV?:number, 
+		public SP_LOC?:number, 
+		public SV_KS?:number, 
+		public SV_KE?:number, 
+		public SVY_HDR_COLOUR?:number, 
+		public SV_HT?:number, 
+		public SV_LEN?:number, 
+		public SV_STS?:string, 
+		public SV_STE?:string, 
+		public SV_STI?:string, 
+		public SV_TP?:number){
+    super();
+
+  }
+
+  // Returs the table object where the row is a member of.
+  public get Table():QrySpansHeader{ return super._Table(); }
 
 
 }

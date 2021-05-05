@@ -152,12 +152,13 @@
     </app-panel-a>
     <app-panel-a *ngIf="AccessMode=='view' && t.a(4)">
       <!-- failure threats -->
+      <div style="width:80%;height:200px;overflow: hidden;background:yellow;">
       <app-data-grid-b #ftGrid [parentTableCode]="TableCode" [dataSet]="DataSet" noExtras="true" tableCode="ft"
         forwardLink="true" noMaskOnInit="true" [title]="'Linked = {RECS}'" [gridManagementData]="dataManageFT"
         [parentGrid]="moduleExchangeInfo.gridObject" [parentKeyValue]="moduleExchangeInfo.state.dataKeyValue"
         [noInitFocus]="true" [rights]="{allowManage:true}" customGrid="gridColumnsInAnomalies" noFooter="true">
       </app-data-grid-b>
-
+    </div>
     </app-panel-a>
 
     <app-panel-a *ngIf="AccessMode=='view' && t.a(5)">

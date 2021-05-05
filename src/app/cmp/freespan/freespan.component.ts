@@ -1,6 +1,6 @@
 import { AppMainServiceService } from './../../svc/app-main-service.service';
 import { FormCommon } from './../form.common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AppDataset } from 'src/app/svc/app-dataset.service';
 import { RequestParams } from 'src/app/api/mod/app-params.model';
 import { Observable } from 'rxjs';
@@ -30,6 +30,8 @@ export class FreespanComponent extends FormCommon implements OnInit {
   constructor(public dialog: MatDialog, public dataSource: AppMainServiceService) {
     super(dataSource);
   }
+
+  @ViewChild('pipeSelect') pipeSelect: ElementRef;
 
   ngOnInit(): void {
 
@@ -78,12 +80,71 @@ export class FreespanComponent extends FormCommon implements OnInit {
     return this.ds.tblNodesAttrib.clientConfig.pipelineIds;
   }
 
+  get currentPipe(): number {
+    if (!this.pipeSelect) return -1;
+    return this.pipeSelect.nativeElement.value;
+  }
+
+  get currentSurveys(): string {
+    const ids: Array<number> = [];
+    const actsvy = this.surveys.filter(svy => svy.active);
+    actsvy.forEach(svy => ids.push(svy.id))
+
+    return ids.join(',');
+  }
+
   ShowData(event: any) {
     console.log('Show span data...')
   }
 
   ChooseSurveys(event: any) {
-    console.log('Choose survey ...')
+    console.log('Choose survey ...');
+
+    const actsvy = this.surveys.filter(svy => (svy.id == 1 || svy.id == 68))
+    console.log("ActiveSurveys: ", actsvy)
+    actsvy.forEach(svy => svy.active = true);
+
+    const pipeId = this.currentPipe;
+    const svyIds = this.currentSurveys;
+
+    if (+pipeId == 0) {
+      console.log('No pipeline selected!');
+      return;
+    }
+
+    if (!svyIds) {
+      console.log('No campaign(s) selected!');
+      return;
+    }
+
+    console.log("pipeId: ", pipeId, ", svyIds: ", svyIds)
+
+    const params: Array<RequestParams> = [
+      // {
+      //   code: 'svyhdr|`svypos@SP,SVY_HDR_START_POS_ID,SVY_POS_ID;`svypos@EP,SVY_HDR_END_POS_ID,SVY_POS_ID;',
+      //   includedFields: 'SVY_HDR_MAIN_ID`SP.SVY_POS_KP@ks`EP.SVY_POS_KP@ke`SVY_HDR_COLOUR`SVY_INTEGER_A@ht`SVY_SINGLE_A@ln`SVY_TEXT_A@sts`SVY_TEXT_B@ste`SVY_TEXT_C@sti`SVY_HDR_EVT_ID@tp',
+      //   filter: `{SVY_HDR_MAIN_ID|in|${svyIds}}^{SVY_HDR_NOD_ID|${pipeId}}^({SVY_HDR_EVT_ID|in|25,26,5,41}|({SVY_HDR_EVT_ID|1}^{SVY_TEXT_B|Strake}))`,
+      //   sortFields: '-SVY_HDR_MAIN_ID',
+      //   snapshot: true
+      // }
+      {
+        code:'vwfspan',
+        filter: `{SP_SV|in|${svyIds}}^{SP_LOC|${pipeId}}`,
+        snapshot:true
+      }
+    ]
+
+
+    this.ds.Get(params, {
+      onSuccess: data => {
+        console.log("Spans extracted: ", data)
+
+      }, onError: err => {
+        console.log("Error: ", err)
+      }
+    });
+
+    return;
 
     const subsSelect = this.OpenSurveySelect().subscribe(
       (data) => {
@@ -116,6 +177,7 @@ export class FreespanComponent extends FormCommon implements OnInit {
 
   ExtractData() {
     /*
+    
     svyhdr|`svypos@SP,SVY_HDR_START_POS_ID,SVY_POS_ID;`svypos@EP,SVY_HDR_END_POS_ID,SVY_POS_ID;
     
     SVY_HDR_MAIN_ID`SP.SVY_POS_KP@ks`EP.SVY_POS_KP@ke`SVY_HDR_COLOUR`SVY_INTEGER_A@ht`SVY_SINGLE_A@ln`SVY_TEXT_A@sts`SVY_TEXT_B@ste`SVY_TEXT_C@sti`SVY_HDR_EVT_ID@tp
