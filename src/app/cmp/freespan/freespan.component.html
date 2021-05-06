@@ -5,7 +5,7 @@
 <div class="wrapper">
     <div id="controls">
         <label for="sel_pipeline">Select Pipeline/Umbilical to Plot:</label>
-        <select #pipeSelect name="sel_pipeline" id="sel_pipeline">
+        <select #pipeSelect name="sel_pipeline" id="sel_pipeline" (change)="PipeSelect()">
             <option value="0">Select a pipeline ...</option>
             <option [value]="pipe.id" *ngFor="let pipe of pipes">{{pipe.name}}</option>
         </select>
@@ -24,9 +24,12 @@
             <button (click)="ChooseSurveys($event)">Choose Survey</button>
         </div>
     </div>
+    <div id="pipes_grid">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti dicta, dolores fugiat unde corporis recusandae! Iste repellat temporibus dicta necessitatibus culpa veritatis beatae porro, maxime perferendis itaque nesciunt nobis in.
+    </div>
     <div id="pipes">
         <ng-container *ngFor="let survey of surveys">
-            <app-span-pipe *ngIf="survey.active" [campaignTitle]="survey.name"></app-span-pipe>
+            <app-span-pipe  [campaignTitle]="survey.name"></app-span-pipe>
             <!-- <app-span-pipe  [campaignTitle]="survey.name"></app-span-pipe> -->
         </ng-container>
     </div>

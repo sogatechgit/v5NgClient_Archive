@@ -42,8 +42,6 @@ export class FreespanComponent extends FormCommon implements OnInit {
       { code: 'node', includedFields: 'REC_TAG`NODE_ID`NODE_DESC', filter: `{REC_TAG|in|${this.pipelineIds}}` }
     ];
 
-
-
     this.ds.Get(params, {
       onSuccess: data => {
         console.log(data);
@@ -76,8 +74,23 @@ export class FreespanComponent extends FormCommon implements OnInit {
     return this.dataSource.ActiveSource.appDataset;
   }
 
+  get pipelines(): Array<any> {
+    return this.ds.tblNodesAttrib.clientConfig.pipelines;
+  }
+
+  private _pipelineIds: string;
   get pipelineIds(): string {
-    return this.ds.tblNodesAttrib.clientConfig.pipelineIds;
+
+    if (this._pipelineIds == undefined) {
+      this._pipelineIds = "";
+      const ids: Array<string> = []
+
+      this.pipelines.forEach(pipe => ids.push(pipe.id));
+
+      this._pipelineIds = ids.join(',');
+    }
+
+    return this._pipelineIds
   }
 
   get currentPipe(): number {
@@ -95,6 +108,12 @@ export class FreespanComponent extends FormCommon implements OnInit {
 
   ShowData(event: any) {
     console.log('Show span data...')
+  }
+
+  PipeSelect() {
+    const id = this.currentPipe;
+    const pipe = this.pipelines.find(pl => pl.id == id);
+    console.log("Pipe selected: ", id, pipe);
   }
 
   ChooseSurveys(event: any) {
@@ -128,9 +147,9 @@ export class FreespanComponent extends FormCommon implements OnInit {
       //   snapshot: true
       // }
       {
-        code:'vwfspan',
+        code: 'vwfspan',
         filter: `{SP_SV|in|${svyIds}}^{SP_LOC|${pipeId}}`,
-        snapshot:true
+        snapshot: true
       }
     ]
 

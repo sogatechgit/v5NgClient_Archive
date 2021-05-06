@@ -1,5 +1,5 @@
 /***********************************************************************
-* Automatically generated on 5/5/2021 9:03:58 AM
+* Automatically generated on 5/5/2021 9:56:38 AM
 ***********************************************************************/
 
 import { AppCommonMethodsService } from '../api/svc/app-common-methods.service';
@@ -3139,7 +3139,29 @@ export class TblNodesAttrib extends TableBase {
   "roles": "nodes,lookup",
   "lookupCode": "NODE_ID",
   "lookupText": "NODE_DESC",
-  "pipelineIds": "9640,6413,9607,9615"
+  "pipelineIds": "9640,6413,9607,9615",
+  "pipelines": [
+    {
+      "id": 9640,
+      "start_kp": -99,
+      "end_kp": 501.044
+    },
+    {
+      "id": 6413,
+      "start_kp": -0.5,
+      "end_kp": 2.586
+    },
+    {
+      "id": 9607,
+      "start_kp": -639.34,
+      "end_kp": 481.329
+    },
+    {
+      "id": 9615,
+      "start_kp": -616.168,
+      "end_kp": 950.644
+    }
+  ]
 };
 
   constructor(public http:HttpClient,public apiUrl:string, public tables:Array<any>, public apiCommon:AppCommonMethodsService) {
