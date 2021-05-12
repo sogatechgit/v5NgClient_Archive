@@ -52,13 +52,16 @@
     opacity: .4;
     height: $span_bar_height;
     align-self: end;
+
+    display: flex;
 }
 
 #span_labels{
+    // this section contains all the spans labels (i.e. height and length);
     grid-row:3 / 4;
     grid-column: 2 / -1;
     height:4em;
 
     // background-color: lime;
-    border: 1px solid $border_normal;
+    // border: 1px solid $border_normal;
 }

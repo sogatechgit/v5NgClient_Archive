@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { APIModule } from './../../api/api.module';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
+
 import { FreespanComponent } from './freespan.component';
 import { SpanBarComponent } from './span-bar.component';
 import { SpanMarkComponent } from './span-mark.component';
@@ -13,7 +16,7 @@ const declare = [FreespanComponent, SpanBarComponent, SpanMarkComponent, SpanPip
 @NgModule({
   declarations: declare,
   exports: declare,
-  imports: [CommonModule, APIModule],
+  imports: [CommonModule, APIModule, ReactiveFormsModule],
 })
 export class FreespanModule { }
 

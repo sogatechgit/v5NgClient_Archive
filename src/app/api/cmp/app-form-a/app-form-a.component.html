@@ -6,7 +6,9 @@
 
 </app-wrapper-a> -->
 <div #FORM_WRAPPER id="form_wrapper">
-  <app-progress-mask #mask *ngIf="isLoadingDetail" [ProgressDisplaySingle]="ProgressDisplaySingle" [fontFactor]="maskFontFactor ? maskFontFactor : mask.fontFactor" [maskOpacity]="maskOpacity"[maskColor]="maskColor"  [message]="maskMessage"></app-progress-mask>
+  <app-progress-mask #mask *ngIf="isLoadingDetail" [ProgressDisplaySingle]="ProgressDisplaySingle"
+    [fontFactor]="maskFontFactor ? maskFontFactor : mask.fontFactor" [maskOpacity]="maskOpacity" [maskColor]="maskColor"
+    [message]="maskMessage"></app-progress-mask>
 
-<ng-content></ng-content>
+  <ng-content></ng-content>
 </div>

@@ -1,5 +1,5 @@
 /***********************************************************************
-* Automatically generated on 5/5/2021 9:56:38 AM
+* Automatically generated on 5/12/2021 8:54:51 AM
 ***********************************************************************/
 
 import { AppCommonMethodsService } from '../api/svc/app-common-methods.service';
@@ -4133,15 +4133,14 @@ export class QrySpansHeader extends TableBase {
 	this.columns.push(new ColumnInfo('SP_ID', 'number', '', '', '', 0, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SP_SV', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SP_LOC', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SV_KS', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SV_KE', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SVY_HDR_COLOUR', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SV_HT', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SV_LEN', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SV_STS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SV_STE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SV_STI', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
-	this.columns.push(new ColumnInfo('SV_TP', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SP_KS', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SP_KE', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SP_HT', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SP_LEN', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SP_STS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SP_STE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SP_STI', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SP_TP', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 
     this.InitializeTable();
 
@@ -4169,15 +4168,14 @@ export class QrySpansHeaderRow extends TableRowBase{
 		public SP_ID?:number, 
 		public SP_SV?:number, 
 		public SP_LOC?:number, 
-		public SV_KS?:number, 
-		public SV_KE?:number, 
-		public SVY_HDR_COLOUR?:number, 
-		public SV_HT?:number, 
-		public SV_LEN?:number, 
-		public SV_STS?:string, 
-		public SV_STE?:string, 
-		public SV_STI?:string, 
-		public SV_TP?:number){
+		public SP_KS?:number, 
+		public SP_KE?:number, 
+		public SP_HT?:number, 
+		public SP_LEN?:number, 
+		public SP_STS?:string, 
+		public SP_STE?:string, 
+		public SP_STI?:string, 
+		public SP_TP?:number){
     super();
 
   }

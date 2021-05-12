@@ -4,60 +4,60 @@
   font-family: "Alegreya Sans SC";
   font-style: normal;
   font-weight: bold;
-  src: url(/assets/fonts/Alegreya_Sans_SC/AlegreyaSansSC-Regular.ttf);
+  src: url(./assets/fonts/Alegreya_Sans_SC/AlegreyaSansSC-Regular.ttf);
 }
 
 @font-face {
   font-family: "Roboto-Light";
   font-style: normal;
   font-weight: bold;
-  src: url(/assets/fonts/Roboto-Light.ttf);
+  src: url(./assets/fonts/Roboto-Light.ttf);
 }
 
 @font-face {
   font-family: "Montserrat-Italic";
   font-style: normal;
   font-weight: bold;
-  src: url(/assets/fonts/Montserrat-Italic.ttf);
+  src: url(./assets/fonts/Montserrat-Italic.ttf);
 }
 
 @font-face {
   font-family: "Montserrat-SemiBold";
   font-style: normal;
   font-weight: bold;
-  src: url(/assets/fonts/Montserrat-SemiBold.ttf);
+  src: url(./assets/fonts/Montserrat-SemiBold.ttf);
 }
 
 @font-face {
   font-family: "Montserrat-SemiBoldItalic";
   font-style: normal;
   font-weight: bold;
-  src: url(/assets/fonts/Montserrat-SemiBoldItalic.ttf);
+  src: url(./assets/fonts/Montserrat-SemiBoldItalic.ttf);
 }
 
 @font-face {
   font-family: "Futura-Bold";
-  src: url(/assets/fonts/Futura-Bold-font.ttf);
+  src: url(./assets/fonts/Futura-Bold-font.ttf);
 }
 
 @font-face {
   font-family: "Futura-Bold-Italic";
-  src: url(/assets/fonts/Futura-Bold-Italic-font.ttf);
+  src: url(./assets/fonts/Futura-Bold-Italic-font.ttf);
 }
 
 @font-face {
   font-family: "Futura-Book";
-  src: url(/assets/fonts/Futura-Book-font.ttf);
+  src: url(./assets/fonts/Futura-Book-font.ttf);
 }
 
 @font-face {
   font-family: "Futura-Book-Italic";
-  src: url(/assets/fonts/Futura-Book-Italic-font.ttf);
+  src: url(./assets/fonts/Futura-Book-Italic-font.ttf);
 }
 
 @font-face {
   font-family: "Futura-Condensed-Light";
-  src: url(/assets/fonts/Futura-CondensedLight.ttf);
+  src: url(./assets/fonts/Futura-CondensedLight.ttf);
 }
 
 /* fallback */
@@ -65,7 +65,7 @@
   font-family: "Material Icons";
   font-style: normal;
   font-weight: 400;
-  src: url(/assets/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format("woff2");
+  src: url(./assets/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format("woff2");
 }
 
 .material-icons {

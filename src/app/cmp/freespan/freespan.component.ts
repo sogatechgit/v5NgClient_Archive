@@ -1,12 +1,14 @@
 import { AppMainServiceService } from './../../svc/app-main-service.service';
 import { FormCommon } from './../form.common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AppDataset } from 'src/app/svc/app-dataset.service';
 import { RequestParams } from 'src/app/api/mod/app-params.model';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { SurveySelectComponent } from './survey-select.component';
 import { DetailsPopup } from 'src/app/api/cmp/details.popup';
+import { QrySpansHeaderRow } from 'src/app/svc/app.tables';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-freespan',
@@ -14,6 +16,8 @@ import { DetailsPopup } from 'src/app/api/cmp/details.popup';
   styleUrls: ['./freespan.component.scss']
 })
 export class FreespanComponent extends FormCommon implements OnInit {
+
+  public form: FormGroup = new FormGroup({});
 
   private SPAN_EVENTS: string = "25,26,";
 
@@ -27,16 +31,33 @@ export class FreespanComponent extends FormCommon implements OnInit {
     return this._surveys;
   }
 
+  private _events: Array<QrySpansHeaderRow> = [];
+  get events(): Array<QrySpansHeaderRow> {
+    return this._events;
+  }
+
   constructor(public dialog: MatDialog, public dataSource: AppMainServiceService) {
     super(dataSource);
   }
 
   @ViewChild('pipeSelect') pipeSelect: ElementRef;
+  @ViewChild('gridStart') gridStart: ElementRef;
+  @ViewChild('gridEnd') gridEnd: ElementRef;
+
+  @Input() axCount: number = 50;
 
   ngOnInit(): void {
 
-    // Extract survey records
+    this.form.addControl("sel_pipeline", new FormControl(0))
+    this.form.addControl("sel_kprange", new FormControl(500))
+    // this.form.addControl("txt_centerkp", new FormControl(200))
+    this.form.addControl("txt_centerkp", new FormControl(487.9435))
+    
+    this.form.addControl("tgl_green", new FormControl(true))
+    this.form.addControl("tgl_amber", new FormControl(true))
+    this.form.addControl("tgl_red", new FormControl(true))
 
+    // Extract survey records
     const params: Array<RequestParams> = [
       { code: 'svy', sortFields: '-SVY_MAIN_DATE_START', includedFields: 'SVY_MAIN_ID`SVY_MAIN_TITLE`SVY_MAIN_DATE_START`SVY_MAIN_DATE_END' },
       { code: 'node', includedFields: 'REC_TAG`NODE_ID`NODE_DESC', filter: `{REC_TAG|in|${this.pipelineIds}}` }
@@ -44,7 +65,6 @@ export class FreespanComponent extends FormCommon implements OnInit {
 
     this.ds.Get(params, {
       onSuccess: data => {
-        console.log(data);
         const svys: Array<ISurvey> = [];
 
         const surveyElement = 0;
@@ -66,12 +86,71 @@ export class FreespanComponent extends FormCommon implements OnInit {
       }
     })
 
-    console.log("pipelineIds: ", this.pipelineIds)
+    const setXAxis = this.axyLines;
+    // if (setXAxis.length == 0) setTimeout(() => console.log("pipelineIds: ", this.pipelineIds, "\naxyLines: ", this.axyLines));
+
 
   }
 
   get ds(): AppDataset {
     return this.dataSource.ActiveSource.appDataset;
+  }
+
+  get kpRange(): number {
+    // meters
+    return this.form.get('sel_kprange').value;
+  }
+
+  get kpCenter(): number {
+    // meters
+    return this.form.get('txt_centerkp').value * 1000;
+    // return 143000;
+    //return 143545.5;
+    //return 450000;
+  }
+
+  get kpStart(): number {
+    return this.kpCenter - this.kpRange / 2.0;
+  }
+
+  get kpEnd(): number {
+    return this.kpCenter + this.kpRange / 2.0;
+  }
+
+  fmtVal(val: number) {
+    return Number.parseFloat(String(val / 1000)).toFixed(3);
+  }
+
+  private _axyLines: Array<number>;
+  private _axyProcessing: boolean = false;
+  get axyLines(): Array<number> {
+
+    // this._axyLines already contains the Y axis definition
+    if (this._axyLines) return this._axyLines;
+
+    // this._axyLines on initial loading or this._axyLines was set to null on event triggered
+
+    if (!this._axyProcessing) {
+      this._axyProcessing = true;
+      const vals: Array<number> = [];
+      const kpGap: number = this.kpRange / this.axCount;
+
+
+      // get starting kp;
+      const kpStart = this.kpCenter - (kpGap * this.axCount / 2);
+
+      for (let idx = 0; idx <= this.axCount; idx++) {
+        vals.push(kpStart + idx * kpGap);
+      }
+
+      console.log("Axes Count: ", vals.length);
+
+
+      this._axyLines = vals;
+      this._axyProcessing = false;
+
+    }
+    return [];
   }
 
   get pipelines(): Array<any> {
@@ -98,6 +177,28 @@ export class FreespanComponent extends FormCommon implements OnInit {
     return this.pipeSelect.nativeElement.value;
   }
 
+  get startKpPx(): number {
+    if (!this.gridStart) return -1;
+    return this.gridStart.nativeElement.offsetLeft;
+    // return this.gridStart.nativeElement.clientLeft;
+  }
+
+  get endKpPx(): number {
+    if (!this.gridEnd) return -1;
+    return this.gridEnd.nativeElement.offsetLeft;
+    // return this.gridEnd.nativeElement.clientLeft;
+  }
+
+  get pipeWidthPx(): number {
+    if (this.endKpPx == -1 || this.startKpPx == -1) return -1;
+    return this.endKpPx - this.startKpPx;
+  }
+
+  get pxFactor():number{
+    if(!this.kpRange) return -1;
+    return this.pipeWidthPx / this.kpRange;
+  }
+
   get currentSurveys(): string {
     const ids: Array<number> = [];
     const actsvy = this.surveys.filter(svy => svy.active);
@@ -106,8 +207,42 @@ export class FreespanComponent extends FormCommon implements OnInit {
     return ids.join(',');
   }
 
+  get gridTemp(): string {
+    return `auto / repeat(${this.axCount + 1},1fr)`;
+  }
+
+  ShowToggle(event: any) {
+    const id = event.target.id;
+    this.form.get(id).setValue(!this.form.get(id).value);
+  }
+
+  CenterChanged(event: any) {
+    this._axyLines = null;  // set to null to force re-assignment of grid y axes properties
+  }
+
+  ChangeRange(event: any) {
+    console.log(this.form.get('sel_kprange').value)
+    this._axyLines = null;  // set to null to force re-assignment of grid y axes properties
+  }
+
+
+
+  KpNav(dir: string) {
+    switch (dir) {
+      case 'F':
+        break;
+      case 'P':
+        break;
+      case 'N':
+        break;
+      case 'L':
+        break;
+      default:
+    }
+  }
+
   ShowData(event: any) {
-    console.log('Show span data...')
+    console.log('Show span data...', this.startKpPx, this.endKpPx, this.pipeWidthPx)
   }
 
   PipeSelect() {
@@ -136,7 +271,12 @@ export class FreespanComponent extends FormCommon implements OnInit {
       return;
     }
 
-    console.log("pipeId: ", pipeId, ", svyIds: ", svyIds)
+    // console.log("pipeId: ", pipeId, ", svyIds: ", svyIds)
+
+
+    const ks = this.kpStart / 1000.0;
+    const ke = this.kpEnd / 1000.0;
+
 
     const params: Array<RequestParams> = [
       // {
@@ -146,17 +286,25 @@ export class FreespanComponent extends FormCommon implements OnInit {
       //   sortFields: '-SVY_HDR_MAIN_ID',
       //   snapshot: true
       // }
+
       {
         code: 'vwfspan',
-        filter: `{SP_SV|in|${svyIds}}^{SP_LOC|${pipeId}}`,
+        //filter: `{SP_SV|in|${svyIds}}^{SP_LOC|${pipeId}}^{SP_KS|lte|${ks}}`,
+        filter: `{SP_SV|in|${svyIds}}^{SP_LOC|${pipeId}}^(({SP_KS|lte|${ks}}^{SP_KE|gte|${ks}})|({SP_KS|lte|${ke}}^{SP_KE|gte|${ke}})|({SP_KS|gte|${ks}}^{SP_KE|lte|${ke}})|({SP_KS|lte|${ks}}^{SP_KE|gte|${ke}}))`,
         snapshot: true
       }
     ]
 
+    console.log("this.kpCenter: ", this.kpCenter, ks, ke, "\nparams: ", params);
+
+
+    //filter: `{SP_SV|in|${svyIds}}^{SP_LOC|${pipeId}}^(({SP_KS|lte|${ks}}^{SP_KE|gte|${ks}})|({SP_KS|lte|${ke}}^{SP_KE|gte|${ke}})|({SP_KS|gte|${ks}}^{SP_KE|lte|${ke}})|({SP_KS|lte|${ks}}^{SP_KE|gte|${ke}}))`,
+
 
     this.ds.Get(params, {
       onSuccess: data => {
-        console.log("Spans extracted: ", data)
+        this._events = data.processed.data[0];
+        // console.log("Spans extracted: ", this._events);
 
       }, onError: err => {
         console.log("Error: ", err)
