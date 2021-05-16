@@ -19,16 +19,28 @@ export class SpanPipeComponent implements OnInit {
 
   private _allEvents: Array<QrySpansHeaderRow>
   @Input() set allEvents(value: Array<QrySpansHeaderRow>) {
+
+    // console.log("pipe allEvents! ...",value)
+
     this._allEvents = value;
-    this._localEvents = value.filter(evt=>evt.SP_SV == this.surveyId)
-    
+    this._localEvents = value.filter(evt => evt.SP_SV == this.surveyId)
+
     //if(this._localEvents ? this._localEvents.length : false) console.log("### events: ", this.surveyId, this._localEvents)
   }
 
+  get pxFactor(): number {
+    return this.spanComponent ? this.spanComponent.pxFactor : -1;
+  }
+
   private _localEvents: Array<QrySpansHeaderRow>
-  get localEvents(): Array<QrySpansHeaderRow>{
-    if(!this._localEvents) return [];
+  get localEvents(): Array<QrySpansHeaderRow> {
+    if (!this._localEvents) return [];
     return this._localEvents;
+  }
+
+  get firstEvent():QrySpansHeaderRow{
+    if(this.localEvents.length==0) return null;
+    this.localEvents[0];
   }
 
 

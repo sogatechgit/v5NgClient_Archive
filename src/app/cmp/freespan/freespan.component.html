@@ -6,7 +6,7 @@
     <div id="controls">
         <!-- first row -->
         <label for="sel_pipeline">Select Pipeline/Umbilical to Plot:</label>
-        <select #pipeSelect name="sel_pipeline" id="sel_pipeline" (change)="PipeSelect()">
+        <select #pipeSelect name="sel_pipeline" id="sel_pipeline" formControlName="sel_pipeline" (change)="PipeSelect()">
             <option value="0">Select a pipeline ...</option>
             <option [value]="pipe.id" *ngFor="let pipe of pipes">{{pipe.name}}</option>
         </select>

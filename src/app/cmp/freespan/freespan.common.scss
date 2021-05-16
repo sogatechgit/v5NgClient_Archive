@@ -6,9 +6,15 @@ $back_main: white;
 
 $border_normal: #ced4da;
 
-$pipe_height: 2.2em;
-$pipe_height_half: 1.1em;
-$span_bar_height: .7em;
+$pipe_height: 2.1em;
+$pipe_height_half: 1.05em;
+
+$pipe_height_third:0.7em;
+$pipe_height_quart:0.525em;
+
+// $span_bar_height: 0.7em;
+$span_bar_height: 7em;
+// $span_lavbe;_height: .7em;
 $pipe_base_color: rgba(133, 133, 133, 1);
 
 $control_border: 1px solid  $border_normal;

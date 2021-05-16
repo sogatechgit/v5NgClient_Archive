@@ -1,0 +1,43 @@
+@import "./freespan.common.scss";
+:host {
+    display: grid;
+    // background-color: lime;
+    grid-template: repeat(4, $pipe_height_quart) 1fr / 1fr;
+    font-size: 1em;
+
+    position: absolute;
+    padding:0px;
+
+    justify-content: center;
+
+    height: 100%;
+
+    > div {
+        // width: 20px;
+    }
+    #bar_top {
+        grid-row: 1;
+        background-color: yellow;
+        height: $pipe_height_quart;
+        font-size:1px;
+        height:100%;
+    }
+    #bar_bottom {
+        grid-row: 4;
+        background-color: green;
+        height: $pipe_height_quart;
+        font-size:1px;
+        height:100%;
+    }
+    #bar_label {
+        grid-row: 5 / -1;
+        align-self: start;
+        justify-self: center;
+        font-size: .7em;
+        width: 1em;
+        line-height: 1em;
+        // background: red;
+        transform: rotate(90deg);
+        margin:0px;
+    }
+}

@@ -48,11 +48,13 @@ export class FreespanComponent extends FormCommon implements OnInit {
 
   ngOnInit(): void {
 
-    this.form.addControl("sel_pipeline", new FormControl(0))
+    // this.form.addControl("sel_pipeline", new FormControl(0))
+    this.form.addControl("sel_pipeline", new FormControl(9640))
+    //
     this.form.addControl("sel_kprange", new FormControl(500))
     // this.form.addControl("txt_centerkp", new FormControl(200))
     this.form.addControl("txt_centerkp", new FormControl(487.9435))
-    
+
     this.form.addControl("tgl_green", new FormControl(true))
     this.form.addControl("tgl_amber", new FormControl(true))
     this.form.addControl("tgl_red", new FormControl(true))
@@ -194,8 +196,8 @@ export class FreespanComponent extends FormCommon implements OnInit {
     return this.endKpPx - this.startKpPx;
   }
 
-  get pxFactor():number{
-    if(!this.kpRange) return -1;
+  get pxFactor(): number {
+    if (!this.kpRange) return -1;
     return this.pipeWidthPx / this.kpRange;
   }
 
@@ -254,7 +256,8 @@ export class FreespanComponent extends FormCommon implements OnInit {
   ChooseSurveys(event: any) {
     console.log('Choose survey ...');
 
-    const actsvy = this.surveys.filter(svy => (svy.id == 1 || svy.id == 68))
+    //const actsvy = this.surveys.filter(svy => (svy.id == 1 || svy.id == 68))
+    const actsvy = this.surveys.filter(svy => (svy.id == 13 || svy.id == 68))
     console.log("ActiveSurveys: ", actsvy)
     actsvy.forEach(svy => svy.active = true);
 
@@ -291,7 +294,8 @@ export class FreespanComponent extends FormCommon implements OnInit {
         code: 'vwfspan',
         //filter: `{SP_SV|in|${svyIds}}^{SP_LOC|${pipeId}}^{SP_KS|lte|${ks}}`,
         filter: `{SP_SV|in|${svyIds}}^{SP_LOC|${pipeId}}^(({SP_KS|lte|${ks}}^{SP_KE|gte|${ks}})|({SP_KS|lte|${ke}}^{SP_KE|gte|${ke}})|({SP_KS|gte|${ks}}^{SP_KE|lte|${ke}})|({SP_KS|lte|${ks}}^{SP_KE|gte|${ke}}))`,
-        snapshot: true
+        snapshot: true,
+        sortFields:'-SP_SV`SP_KS'
       }
     ]
 
@@ -304,7 +308,12 @@ export class FreespanComponent extends FormCommon implements OnInit {
     this.ds.Get(params, {
       onSuccess: data => {
         this._events = data.processed.data[0];
-        // console.log("Spans extracted: ", this._events);
+        // setTimeout(() => {
+        //   this._events = data.processed.data[0];
+        //   console.log("Data: ", this._events)
+        // }, 5000);
+
+        console.log(this._events.find(s=>s.SP_ID==83661))
 
       }, onError: err => {
         console.log("Error: ", err)
