@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { QrySpansHeaderRow } from 'src/app/svc/app.tables';
 import { FreespanComponent } from './freespan.component';
 
@@ -8,6 +8,8 @@ import { FreespanComponent } from './freespan.component';
   styleUrls: ['./span-pipe.component.scss']
 })
 export class SpanPipeComponent implements OnInit {
+
+  @ViewChild('pipe') pipe: ElementRef;
 
   @Input() campaignTitle: string = '';
   @Input() surveyId: number;
@@ -26,6 +28,16 @@ export class SpanPipeComponent implements OnInit {
     this._localEvents = value.filter(evt => evt.SP_SV == this.surveyId)
 
     //if(this._localEvents ? this._localEvents.length : false) console.log("### events: ", this.surveyId, this._localEvents)
+  }
+
+  get pxPipeLeft():number{
+    // return -1;
+    if(!this.pipe) return -1;
+    return this.pipe.nativeElement.offsetLeft;
+  }
+
+  get pxPipeLeftOffset():number{
+    return this.spanComponent.startKpPx - this.pxPipeLeft;
   }
 
   get pxFactor(): number {

@@ -1,3 +1,14 @@
-<div id="bar_top" [style.left.px]="pxSpanLeft" [style.width.px]="pxSpanLength"></div>
-<div id="bar_bottom" [style.width.px]="pxSpanLength"></div>
-<div id="bar_label">{{spanLabel}}</div>
+<div id="bar_top" *ngIf="isStrake" [style.width.px]="pxSpanLengthFinal">
+    <i *ngIf="isLeftOverflow" class="fa fa-play"></i>
+    <i *ngIf="isRightOverflow" class="fa fa-play right"></i>
+    <!-- <span style="font-size:9px;">{{pxSpanLeftFinal}}</span> -->
+</div>
+<div id="bar_bottom" *ngIf="isSpan" [style.width.px]="pxSpanLengthFinal" [title]="event.SP_ID">
+    <i *ngIf="isLeftOverflow" class="fa fa-play"></i>
+    <i *ngIf="isRightOverflow" class="fa fa-play right"></i>
+</div>
+
+<i id="stab" [title]="event.SP_ID" class="fa fa-play" *ngIf="isStabilization"></i>
+<i id="seab" [title]="event.SP_ID" class="fa fa-square" *ngIf="isSeabed"></i>
+<i id="berm" [title]="event.SP_ID" class="fa fa-square" *ngIf="isBerm"></i>
+<div id="bar_label" *ngIf="isSpan">{{spanLabel}}</div>

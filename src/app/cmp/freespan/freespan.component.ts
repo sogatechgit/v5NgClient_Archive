@@ -53,7 +53,10 @@ export class FreespanComponent extends FormCommon implements OnInit {
     //
     this.form.addControl("sel_kprange", new FormControl(500))
     // this.form.addControl("txt_centerkp", new FormControl(200))
-    this.form.addControl("txt_centerkp", new FormControl(487.9435))
+    // this.form.addControl("txt_centerkp", new FormControl(469.583))
+    // this.form.addControl("txt_centerkp", new FormControl(469.423))
+    this.form.addControl("txt_centerkp", new FormControl(474.1355))
+    //
 
     this.form.addControl("tgl_green", new FormControl(true))
     this.form.addControl("tgl_amber", new FormControl(true))
@@ -295,7 +298,7 @@ export class FreespanComponent extends FormCommon implements OnInit {
         //filter: `{SP_SV|in|${svyIds}}^{SP_LOC|${pipeId}}^{SP_KS|lte|${ks}}`,
         filter: `{SP_SV|in|${svyIds}}^{SP_LOC|${pipeId}}^(({SP_KS|lte|${ks}}^{SP_KE|gte|${ks}})|({SP_KS|lte|${ke}}^{SP_KE|gte|${ke}})|({SP_KS|gte|${ks}}^{SP_KE|lte|${ke}})|({SP_KS|lte|${ks}}^{SP_KE|gte|${ke}}))`,
         snapshot: true,
-        sortFields:'-SP_SV`SP_KS'
+        sortFields: '-SP_SV`SP_KS'
       }
     ]
 
@@ -313,7 +316,23 @@ export class FreespanComponent extends FormCommon implements OnInit {
         //   console.log("Data: ", this._events)
         // }, 5000);
 
-        console.log(this._events.find(s=>s.SP_ID==83661))
+        // const testEvent = this._events.find(s => s.SP_ID == 793771);
+        // const testEvent = this._events.find(s => s.SP_ID == 794385);
+        const testEvent = this._events.find(s => s.SP_ID == 793078);  // 488.5345
+        // const testEvent = this._events.find(s => s.SP_ID == 794560);  // 488.5345
+        //const testEvent = this._events.find(s => s.SP_ID == 794385);  // 488.534
+        // const testEvent = this._events.find(s => s.SP_ID ==794389);  // 488.534
+        
+
+        if (testEvent) {
+          // testEvent.SP_KS = 488.474;
+          // testEvent.SP_KE = 488.474;
+
+          // testEvent.SP_KS = 488.757;
+          // testEvent.SP_KE = 488.757;
+          testEvent.SP_KS =474.175;
+          testEvent.SP_KE = 474.175;
+        }
 
       }, onError: err => {
         console.log("Error: ", err)
@@ -457,7 +476,6 @@ export enum SpanEvents {
            ["319", "AU.PRL.032-FL-003 - Production Flowline 3"],
            ["330", "AU.PRL.032-FL-001 - Production Flowline 4"]
            ]
-
   SPEX ----
     var data = [
             ["9640", "MA03 - Gas Export Pipeline"],
