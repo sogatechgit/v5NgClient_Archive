@@ -2721,7 +2721,15 @@ export class DataGridBComponent
   get isNoGrid(): boolean {
     return !this.grid ? true : false;
   }
-  public SelectMode: boolean = false;
+  
+  private _SelectMode: boolean = false;
+  @Input() set SelectMode(value:boolean){
+    this._SelectMode = value;
+  }
+  get SelectMode():boolean{
+    return this._SelectMode
+  }
+
   SelectClick(e: any): void {
     this.SelectMode = !this.SelectMode;
     if (!this.SelectMode) {

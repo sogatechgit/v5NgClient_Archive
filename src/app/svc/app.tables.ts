@@ -1,5 +1,5 @@
 /***********************************************************************
-* Automatically generated on 5/17/2021 8:25:50 AM
+* Automatically generated on 5/20/2021 9:12:02 AM
 ***********************************************************************/
 
 import { AppCommonMethodsService } from '../api/svc/app-common-methods.service';
@@ -4132,6 +4132,7 @@ export class QrySpansHeader extends TableBase {
 
 	this.columns.push(new ColumnInfo('SP_ID', 'number', '', '', '', 0, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SP_SV', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SP_CLR', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SP_LOC', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SP_KS', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
 	this.columns.push(new ColumnInfo('SP_KE', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
@@ -4167,6 +4168,7 @@ export class QrySpansHeaderRow extends TableRowBase{
 	constructor(
 		public SP_ID?:number, 
 		public SP_SV?:number, 
+		public SP_CLR?:string, 
 		public SP_LOC?:number, 
 		public SP_KS?:number, 
 		public SP_KE?:number, 

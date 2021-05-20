@@ -1399,8 +1399,6 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
       onSuccess: (data) => {
         this.ProcessData(data);
 
-        console.log('reqParams: ', reqParams, '\nData: ', data);
-
         if (onSuccess) onSuccess(this);
         this._isLoadingDetail = false;
         subs.unsubscribe();
@@ -1620,12 +1618,7 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
               if (lkRec) {
                 const returnDataParams = lkRec.returnDataParams;
                 this._lockId = returnDataParams.newKey;
-                console.log(
-                  'After Lock: ',
-                  returnDataParams,
-                  ', Destroyed?: ',
-                  this.destroyed
-                );
+
               }
             }
           );

@@ -357,13 +357,7 @@ export class AppDataset extends DatasetBase {
   }
 
   LockRecord(tableCode: string, recordId: number, onSuccess: Function): void {
-    console.log('Lock record!');
-    /**
- * {"lk":[
-    {"LOCK_ID":-1,"LOCK_TABLE_CODE":"an","LOCK_RECORD_ID":2222,"LOCK_USER_NAME":"Archangel Villarojo","LOCK_START":"2021-04-07T13:16:25"}
-]}
- */
-
+ 
     this.SetCurrentServerTime();
 
     // 2021-04-07T14:47:45

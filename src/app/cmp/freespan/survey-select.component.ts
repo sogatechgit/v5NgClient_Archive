@@ -11,6 +11,8 @@ export class SurveySelectComponent implements OnInit {
 
   constructor(public dataSource: AppMainServiceService) { }
 
+  public isReady:boolean = false;
+
   get ds():AppDataset{
     return this.dataSource.ActiveSource.appDataset;
   }

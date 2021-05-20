@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, ElementRef, HostBinding, HostListener } from '@angular/core';
 import { QrySpansHeaderRow } from 'src/app/svc/app.tables';
-import { FreespanComponent } from './freespan.component';
+import { FreespanComponent, SpanColors } from './freespan.component';
 import { SpanPipeComponent } from './span-pipe.component';
 
 @Component({
@@ -9,6 +9,20 @@ import { SpanPipeComponent } from './span-pipe.component';
   styleUrls: ['./span-bar.component.scss']
 })
 export class SpanBarComponent implements OnInit, AfterViewInit {
+
+  @HostBinding('style.min-width') barMinWidth: string;
+  @HostBinding('style.max-width') barMaxWidth: string;
+  @HostBinding('style.left') barLeft: string;
+
+  @HostListener('window:resize', ['$event']) handleResize(event: any) {
+    if (this.eventType == EVENT_TYPE.SPAN || this.eventType == EVENT_TYPE.STRAKE) {
+      this.barMaxWidth = `${this.pxSpanLengthFinal}px`;
+    } else {
+      this.barMaxWidth = '0px';
+    }
+    this.barMinWidth = this.barMaxWidth;
+    this.barLeft = `${this.pxSpanLeftFinal}px`;
+  }
 
   constructor(private elRef: ElementRef) { }
 
@@ -36,6 +50,48 @@ export class SpanBarComponent implements OnInit, AfterViewInit {
     return this.event.SP_TP;
   }
 
+  get spanColor(): string {
+    if (!this.event) return 'WHITE';
+    switch (this.event.SP_CLR) {
+      case 'GRN':
+      case 'GREEN':
+        return 'GREEN';
+      case 'AMB':
+      case 'AMBER':
+      case 'ORA':
+      case 'ORANGE':
+        return 'AMBER';
+      case 'RED':
+        return 'RED';
+      default:
+        return 'WHITE';
+    }
+  }
+
+  get isGreen(): boolean {
+    return this.spanColor == 'GREEN';
+  }
+  get isAmber(): boolean {
+    return this.spanColor == 'AMBER';
+  }
+  get isRed(): boolean {
+    return this.spanColor == 'RED';
+  }
+
+  get isVisible(): boolean {
+    if (this.isGreen && this.pipe.spanComponent.showGreen) return true;
+    if (this.isAmber && this.pipe.spanComponent.showAmber) return true;
+    if (this.isRed && this.pipe.spanComponent.showRed) return true;
+    return false;
+  }
+
+  get title(): string {
+    const e = this.event;
+    if (!e) return '';
+    if (this.isSpan || this.isStrake) return `Start Kp : ${e.SP_KS}\nEnd Kp : ${e.SP_KE}\nLength : ${e.SP_LEN} m\nHeight : ${e.SP_HT} mm\nStart Surface : ${e.SP_STS}\nInter. Surface : ${e.SP_STI}\nEnd Surface : ${e.SP_STE}`;
+    if (this.isStabilization || this.isBerm || this.isSeabed) return `Kp : ${e.SP_KS}`
+    return ''
+  }
 
   get isSpan(): boolean {
     // return false;
@@ -59,7 +115,7 @@ export class SpanBarComponent implements OnInit, AfterViewInit {
     // return false;
     return this.eventType == EVENT_TYPE.BERM
   }
-  
+
 
   get pxFactor(): number {
     return this.pipe.spanComponent.pxFactor;
@@ -71,11 +127,11 @@ export class SpanBarComponent implements OnInit, AfterViewInit {
   }
 
   get isLeftOverflow(): boolean {
-    return this.pxSpanLeft < 0;
+    return !this.loadingData && (this.pxSpanLeft < 0);
   }
 
   get isRightOverflow(): boolean {
-    return (this.pxSpanLeft + this.pxSpanLength) > this.pipe.spanComponent.pipeWidthPx;
+    return !this.loadingData && ((this.pxSpanLeft + this.pxSpanLength) > this.pipe.spanComponent.pipeWidthPx);
   }
 
 
@@ -98,10 +154,33 @@ export class SpanBarComponent implements OnInit, AfterViewInit {
     return !this.isLeftOverflow ? pxLength : (pxLength - Math.abs(this.pxSpanLeft));
   }
 
+  get loadingData(): boolean {
+    return this.pipe.spanComponent.loadingData;
+  }
+
   get pxSpanLengthFinal(): number {
     // return this.pxSpanLength;
     // return 0.5;
     return (!this.isRightOverflow ? this.pxSpanLength : this.pxSpanLength - (this.pxSpanLeft + this.pxSpanLength - this.pipe.spanComponent.pipeWidthPx));
+  }
+
+  get spanBack(): string {
+    if (!this.event) return SpanColors.WHITE;
+    switch (this.event.SP_CLR) {
+      case 'GRN':
+      case 'GREEN':
+        return SpanColors.GREEN;
+      case 'AMB':
+      case 'AMBER':
+      case 'ORA':
+      case 'ORANGE':
+        return SpanColors.AMBER;
+      case 'RED':
+        return SpanColors.RED;
+      default:
+        return SpanColors.WHITE;
+
+    }
   }
 
   ngOnInit(): void {
@@ -109,42 +188,7 @@ export class SpanBarComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
-    // console.log("Bar Event: ", this.event)
-    // setTimeout(() => {
-    //   console.log("this.pipe.localEvents: ", this.pipe.localEvents)
-    //   if (this.pipe) {
-    //     if (this.pipe.localEvents.length) {
-    //       console.log("First Event: ", this.pipe.localEvents[0])
-    //     } else {
-    //       console.log("Pipe localEvents do not exist!")
-    //     }
-    //   }
-
-    // }, 2000)
-
-    if (this.eventType == EVENT_TYPE.SPAN || this.eventType == EVENT_TYPE.STRAKE) {
-      this.elRef.nativeElement.style.minWidth = `${this.pxSpanLengthFinal}px`;
-      this.elRef.nativeElement.style.maxWidth = `${this.pxSpanLengthFinal}px`;
-
-    } else {
-      this.elRef.nativeElement.style.minWidth = `0px`;
-      this.elRef.nativeElement.style.maxWidth = `0px`;
-    }
-    // this.elRef.nativeElement.style.minWidth = `${this.pxSpanLength}px`;
-    // this.elRef.nativeElement.style.maxWidth = `${this.pxSpanLength}px`;
-
-    this.elRef.nativeElement.style.left = `${this.pxSpanLeftFinal}px`;
-    // if(this.isSeabed){
-    //   this.elRef.nativeElement.style.left = `${this.pxSpanLeftFinal}px`;
-    // }else{
-    //   this.elRef.nativeElement.style.left = `${this.pxSpanLeftFinal}px`;
-    // }
-
-    // console.log(this.event, "SPAN LEFT: ", this.pxSpanLeft, ", this.pipe.spanComponent.kpStart: ", this.pipe.spanComponent.kpStart, this.event.SP_KS, this.pxFactor)
-
-    // this.elRef.nativeElement.style.left = `${this.pxSpanLeft}px`;
-    //this.elRef.nativeElement.style.width = `${this.pxSpanLength}px`;
-    //pxSpanLeft
+    this.handleResize(null);
   }
 
 }

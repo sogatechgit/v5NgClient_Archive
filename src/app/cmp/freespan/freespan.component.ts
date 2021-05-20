@@ -1,6 +1,6 @@
 import { AppMainServiceService } from './../../svc/app-main-service.service';
 import { FormCommon } from './../form.common';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
 import { AppDataset } from 'src/app/svc/app-dataset.service';
 import { RequestParams } from 'src/app/api/mod/app-params.model';
 import { Observable } from 'rxjs';
@@ -13,9 +13,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-freespan',
   templateUrl: './freespan.component.html',
-  styleUrls: ['./freespan.component.scss']
+  styleUrls: ['./freespan.component.scss', './../module.common.scss']
 })
-export class FreespanComponent extends FormCommon implements OnInit {
+export class FreespanComponent extends FormCommon implements OnInit, AfterViewInit {
 
   public form: FormGroup = new FormGroup({});
 
@@ -36,9 +36,27 @@ export class FreespanComponent extends FormCommon implements OnInit {
     return this._events;
   }
 
+  private _loadingData: boolean = false;
+  get loadingData(): boolean {
+    return this._loadingData;
+  }
+
+
+  get clrGreen(): string {
+    return SpanColors.GREEN;
+  }
+  get clrAmber(): string {
+    return SpanColors.AMBER;
+  }
+  get clrRed(): string {
+    return SpanColors.RED;
+  }
+
   constructor(public dialog: MatDialog, public dataSource: AppMainServiceService) {
     super(dataSource);
   }
+
+  // @HostBinding('style.background-color') back: string;
 
   @ViewChild('pipeSelect') pipeSelect: ElementRef;
   @ViewChild('gridStart') gridStart: ElementRef;
@@ -65,7 +83,10 @@ export class FreespanComponent extends FormCommon implements OnInit {
     // Extract survey records
     const params: Array<RequestParams> = [
       { code: 'svy', sortFields: '-SVY_MAIN_DATE_START', includedFields: 'SVY_MAIN_ID`SVY_MAIN_TITLE`SVY_MAIN_DATE_START`SVY_MAIN_DATE_END' },
-      { code: 'node', includedFields: 'REC_TAG`NODE_ID`NODE_DESC', filter: `{REC_TAG|in|${this.pipelineIds}}` }
+      {
+        code: 'node', includedFields: 'REC_TAG`NODE_ID`NODE_DESC',
+        filter: `{REC_TAG|in|${this.pipelineIds}}`
+      }
     ];
 
     this.ds.Get(params, {
@@ -83,7 +104,15 @@ export class FreespanComponent extends FormCommon implements OnInit {
 
         const pps: Array<IPipe> = [];
         data.processed.data[pipelinesElement].forEach(pipe => {
-          pps.push({ id: pipe.REC_TAG, code: pipe.NODE_ID, name: pipe.NODE_DESC })
+          const item: IPipe = { id: pipe.REC_TAG, code: pipe.NODE_ID, name: pipe.NODE_DESC };
+
+          const ppl = this.pipelines.find(pl => pl.id == pipe.REC_TAG);
+          if (ppl) {
+            item.kpStart = ppl.start_kp;
+            item.kpEnd = ppl.end_kp;
+          }
+
+          pps.push(item)
         })
 
         this._pipes = pps;
@@ -95,6 +124,10 @@ export class FreespanComponent extends FormCommon implements OnInit {
     // if (setXAxis.length == 0) setTimeout(() => console.log("pipelineIds: ", this.pipelineIds, "\naxyLines: ", this.axyLines));
 
 
+  }
+
+  ngAfterViewInit() {
+    // this.back = 'blue';
   }
 
   get ds(): AppDataset {
@@ -120,6 +153,16 @@ export class FreespanComponent extends FormCommon implements OnInit {
 
   get kpEnd(): number {
     return this.kpCenter + this.kpRange / 2.0;
+  }
+
+  get showGreen(): boolean {
+    return this.form.get("tgl_green").value
+  }
+  get showAmber(): boolean {
+    return this.form.get("tgl_amber").value
+  }
+  get showRed(): boolean {
+    return this.form.get("tgl_red").value
   }
 
   fmtVal(val: number) {
@@ -160,6 +203,11 @@ export class FreespanComponent extends FormCommon implements OnInit {
 
   get pipelines(): Array<any> {
     return this.ds.tblNodesAttrib.clientConfig.pipelines;
+  }
+
+  get pipe(): IPipe {
+    //sel_pipeline
+    return null;
   }
 
   private _pipelineIds: string;
@@ -222,28 +270,41 @@ export class FreespanComponent extends FormCommon implements OnInit {
   }
 
   CenterChanged(event: any) {
-    this._axyLines = null;  // set to null to force re-assignment of grid y axes properties
+    this.GetSpansData();
+
+    //this._axyLines = null;  // set to null to force re-assignment of grid y axes properties
   }
 
   ChangeRange(event: any) {
-    console.log(this.form.get('sel_kprange').value)
-    this._axyLines = null;  // set to null to force re-assignment of grid y axes properties
+    this.GetSpansData();
+    // this._axyLines = null;  // set to null to force re-assignment of grid y axes properties
   }
 
 
 
   KpNav(dir: string) {
+    console.log("Direction: ", dir, ", current center: ", this.kpCenter, this.kpStart, this.kpEnd)
+
+    // const pipe = this.pipelines.find()
     switch (dir) {
       case 'F':
+
+        return;
         break;
       case 'P':
+        this.form.get('txt_centerkp').setValue(+this.kpStart / 1000.0)
         break;
       case 'N':
+        this.form.get('txt_centerkp').setValue(+this.kpEnd / 1000.0)
+
         break;
       case 'L':
+        return;
         break;
       default:
     }
+
+    this.CenterChanged(null);
   }
 
   ShowData(event: any) {
@@ -256,16 +317,14 @@ export class FreespanComponent extends FormCommon implements OnInit {
     console.log("Pipe selected: ", id, pipe);
   }
 
-  ChooseSurveys(event: any) {
-    console.log('Choose survey ...');
-
-    //const actsvy = this.surveys.filter(svy => (svy.id == 1 || svy.id == 68))
-    const actsvy = this.surveys.filter(svy => (svy.id == 13 || svy.id == 68))
-    console.log("ActiveSurveys: ", actsvy)
-    actsvy.forEach(svy => svy.active = true);
+  GetSpansData(onSuccess?: Function) {
+    const ks = this.kpStart / 1000.0;
+    const ke = this.kpEnd / 1000.0;
 
     const pipeId = this.currentPipe;
     const svyIds = this.currentSurveys;
+
+    this._loadingData = true;
 
     if (+pipeId == 0) {
       console.log('No pipeline selected!');
@@ -277,69 +336,47 @@ export class FreespanComponent extends FormCommon implements OnInit {
       return;
     }
 
-    // console.log("pipeId: ", pipeId, ", svyIds: ", svyIds)
-
-
-    const ks = this.kpStart / 1000.0;
-    const ke = this.kpEnd / 1000.0;
-
-
     const params: Array<RequestParams> = [
-      // {
-      //   code: 'svyhdr|`svypos@SP,SVY_HDR_START_POS_ID,SVY_POS_ID;`svypos@EP,SVY_HDR_END_POS_ID,SVY_POS_ID;',
-      //   includedFields: 'SVY_HDR_MAIN_ID`SP.SVY_POS_KP@ks`EP.SVY_POS_KP@ke`SVY_HDR_COLOUR`SVY_INTEGER_A@ht`SVY_SINGLE_A@ln`SVY_TEXT_A@sts`SVY_TEXT_B@ste`SVY_TEXT_C@sti`SVY_HDR_EVT_ID@tp',
-      //   filter: `{SVY_HDR_MAIN_ID|in|${svyIds}}^{SVY_HDR_NOD_ID|${pipeId}}^({SVY_HDR_EVT_ID|in|25,26,5,41}|({SVY_HDR_EVT_ID|1}^{SVY_TEXT_B|Strake}))`,
-      //   sortFields: '-SVY_HDR_MAIN_ID',
-      //   snapshot: true
-      // }
-
       {
         code: 'vwfspan',
-        //filter: `{SP_SV|in|${svyIds}}^{SP_LOC|${pipeId}}^{SP_KS|lte|${ks}}`,
         filter: `{SP_SV|in|${svyIds}}^{SP_LOC|${pipeId}}^(({SP_KS|lte|${ks}}^{SP_KE|gte|${ks}})|({SP_KS|lte|${ke}}^{SP_KE|gte|${ke}})|({SP_KS|gte|${ks}}^{SP_KE|lte|${ke}})|({SP_KS|lte|${ks}}^{SP_KE|gte|${ke}}))`,
         snapshot: true,
         sortFields: '-SP_SV`SP_KS'
       }
     ]
 
-    console.log("this.kpCenter: ", this.kpCenter, ks, ke, "\nparams: ", params);
-
-
-    //filter: `{SP_SV|in|${svyIds}}^{SP_LOC|${pipeId}}^(({SP_KS|lte|${ks}}^{SP_KE|gte|${ks}})|({SP_KS|lte|${ke}}^{SP_KE|gte|${ke}})|({SP_KS|gte|${ks}}^{SP_KE|lte|${ke}})|({SP_KS|lte|${ks}}^{SP_KE|gte|${ke}}))`,
-
-
     this.ds.Get(params, {
       onSuccess: data => {
         this._events = data.processed.data[0];
-        // setTimeout(() => {
-        //   this._events = data.processed.data[0];
-        //   console.log("Data: ", this._events)
-        // }, 5000);
+        this._axyLines = null;
 
-        // const testEvent = this._events.find(s => s.SP_ID == 793771);
-        // const testEvent = this._events.find(s => s.SP_ID == 794385);
-        const testEvent = this._events.find(s => s.SP_ID == 793078);  // 488.5345
-        // const testEvent = this._events.find(s => s.SP_ID == 794560);  // 488.5345
-        //const testEvent = this._events.find(s => s.SP_ID == 794385);  // 488.534
-        // const testEvent = this._events.find(s => s.SP_ID ==794389);  // 488.534
-        
-
-        if (testEvent) {
-          // testEvent.SP_KS = 488.474;
-          // testEvent.SP_KE = 488.474;
-
-          // testEvent.SP_KS = 488.757;
-          // testEvent.SP_KE = 488.757;
-          testEvent.SP_KS =474.175;
-          testEvent.SP_KE = 474.175;
-        }
+        if (onSuccess) onSuccess(data);
+        this._loadingData = false;
 
       }, onError: err => {
         console.log("Error: ", err)
+        this._loadingData = false;
       }
+
     });
 
-    return;
+  }
+
+  ChooseSurveys(event: any) {
+    console.log('Choose survey ...');
+
+    //const actsvy = this.surveys.filter(svy => (svy.id == 1 || svy.id == 68))
+    const actsvy = this.surveys.filter(svy => (svy.id == 13 || svy.id == 68))
+    console.log("ActiveSurveys: ", actsvy)
+    actsvy.forEach(svy => svy.active = true);
+
+
+
+    // console.log("pipeId: ", pipeId, ", svyIds: ", svyIds)
+
+
+    // this.GetSpansData();
+    // return;
 
     const subsSelect = this.OpenSurveySelect().subscribe(
       (data) => {
@@ -440,6 +477,8 @@ export interface IPipe {
   id: number;
   code: string;
   name: string;
+  kpStart?: number;
+  kpEnd?: number;
 }
 
 export interface ISurvey {
@@ -450,6 +489,14 @@ export interface ISurvey {
   startDate?: Date;
   endDate?: Date;
   events: Array<ISurveyEvent>;
+}
+
+export enum SpanColors {
+  //GREEN = '#28a745',
+  GREEN = '#097d23',
+  AMBER = '#ffc107',
+  RED = '#dc3545',
+  WHITE = 'white'
 }
 
 export enum SpanEvents {
@@ -463,24 +510,3 @@ export enum SpanEvents {
 
 
 
-//export enum 
-
-
-
-/*
-  SAPL ----
-  var data = [
-           ["0", "Select a pipeline ..."],
-           ["294", "AU.PRL.031-FL-001 - Production Flowline 1"],
-           ["307", "AU.PRL.031-FL-002 - Production Flowline 2"],
-           ["319", "AU.PRL.032-FL-003 - Production Flowline 3"],
-           ["330", "AU.PRL.032-FL-001 - Production Flowline 4"]
-           ]
-  SPEX ----
-    var data = [
-            ["9640", "MA03 - Gas Export Pipeline"],
-            ["6413", "MA04 - Condensate Export Pipeline"],
-            ["9607", "MA0B - Two-Phase Flowline No. 1"],
-            ["9615", "MA0A - Two-Phase Flowline No. 2"]
-    ]
- */

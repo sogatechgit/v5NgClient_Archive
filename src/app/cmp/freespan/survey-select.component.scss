@@ -1,11 +1,13 @@
 :host{
-    background-color: lime;
+    // background-color: lime;
     flex:1 1 0;
     
     .wrapper{
-        background-color: blue;
+        // background-color: blue;
+        position:relative;
         height: 100%;
         overflow: hidden;
+        padding:0px;
     }
 // :host{
 //     display: flex;

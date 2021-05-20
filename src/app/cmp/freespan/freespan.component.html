@@ -12,13 +12,14 @@
         </select>
         <label for="sel_range">KP Range:</label>
         <select name="sel_range" id="sel_range" style="width:80px;" (change)="ChangeRange($event)" formControlName="sel_kprange">
-            <option value="0">All</option>
+            <option value="0" disabled style="color:#c0c0c0;">All (slow)</option>
             <option value="500">500m</option>
             <option value="1000">1km</option>
-            <option value="5000">5km</option>
-            <option value="10000">10km</option>
-            <option value="20000">20km</option>
-            <option value="50000">50km</option>
+            <option value="2000">2km</option>
+            <option value="5000" disabled style="color:#c0c0c0;">5km (slow)</option>
+            <option value="10000" disabled style="color:#c0c0c0;">10km (slow)</option>
+            <option value="20000" disabled style="color:#c0c0c0;">20km (slow)</option>
+            <option value="50000" disabled style="color:#c0c0c0;">50km (slow)</option>
         </select>
         <div id="grp_actions">
             <button (click)="ShowData($event)">Show Data</button>
@@ -33,20 +34,21 @@
             <button (click)="KpNav('N')"><i class="fa fa-angle-right"></i></button>
             <button (click)="KpNav('L')"><i class="fa fa-angle-double-right"></i></button>
             <span id="lbl_show">Show:</span>
-            <i id="tgl_green"
-                [class]="'fa fa-toggle-' + (form.get('tgl_green').value ? 'on' : 'off') +' tgl text-success'"
+            <i id="tgl_green" [style.color]="clrGreen" 
+                [class]="'fa fa-toggle-' + (form.get('tgl_green').value ? 'on' : 'off') +' tgl'"
                 (click)="ShowToggle($event)"></i>
-            <i id="tgl_amber"
-                [class]="'fa fa-toggle-'+ (form.get('tgl_amber').value ? 'on' : 'off') +' tgl text-warning'"
+            <i id="tgl_amber" [style.color]="clrAmber" 
+                [class]="'fa fa-toggle-'+ (form.get('tgl_amber').value ? 'on' : 'off') +' tgl'"
                 (click)="ShowToggle($event)"></i>
-            <i id="tgl_red" [class]="'fa fa-toggle-'+ (form.get('tgl_red').value ? 'on': 'off') +' tgl text-danger'"
+            <i id="tgl_red" [style.color]="clrRed" 
+                [class]="'fa fa-toggle-'+ (form.get('tgl_red').value ? 'on': 'off') +' tgl'"
                 (click)="ShowToggle($event)"></i>
         </div>
         <div id="legend">
             {{pipeWidthPx +' / ' + kpRange}}
             <i id="sym_str" class="fa fa-square"></i>
             <span>Strake</span>
-            <i id="sym_ber" class="fa fa-square"></i>
+            <i id="sym_ber" class="fa fa-square" [style.color]="clrGreen"></i>
             <span>Berm</span>
             <i id="sym_sta" class="fa fa-play"></i>
             <span>Stabilization</span>
