@@ -116,7 +116,7 @@
         {
           "id": 6,
           "label": "Freespan",
-          "active": true,
+          "active": false,
           "ready": true,
           "loaded": false
         },
@@ -191,9 +191,12 @@
     "url_deploy": "http://ngimsa.ivideolib.com/api/app",
     "url_use_deploy": false,
     "app_version": {
-      "ver": "Alpha 2.3.2",
-      "build": "20210427",
+      "ver": "Alpha 2.4.0",
+      "build": "20210522",
       "updates": [
+        "Activated Freespans Module (working but still carrying out speed optimization)" ,
+        "Activated reporting on Anomalies, Design Data, Chemical Database and Reference Library Modules" ,
+        "Activated Compliance Module",
         "Implemented Oracle Database Backend",
         "Fixed tree search result grid display",
         "Set fluid grid display on survey data module",
@@ -215,6 +218,13 @@
         "NOTE: Anomaly module testing and bug fixing is ongoing; ChemDB, Design Data, Reference Library and Survey Data modules under development ... "
       ],
       "history": [
+        {
+          "ver": "Alpha 2.3.2",
+          "build": "20210427",
+          "updates": [
+            "Implemented Oracle Database Backend"
+          ]
+        },
         {
           "ver": "Alpha 2.3.1",
           "build": "20210224",

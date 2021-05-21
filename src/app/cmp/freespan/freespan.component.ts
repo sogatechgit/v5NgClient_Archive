@@ -9,6 +9,7 @@ import { SurveySelectComponent } from './survey-select.component';
 import { DetailsPopup } from 'src/app/api/cmp/details.popup';
 import { QrySpansHeaderRow } from 'src/app/svc/app.tables';
 import { FormControl, FormGroup } from '@angular/forms';
+import { retry } from 'rxjs/operators';
 
 @Component({
   selector: 'app-freespan',
@@ -73,8 +74,8 @@ export class FreespanComponent extends FormCommon implements OnInit, AfterViewIn
     // this.form.addControl("txt_centerkp", new FormControl(200))
     // this.form.addControl("txt_centerkp", new FormControl(469.583))
     // this.form.addControl("txt_centerkp", new FormControl(469.423))
+
     this.form.addControl("txt_centerkp", new FormControl(474.1355))
-    //
 
     this.form.addControl("tgl_green", new FormControl(true))
     this.form.addControl("tgl_amber", new FormControl(true))
@@ -117,6 +118,11 @@ export class FreespanComponent extends FormCommon implements OnInit, AfterViewIn
 
         this._pipes = pps;
 
+        setTimeout(() => {
+          this.PipeSelect();
+          this._loadingData = false;
+        });
+
       }
     })
 
@@ -127,7 +133,7 @@ export class FreespanComponent extends FormCommon implements OnInit, AfterViewIn
   }
 
   ngAfterViewInit() {
-    // this.back = 'blue';
+
   }
 
   get ds(): AppDataset {
@@ -230,6 +236,16 @@ export class FreespanComponent extends FormCommon implements OnInit, AfterViewIn
     return this.pipeSelect.nativeElement.value;
   }
 
+  private _currentPipeItem: IPipe = null;
+  get currentPipeItem(): IPipe {
+    return this._currentPipeItem;
+  }
+  set currentPipeItem(value: IPipe) {
+    this._currentPipeItem = value;
+  }
+
+
+
   get startKpPx(): number {
     if (!this.gridStart) return -1;
     return this.gridStart.nativeElement.offsetLeft;
@@ -264,6 +280,43 @@ export class FreespanComponent extends FormCommon implements OnInit, AfterViewIn
     return `auto / repeat(${this.axCount + 1},1fr)`;
   }
 
+  get minRange(): number {
+    if (!this.currentPipeItem) return -1;
+    return this.currentPipeItem.kpStart;
+  }
+
+  get maxRange(): number {
+    if (!this.currentPipeItem) return -1;
+    return this.currentPipeItem.kpEnd;
+  }
+
+  get minCenter(): number {
+    if (!this.kpStart) return 0;
+    return (this.minRange + this.kpRange / 2.0 / 1000.0);
+  }
+
+  get maxCenter(): number {
+    if (!this.kpEnd) return 0;
+    return (this.maxRange - this.kpRange / 2.0 / 1000.0);
+  }
+
+  get kpRangeText(): string {
+
+    const min = this.minRange;
+    const max = this.maxRange;
+
+    if (min == -1 && max == -1) return '';
+
+    return `${min} to ${max}`
+
+  }
+
+  get activeSurveys():Array<any>{
+    return this.surveys.filter(sv=>sv.active);
+  }
+
+  
+
   ShowToggle(event: any) {
     const id = event.target.id;
     this.form.get(id).setValue(!this.form.get(id).value);
@@ -288,8 +341,8 @@ export class FreespanComponent extends FormCommon implements OnInit, AfterViewIn
     // const pipe = this.pipelines.find()
     switch (dir) {
       case 'F':
-
-        return;
+        console.log("Min center: ", this.minCenter, ", minRange: ", this.minRange, ", maxRange: ", this.maxRange, ", kp range: ", this.kpRange)
+        this.form.get('txt_centerkp').setValue(+this.minCenter)
         break;
       case 'P':
         this.form.get('txt_centerkp').setValue(+this.kpStart / 1000.0)
@@ -299,10 +352,13 @@ export class FreespanComponent extends FormCommon implements OnInit, AfterViewIn
 
         break;
       case 'L':
-        return;
+        console.log("Max center: ", this.maxCenter)
+        this.form.get('txt_centerkp').setValue(+this.maxCenter)
         break;
       default:
     }
+
+    // this._axyLines = null
 
     this.CenterChanged(null);
   }
@@ -313,11 +369,30 @@ export class FreespanComponent extends FormCommon implements OnInit, AfterViewIn
 
   PipeSelect() {
     const id = this.currentPipe;
-    const pipe = this.pipelines.find(pl => pl.id == id);
-    console.log("Pipe selected: ", id, pipe);
+    if (id != -1) {
+      this.currentPipeItem = this.pipes.find(pl => pl.id == id);
+
+      // set center kp
+      this.form.get('txt_centerkp').setValue(this.currentPipeItem.kpStart + (this.currentPipeItem.kpEnd - this.currentPipeItem.kpStart) / 2.0)
+
+    } else {
+      this.currentPipeItem = null;
+      this.form.get('txt_centerkp').setValue(0);
+    }
+
+
+
+
+
+    // console.log("Pipe selected: ", id, pipe);
+
+    this.GetSpansData();
   }
 
   GetSpansData(onSuccess?: Function) {
+
+    if(this.activeSurveys.length == 0) return;
+
     const ks = this.kpStart / 1000.0;
     const ke = this.kpEnd / 1000.0;
 
