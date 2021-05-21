@@ -3,7 +3,10 @@
   <!--toolbar start -->
   <div class="toolbar" *ngIf="!noToolbar" [style.font-size.em]="fontFactor">
 
-
+    <!--Neo 20210413-->
+    <app-toolbar-button (buttonClick)="CampEvtClick($event)" [rights]="GetRights('allowCampEvt')"
+      icon="fa fa-list-alt text-info" [inProgress]="isLoadingRecords" tooltip="Campaign / Event Selector">
+      {{labelCampEvt}}</app-toolbar-button>
 
     <app-toolbar-button (buttonClick)="AddClick($event)" [rights]="GetRights('allowAdd')" icon="fa fa-plus text-primary"
       [inProgress]="isLoadingRecords" tooltip="Add new record">{{labelAdd}}</app-toolbar-button>
@@ -27,7 +30,8 @@
       {{labelExcel}}</app-toolbar-button>
 
     <app-toolbar-button (buttonClick)="OpenPreview($event)" [rights]="GetRights('allowOpen')"
-      icon="fa fa-external-link-alt text-sccess" [inProgress]="isLoadingRecords || SelectedCount!=1">{{labelOpen}}</app-toolbar-button>
+      icon="fa fa-external-link-alt text-sccess" [inProgress]="isLoadingRecords || SelectedCount!=1">{{labelOpen}}
+    </app-toolbar-button>
 
     <span id="title" *ngIf="title" [innerHTML]="fullTitle"></span>
 

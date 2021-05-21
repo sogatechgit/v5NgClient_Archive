@@ -218,6 +218,8 @@ export class DataGridBComponent
 
   @Input() gridManagementData: any = {};
 
+  @Input() CampEvtSelectorGrid: any ={};//Neo 20210413
+  @Input() labelCampEvt: string = 'Campaign/Event Selector';//Neo 20210413
   @Input() labelAdd: string = 'Add';
   @Input() labelEdit: string = 'Edit';
   @Input() labelDelete: string = 'Delete';
@@ -388,7 +390,7 @@ export class DataGridBComponent
   @Input() filterListener: Function = null;
 
   @Input() fontFactor: number = 1;
-
+  @Output() campEvtClick: EventEmitter<any>= new EventEmitter();
   @Output() manageClick: EventEmitter<any> = new EventEmitter();
   @Output() addClick: EventEmitter<any> = new EventEmitter();
   @Output() editClick: EventEmitter<any> = new EventEmitter();
@@ -502,6 +504,7 @@ export class DataGridBComponent
   public get noToolbar(): boolean {
     if (this.forceToolbar) return false;
     const {
+      allowCampEvt,//Neo 20210413
       allowAdd,
       allowEdit,
       allowDelete,
@@ -510,6 +513,7 @@ export class DataGridBComponent
       allowSelect,
     } = this.rights;
     return (
+      allowCampEvt == undefined &&//Neo 20210413
       allowAdd == undefined &&
       allowEdit == undefined &&
       allowDelete == undefined &&
@@ -1203,6 +1207,12 @@ export class DataGridBComponent
       // filter group termination!
       if (groupFilters) opt.GroupEnd();
     }); // end of filteredColumns.forEach ...
+  }
+
+
+  //Neo 20210413
+  CampEvtClick(e: any){
+    this.campEvtClick.emit({ e: e, sender: this });
   }
 
   private BuildCustomFilterList(

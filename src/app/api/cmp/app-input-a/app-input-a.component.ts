@@ -57,6 +57,8 @@ export class AppInputAComponent implements OnInit, AfterViewInit {
   @Input() actionIcon: string = '';
   @Input() actionTip: string = null;
 
+  @Input() BgColor: boolean = false;
+
   @Output() actionClick: EventEmitter<any> = new EventEmitter();
   @Output() valueChanged: EventEmitter<any> = new EventEmitter();
   @Output() fileSelected: EventEmitter<any> = new EventEmitter();
@@ -444,8 +446,10 @@ export class AppInputAComponent implements OnInit, AfterViewInit {
   }
 
   public get background(): string {
+    let DisVal: string = this.displayValue;//20210309 Neo Added for optional background coloring of input.
     if (!this._changeValueNow) return null;
     if (this.isDisabled) return null;
+    if (this.BgColor) return  DisVal==undefined ? 'white' : DisVal;
     return 'white';
   }
 

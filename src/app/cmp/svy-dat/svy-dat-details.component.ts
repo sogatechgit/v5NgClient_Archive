@@ -9,7 +9,7 @@ import { DataGridBComponent } from './../../api/cmp/data-grid/data-grid-b.compon
   templateUrl: './svy-dat-details.component.html',
   styleUrls: ['./svy-dat-details.component.scss']
 })
-export class SvyDatDetailsComponent  extends DetailsCommon {
+export class SvyDatDetailsComponent extends DetailsCommon {
   @ViewChild('rfGrid') rfGrid: DataGridBComponent;
   @ViewChild('ftGrid') ftGrid: DataGridBComponent;
   @ViewChild('anGrid') anGrid: DataGridBComponent;
@@ -18,7 +18,7 @@ export class SvyDatDetailsComponent  extends DetailsCommon {
     super(differs);
 
     // this section will allow customized parameter settings for the details popup
-    this.popHeight = 270;
+    this.popHeight = 280;
     this.tabHeight = 200; // adjust popup height
     // this.popButtons= []
     this.titleEdit = 'Edit Record!';
@@ -27,18 +27,18 @@ export class SvyDatDetailsComponent  extends DetailsCommon {
     // set view configurations
   }
 
-  modOnInit() {}
+  modOnInit() { }
 
   modAfterViewInit() {
     //console.log("\nDataset Matrix data: ", this.DataSet.riskMatrixData)
   }
 
-  AssignEvents() {}
+  AssignEvents() { }
 
-  ResetState() {}
+  ResetState() { }
 
   BeforeDataPosting(e: any) {
-    
+
   }
 
   AfterFormCreate(e: any) {
@@ -78,7 +78,7 @@ export class SvyDatDetailsComponent  extends DetailsCommon {
 
   // Properties
 
-  
+
   get dataManageSvyEvt(): any {
     return {
       top: {
@@ -142,6 +142,25 @@ export class SvyDatDetailsComponent  extends DetailsCommon {
         maxItems: 50,
       },
     };
+
+    // return {
+    //   top: {
+    //     templateGrid: this.ftGrid,
+    //     noLinkFilter: true,
+    //     parentKeyValue: null,
+    //     rights: { allowSelect: true },
+    //     fontFactor: 0.85,
+    //     noFooter: true,
+    //     title: 'Available Failure Threats ({RECS})',
+    //   },
+    //   bottom: {
+    //     templateGrid: this.ftGrid,
+    //     fontFactor: 0.85,
+    //     rights: { allowSelect: true },
+    //     title: 'Related Failure Threats ({LINKED} linked, max={LIMIT})',
+    //     maxItems: 50,
+    //   },
+    // };
   }
 
 
@@ -151,13 +170,13 @@ export class SvyDatDetailsComponent  extends DetailsCommon {
         templateGrid: this.rfGrid,
         noLinkFilter: true,
         parentKeyValue: null,
-        rights: { allowSelect: true, allowAdd:true },
+        rights: { allowSelect: true, allowAdd: true },
         fontFactor: 0.85,
         noFooter: false,
         title: 'Available Reference Files ({RECS})',
-        addComponent:{
-          component:null,
-          data:null
+        addComponent: {
+          component: null,
+          data: null
         }
       },
       bottom: {
@@ -169,6 +188,29 @@ export class SvyDatDetailsComponent  extends DetailsCommon {
         maxItems: 50,
       },
     };
+  }
+
+
+  GetCampEvtIds() {
+    //return this.data ? this.data.moduleExchangeInfo.detailsObject.TabId : this.moduleExchangeInfo.detailsObject.TabId
+    return this.data ? this.data.moduleExchangeInfo.detailsObject.TabId : this.moduleExchangeInfo.detailsObject.TabId
+  }
+
+
+  public _CampIDsFromPopupClick: Array<any>;
+  public _EvtIDsFromPopupClick: Array<any>;
+
+
+  get cmpEvtDd(): any {
+    let cmpIdsFromGrid: Array<any>;
+    cmpIdsFromGrid = this._EvtIDsFromPopupClick;
+    if (cmpIdsFromGrid == undefined) {
+      return 'All';
+    } else if (cmpIdsFromGrid.length) {
+      return 'All';
+    } else {
+      return cmpIdsFromGrid;
+    }
   }
 
 

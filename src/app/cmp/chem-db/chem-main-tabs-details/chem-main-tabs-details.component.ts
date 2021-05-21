@@ -19,7 +19,7 @@ export class ChemMainTabsDetailsComponent extends DetailsCommon {
 
     // this section will allow customized parameter settings for the details popup
     this.popHeight = 270;
-    this.tabHeight = 250;
+    this.tabHeight = 200;
     // this.popButtons= []
 
     // this.titleEdit = 'Edit ' + this.ParentActiveTabName();

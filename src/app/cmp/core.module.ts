@@ -17,7 +17,7 @@ import { FreespanModule } from './freespan/freespan.module';
 import { LocationSelectorComponent } from './location-selector/location-selector.component';
 import { AppLandingComponent } from './app-landing/app-landing.component';
 
-// associated with v2 implementation
+// associated with v2 implementation // import { ChemDbModule } from './chem-db/chem-db.module';
 import { AnomaliesModule } from './anomalies/anomalies.module';
 import { DesDatModule } from './des-dat/des-dat.module';
 import { ChemDbModule } from './chem-db/chem-db.module';

@@ -1127,6 +1127,7 @@ export class ModuleState {
 }
 
 export interface IAccessRights {
+  allowCampEvt?: boolean;//Neo 20210413
   allowEdit?: boolean;
   allowAdd?: boolean;
   allowDelete?: boolean;

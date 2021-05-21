@@ -8,7 +8,7 @@
     </ng-container>
 
     <!-- TAB SECTION -->
-    <app-data-tabs *ngIf="ParentActiveTab(18)" #t [height]="tabHeight" activeBackground="white" [fluidIds]="[1,2,3,4]"
+    <app-data-tabs #t *ngIf="ParentActiveTab(18)" [height]="tabHeight" activeBackground="white" [fluidIds]="[1,2,3,4]"
       [tabLabels]="'General Information'+(AccessMode=='view' ? ',Service Report,Chemical Treating Manual,Chem PFD,Attachments':'')"
       style="font-size: small;">
       <app-panel-a *ngIf="toggleDisplay && t.a(0)" horizontal="true">
