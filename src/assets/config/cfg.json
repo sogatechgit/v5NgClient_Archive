@@ -510,5 +510,300 @@
     "tree_extract_node_fields": "REC_TAG`NODE_ID`NODE_DESC",
     "tree_extract_tree_fields": "TRE_NOD_TAG`TRE_NOD_TAG_PAR`TRE_NOD_LOC`TRE_DAT_TAG",
     "tree_child_extract_levels": 1
-  }
+  },
+  "Report_Data": 
+    {
+      "Host": "",
+      "List": [
+        
+        {
+          "rpttitle": "Reference Library Listing Summary",
+          "rptcode": "RF_01",
+          "rpttype": "rf"
+        },
+        
+        {
+          "rpttitle": "Reference Library Listing by Asset",
+          "rptcode": "RF_02",
+          "rpttype": "rf"
+        },
+        
+        {
+          "rpttitle": "Reference Library Listing by Category",
+          "rptcode": "RF_03",
+          "rpttype": "rf"
+        },
+        
+        {
+          "rpttitle": "Design Data Summary Listing by Asset",
+          "rptcode": "DD_01",
+          "rpttype": "desdat"
+        },
+        
+        {
+          "rpttitle": "Design Data Summary Listing by Type",
+          "rptcode": "DD_02",
+          "rpttype": "desdat"
+        },
+        
+        {
+          "rpttitle": "Chemical Data Listing by Asset/Sampling Location",
+          "rptcode": "CH_01",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Chemical Data Listing by Type",
+          "rptcode": "CH_02",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Chemical Data Listing by Sample Date",
+          "rptcode": "CH_03",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "PVT Analysis",
+          "rptcode": "CH_04",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Organic (Oil Wax) Analysis",
+          "rptcode": "CH_05",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Bacteria Analysis",
+          "rptcode": "CH_06",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Produced Water Analysis",
+          "rptcode": "CH_07",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Solid Analysis",
+          "rptcode": "CH_08",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Failure Analysis",
+          "rptcode": "CH_09",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Bacteria Analysis(Biocide Testing)",
+          "rptcode": "CH_10",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Corrosion Coupon",
+          "rptcode": "CH_11",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Scale Coupon",
+          "rptcode": "CH_12",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "BSW Readings",
+          "rptcode": "CH_13",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Water Quality(Oil&Grease)Analysis",
+          "rptcode": "CH_14",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Glycol Analysis",
+          "rptcode": "CH_15",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "WHRU Jacket Water(WHRU)",
+          "rptcode": "CH_16",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "WHRU Jacket Water (Jacket)",
+          "rptcode": "CH_17",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "WHRU Water Analysis",
+          "rptcode": "CH_18",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Chemical Treatment Rates",
+          "rptcode": "CH_19",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Chemical Documents",
+          "rptcode": "CH_20",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Fluid Service",
+          "rptcode": "CH_21",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Hydraulic Fluid Analysis-Contaminants",
+          "rptcode": "CH_22",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Hydraulic Fluid Analysis-Gen. Info",
+          "rptcode": "CH_23",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Hydraulic Fluid Analysis-Properties",
+          "rptcode": "CH_24",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Chemical Residuals",
+          "rptcode": "CH_25",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Service Reports",
+          "rptcode": "CH_26",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Chem Treating Manual",
+          "rptcode": "CH_27",
+          "rpttype": "chmhdr"
+        },
+        
+        {
+          "rpttitle": "Chem PFD",
+          "rptcode": "CH_28",
+          "rpttype": "chmhdr"
+        },
+
+        {
+          "rpttitle": "Anomalies By Asset Report",
+          "rptcode": "AN_01",
+          "rpttype": "an"
+        },
+        
+        {
+          "rpttitle": "Anomalies By Class Report",
+          "rptcode": "AN_02",
+          "rpttype": "an"
+        },
+        
+        {
+          "rpttitle": "Anomalies By Status Report",
+          "rptcode": "AN_03",
+          "rpttype": "an"
+        },
+        
+        {
+          "rpttitle": "Current Anomalies Report",
+          "rptcode": "AN_04",
+          "rpttype": "an"
+        },
+        
+        {
+          "rpttitle": "Non-routine Maintenance Reports",
+          "rptcode": "AN_05",
+          "rpttype": "an"
+        },
+        
+        {
+          "rpttitle": "Anomaly Criteria Report",
+          "rptcode": "AN_07",
+          "rpttype": "an"
+        },
+        
+        {
+          "rpttitle": "Anomaly Distibution Chart",
+          "rptcode": "AN_08",
+          "rpttype": "an"
+        },
+        
+        {
+          "rpttitle": "Anomaly KPI Report",
+          "rptcode": "AN_10",
+          "rpttype": "an"
+        },
+        
+        {
+          "rpttitle": "Anomaly Types Report",
+          "rptcode": "AN_14",
+          "rpttype": "an"
+        },
+        
+        {
+          "rpttitle": "Anomaly Summary Report",
+          "rptcode": "AN_16",
+          "rpttype": "an"
+        },
+        
+        {
+          "rpttitle": "Anomaly Action Items",
+          "rptcode": "AN_18",
+          "rpttype": "an"
+        },
+        
+        {
+          "rpttitle": "Inspection Anomaly Action Items",
+          "rptcode": "AN_24",
+          "rpttype": "an"
+        },
+        
+        {
+          "rpttitle": "Anomaly Integrity Status Report",
+          "rptcode": "AN_19",
+          "rpttype": "an"
+        },
+        
+        {
+          "rpttitle": "Anomaly Integrity Status By SCE/CE/SGS Report",
+          "rptcode": "AN_22",
+          "rpttype": "an"
+        },
+        
+        {
+          "rpttitle": "Anomaly Action Items Summary",
+          "rptcode": "AN_23",
+          "rpttype": "an"
+        }
+      ]
+    }
+  
 }

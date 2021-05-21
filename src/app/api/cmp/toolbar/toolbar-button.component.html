@@ -15,5 +15,6 @@
 
 
   </button>
-  <i class="fa fa-caret-down" *ngIf="toggleDropDownState.observers.length && withDropdown" (click)="ToggleDropDownState($event)"></i>
+  <i [class]="iconRight" *ngIf="(toggleDropDownState.observers.length && withDropdown) || rightIconMenuTrigger"
+    (click)="ToggleDropDownState($event)" [matMenuTriggerFor]="rightIconMenuTrigger"></i>
 </div>

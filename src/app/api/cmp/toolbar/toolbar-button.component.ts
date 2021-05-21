@@ -8,6 +8,9 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef }
 export class ToolbarButtonComponent implements OnInit {
   @ViewChild('wrapper') wrapper: ElementRef
 
+  @Input() iconRight:string = 'fa fa-caret-down'
+  @Input() rightIconMenuTrigger:any=null;
+  
   @Input() withDropdown:boolean = false;
   @Input() rights: any;
   @Output() buttonClick: EventEmitter<any> = new EventEmitter();

@@ -188,7 +188,7 @@
           </li>
         </ng-container>
         <li [formGroup]="form">
-          <select [disabled]="isLoadingData" formControlName="pageSize" (change)="PageSizeChange($event)">
+          <select #pageSizeSelect [disabled]="isLoadingData" formControlName="pageSize" (change)="PageSizeChange($event)">
             <option *ngFor="let ps of pageSizes" [value]="ps">{{ps}}</option>
           </select>
         </li>

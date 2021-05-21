@@ -19,6 +19,7 @@ import { DataGridBComponent } from './cmp/data-grid/data-grid-b.component';
 
 import { DataGridBMgtComponent } from './cmp/data-grid/data-grid-bmgt.component';
 import { RecordTypeSelectComponent } from './cmp/data-grid/record-type-select.component';
+import { ReportViewerComponent } from './cmp/report-viewer/report-viewer.component';
 
 
 import { DataGridColMgtComponent } from './cmp/data-grid/data-grid-col-mgt.component';
@@ -66,6 +67,7 @@ const declare = [
   ProgressMaskComponent,
   ToolbarComponent,
   ToolbarButtonComponent,
+  ReportViewerComponent,
 
   AttachmentsComponent,
   ReferenceDetailsComponent,

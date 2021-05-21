@@ -238,15 +238,7 @@ export class AppDataset extends DatasetBase {
   }
 
   public get isDeployed(): boolean {
-    return (
-      location.hostname != 'localhost' ||
-      appConfig.default.general.url_use_deploy
-    );
-  }
-
-  public get reportList(): any {
-    // return "terence!"
-    return appConfig.default.report_list
+    return location.hostname != 'localhost' || appConfig.default.general.url_use_deploy;
   }
 
   private _debugTrace: Array<string> = [];
@@ -417,6 +409,7 @@ export class AppDataset extends DatasetBase {
 
   UnlockRecord(tableCode: string, recordId: number): void { }
 
+
   Logout() {
     this.userInfo.name = 'Visitor';
     this.userInfo.id = '';
@@ -441,6 +434,18 @@ export class AppDataset extends DatasetBase {
     }
     return this._menuList;
   }
+
+
+  private _ReportList: Array<any> = null;
+  public get ReportList(): Array<any> {
+    if (!this._ReportList) {
+      this._ReportList = appConfig.default.Report_Data.List;
+    }
+    return this._ReportList;
+  }
+
+
+
   public treeInitLocationPattern = this.isDeployed
     ? appConfig.default.tree_init_config.tree_location_filter_pattern_deploy
     : appConfig.default.tree_init_config.tree_location_filter_pattern;
@@ -451,11 +456,9 @@ export class AppDataset extends DatasetBase {
 
   public childExtractLevels(parentTreeLocation?: string): string {
     if (parentTreeLocation == undefined)
-      parentTreeLocation =
-        appConfig.default.tree_init_config.tree_root_location;
+      parentTreeLocation = appConfig.default.tree_init_config.tree_root_location;
 
-    const childLevels =
-      appConfig.default.tree_init_config.tree_child_extract_levels;
+    const childLevels = appConfig.default.tree_init_config.tree_child_extract_levels;
 
     let ret: string = '';
     for (let idx = 1; idx <= childLevels; idx++) {
@@ -751,7 +754,7 @@ export class AppDataset extends DatasetBase {
     return item[displayField];
   }
 
-  public RequestLookup(args: any) { }
+  public RequestLookup(args: any) {}
 
   public SetLookupData(
     args: Array<{
@@ -800,8 +803,7 @@ export class AppDataset extends DatasetBase {
         // process only if table code is defined and if table code is 'lkp' a filter value must be supplied
         filterField =
           filterField != undefined && filterValue != undefined
-            ? `{${filterField}|${filterValue}}${tableCode == 'lkp' ? '^{LKP_DESC_B|neq|null}' : ''
-            }`
+            ? `{${filterField}|${filterValue}}${tableCode=='lkp' ? '^{LKP_DESC_B|neq|null}' : ''}`
             : undefined;
 
         reqParams.push({
@@ -913,8 +915,8 @@ export class AppDataset extends DatasetBase {
     const formattedSearch = withWild
       ? searchText
       : withExact
-        ? searchText.substring(1)
-        : `%${searchText}%`;
+      ? searchText.substring(1)
+      : `%${searchText}%`;
 
     // const filter = `{TRE_DAT_TYPE|${this.currentTreeId}}^({NODE_ID|${
     //   withExact ? 'eq' : 'lk'
@@ -922,9 +924,11 @@ export class AppDataset extends DatasetBase {
     //   withExact ? 'eq' : 'lk'
     // }|"${formattedSearch}"})`;
 
-    const filter = `{TRE_DAT_TYPE|${this.currentTreeId}}^({NODE_ID|${withExact ? 'eq' : 'lk'
-      }|"${formattedSearch}"}|{NODE_DESC|${withExact ? 'eq' : 'lk'
-      }|"${formattedSearch}"})`;
+    const filter = `{TRE_DAT_TYPE|${this.currentTreeId}}^({NODE_ID|${
+      withExact ? 'eq' : 'lk'
+    }|"${formattedSearch}"}|{NODE_DESC|${
+      withExact ? 'eq' : 'lk'
+    }|"${formattedSearch}"})`;
 
     this.Get(
       [

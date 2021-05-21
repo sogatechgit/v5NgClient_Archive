@@ -65,6 +65,11 @@
         <app-app-input-a [fieldName]="'RF_UPDDATE'" readOnly="true" [label]="'Upload date'"></app-app-input-a>
       </app-panel-a>
 
+      <div style="height: 90%;">
+        <app-attachment-preview
+        [style.min-width.px]="width" [style.max-width.px]="width" [url]="" [rootUrl]="null">
+        </app-attachment-preview>
+    </div>
     </app-panel-a>
   </ng-template>
 </app-app-form-a>

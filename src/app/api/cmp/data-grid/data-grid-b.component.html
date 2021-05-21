@@ -1,7 +1,7 @@
 <div #GRID_WRAPPER id="main_wrapper" class="container-fluid p-0 m-0">
 
   <!--toolbar start -->
-  <div class="toolbar" *ngIf="!noToolbar" [style.font-size.em]="fontFactor" style="background:red;">
+  <div class="toolbar" *ngIf="!noToolbar" [style.font-size.em]="fontFactor">
 
     <!--Neo 20210413-->
     <app-toolbar-button (buttonClick)="CampEvtClick($event)" [rights]="GetRights('allowCampEvt')"
@@ -28,6 +28,19 @@
       tooltip="Extract table to excel format file" icon="far fa-file-excel text-success"
       [inProgress]="isLoadingRecords  || (reqInfo ? (reqInfo.totalRecords ? reqInfo.totalRecords == 0 : true) :true)">
       {{labelExcel}}</app-toolbar-button>
+
+      <app-toolbar-button (buttonClick)="ReportClicked($event)" [rights]="GetRights('allowReport')" [withDropdown]="true" 
+      icon="fa fa-print text-info" tooltip="Report" [inProgress]="isLoadingRecords"
+       iconRight="fas fa-caret-right px-1"
+      [rightIconMenuTrigger]="menu"
+      >
+       {{labelReport}} 
+      
+       <!-- (toggleDropDownState)="C" -->
+       <!-- [matMenuTriggerFor]="menu" -->
+       <!-- <i class="fas fa-caret-right text-grey px-1" aria-hidden="true" [matMenuTriggerFor]="menu"
+                  style="cursor:pointer;"></i> -->
+    </app-toolbar-button>
 
     <app-toolbar-button (buttonClick)="OpenPreview($event)" [rights]="GetRights('allowOpen')"
       icon="fa fa-external-link-alt text-sccess" [inProgress]="isLoadingRecords || SelectedCount!=1">{{labelOpen}}
@@ -71,6 +84,11 @@
   <div style="height:5px;" *ngIf="noToolbar">&nbsp;</div>
 
   <div id="form-wrapper" class="d-flex flex-column" style="flex:1 1 0;">
+
+    <div *ngIf="_ReportMode">
+      <app-report-viewer #reportViewer [Reload]="QryStr"></app-report-viewer>
+    </div> 
+    
     <div #GRID_CONTAINER id="grid_container">
       <app-progress-mask #mask *ngIf="isLoadingRecords" [message]="maskMessage"></app-progress-mask>
 
@@ -86,7 +104,7 @@
         </app-data-grid>
       </div>
     </div>
-    <div id="details_container">
+    <div id="details_container" *ngIf="!_ReportMode">
 
 
       <ng-content></ng-content>
@@ -95,3 +113,9 @@
   <app-filter-list #filterList *ngIf="btnFilter ? btnFilter.dropDownState : false" [style.top.px]="popTop"
     [style.left.px]="popLeft"></app-filter-list>
 </div>
+
+<mat-menu #menu="matMenu" class="customize">
+  <button (click)="reportSelected(rpt)" mat-menu-item
+    *ngFor="let rpt of Reportpermodule"><span>{{rpt.rpttitle}}</span></button>
+
+</mat-menu>

@@ -81,6 +81,7 @@ export class DataGridComponent implements OnInit, AfterViewInit, OnDestroy {
   private mouseTimeout: any;
   @HostListener('window:mouseup', ['$event'])
   onMouseUp(event: MouseEvent) {
+    console.log('\nMouse Up!');
     this.ApplyColumnSize();
     this.ResetHover(event);
   }
@@ -228,6 +229,8 @@ export class DataGridComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('wrapper') wrapper: ElementRef;
   @ViewChild('footer') footer: ElementRef;
 
+  @ViewChild('pageSizeSelect') pageSizeSelect: ElementRef;
+
   @ViewChild('gridViewPort') gridViewPort: CdkVirtualScrollViewport;
   @ViewChild('gridViewPort') gridViewPortElem: any;
   @ViewChild('gridHeader') gridHeaderObj: any;
@@ -266,6 +269,11 @@ export class DataGridComponent implements OnInit, AfterViewInit, OnDestroy {
       this._fbound = this.footer.nativeElement.getBoundingClientRect();
     }
     return this._fbound ? this._fbound : { x: 0, y: 0, height: 0, width: 0 };
+  }
+
+  get currentPageSize():number{
+    if(!this.pageSizeSelect) return -1;
+    return this.pageSizeSelect.nativeElement.value;
   }
 
   ngAfterViewInit() {

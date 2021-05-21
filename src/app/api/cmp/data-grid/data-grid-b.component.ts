@@ -65,6 +65,8 @@ import { ReturnStatement } from '@angular/compiler';
 export class DataGridBComponent
   implements OnInit, AfterViewInit, OnDestroy, AfterViewChecked {
   //
+  @Input() reportPageSize: number = 50;
+
   @Input() pageSizes: Array<number> = [200, 500, 1000, 1500, 2000, 3000];
   @Input() promptTexts: any = {};
   @Input() promptWidths: any = {};
@@ -147,7 +149,7 @@ export class DataGridBComponent
       opt.BaseFilterDefineOff();
     }
 
-    console.log("this.autoGrid || this.customGrid : ", this.autoGrid, " ### ")
+    console.log("this.autoGrid || this.customGrid : ", this.autoGrid ," ### ")
 
     if (this.autoGrid || this.customGrid) {
       // perform data grid columns definition using the
@@ -218,7 +220,7 @@ export class DataGridBComponent
 
   @Input() gridManagementData: any = {};
 
-  @Input() CampEvtSelectorGrid: any = {};//Neo 20210413
+  @Input() CampEvtSelectorGrid: any ={};//Neo 20210413
   @Input() labelCampEvt: string = 'Campaign/Event Selector';//Neo 20210413
   @Input() labelAdd: string = 'Add';
   @Input() labelEdit: string = 'Edit';
@@ -229,6 +231,7 @@ export class DataGridBComponent
   @Input() labelRefresh: string = 'Refresh';
   @Input() labelFilter: string = 'Filter';
   @Input() labelOpen: string = 'Open';
+  @Input() labelReport: string = 'Report';
 
   @Input() labelSelect: string = 'Select';
   @Input() labelSelectAll: string = 'Select All';
@@ -390,7 +393,7 @@ export class DataGridBComponent
   @Input() filterListener: Function = null;
 
   @Input() fontFactor: number = 1;
-  @Output() campEvtClick: EventEmitter<any> = new EventEmitter();
+  @Output() campEvtClick: EventEmitter<any>= new EventEmitter();
   @Output() manageClick: EventEmitter<any> = new EventEmitter();
   @Output() addClick: EventEmitter<any> = new EventEmitter();
   @Output() editClick: EventEmitter<any> = new EventEmitter();
@@ -807,14 +810,8 @@ export class DataGridBComponent
   @Input() ExcludedIds: Array<number> = [];
   @Input() IncludedIds: Array<number>;
   @Input() set SelectedIds(value: Array<number>) {
-    setTimeout(() => {
-      if (!this.grid) {
-        return;
-      } else {
-      }
-      this.grid.SelectedIds = value;
-    })
-
+    if (!this.grid) return;
+    this.grid.SelectedIds = value;
   }
 
   public get RecordCount(): number {
@@ -1217,7 +1214,7 @@ export class DataGridBComponent
 
 
   //Neo 20210413
-  CampEvtClick(e: any) {
+  CampEvtClick(e: any){
     this.campEvtClick.emit({ e: e, sender: this });
   }
 
@@ -1350,6 +1347,8 @@ export class DataGridBComponent
     }
 
     if (!saveOnly) this.RefreshClick(null);
+
+    if (this._ReportMode) this.reportSelected(this.ReportDetails)
   }
 
   SetGridColumnDef(gridColumn: string) {
@@ -2093,6 +2092,7 @@ export class DataGridBComponent
     console.log('\nOnTreeNodeChanged ...');
     this.ExtractDataCall();
     // setTimeout(()=>{this.ExtractDataCall(),1000});
+    if (this._ReportMode) this.reportSelected(this.ReportDetails)
   }
 
   OnParentKeyValueChanged() {
@@ -2737,12 +2737,12 @@ export class DataGridBComponent
   get isNoGrid(): boolean {
     return !this.grid ? true : false;
   }
-
+  
   private _SelectMode: boolean = false;
-  @Input() set SelectMode(value: boolean) {
+  @Input() set SelectMode(value:boolean){
     this._SelectMode = value;
   }
-  get SelectMode(): boolean {
+  get SelectMode():boolean{
     return this._SelectMode
   }
 
@@ -2853,6 +2853,79 @@ export class DataGridBComponent
       }
     });
   }
+  //report
+
+
+  public _ReportMode: boolean = false;
+  @Input() set ReportMode(value: boolean) {
+    if (value) {
+      this._ReportMode = value;
+      this.rights = { allowSelect: false };
+    }
+  }
+
+
+
+  private _Reportpermodule: Array<any> = null;
+  public get Reportpermodule(): {} {
+    if (this._Reportpermodule == null) {
+      let tmpList: Array<any> = [];
+      this.dataSet.ReportList.forEach((o) => {
+        if (o.rpttype == this.tableCode) {
+
+          tmpList.push(o);
+        }
+      });
+      this._Reportpermodule = tmpList;
+    } else {
+    }
+    return this._Reportpermodule;
+  }
+
+  public QryStr: string = ''
+  private prevGridPageSize: number;
+  public ReportDetails : any;
+  reportSelected(op: any) {
+    this._ReportMode = true;
+    this.ReportDetails = op;
+    this.labelReport = "Hide Report"
+    this.prevGridPageSize = this.grid.currentPageSize;
+    this.activeFiltering = true;
+    //currentPageSize
+    console.log("->>>>>> prevGridPageSize: ", this.prevGridPageSize);
+    this.PageSizeChange({ pageSize: this.reportPageSize });
+
+
+    // this.QryStr = "http://imsareport.ivideolib.com/report_handler.ashx?" + 
+    // "report_name=" + op.rptcode + "&" +
+    //  "where_clause=" + this.grid.sourceTable.keyName + " IN(" + this.rrowIds + ")&" +
+    //  "asset_description=" + op.assetdesc + "&" +
+    //  "hierarchy=" + op.hierarchy + "&" +
+    //  "asset_id=" + op.assetid
+
+    this.QryStr = "http://imsareport.ivideolib.com/report_handler.ashx?" +
+      "report_name=" + op.rptcode + "&" +
+      "asset_description=" + this.CurrentTreeNode.text + "&" +
+      "hierarchy=" + 1 + "&" +
+      (op.rptcode == "AN_07" || op.rptcode == "AN_08" || op.rptcode == "AN_14" || op.rptcode == "AN_10" ?
+        "asset_id=-1" :
+        (op.rptcode == "AN_04" ? 'asset_id=' + this.CurrentTreeNode.did : "where_clause=" + this.grid.sourceTable.keyName + " IN(" + this.rowIds + ")&asset_id=" + this.CurrentTreeNode.did))
+
+
+  }
+
+  ReportClicked(e: any) {
+    if (this._ReportMode){
+      this._ReportMode = false;
+      this.labelReport = "Report"
+      this.activeFiltering = false;
+      this.PageSizeChange({ pageSize: this.prevGridPageSize ? this.prevGridPageSize : this.DEFAULT_PAGE_SIZE })
+      console.log('\npasok  ', this._ReportMode, " this.prevGridPageSize : ", this.prevGridPageSize);
+    }
+  }
+
+
+  //end report
 
   private _popTop: number = 0;
   get popTop(): number {
