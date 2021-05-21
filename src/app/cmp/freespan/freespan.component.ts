@@ -380,24 +380,10 @@ export class FreespanComponent extends FormCommon implements OnInit, AfterViewIn
 
     const subsSelect = this.OpenSurveySelect().subscribe(
       (data) => {
-        console.log('ChooseSurveys: ', data);
-        // if (data.value == 'accept' || data.value == 'ok') {
-        //   const compData = data.sender.data.component.data;
-        //   //compData.form.value.recordType
-        //   const recordType = compData.form.value.recordType;
-        //   const rti = this.RecordTypeInfo;
-        //   const defVal: any = {};
-        //   if (rti.recordTypeOptions) {
-        //     defVal[rti.recordTypeField] = recordType;
-        //     if (rti.recordTypeGroupField) {
-        //       const opt = rti.recordTypeOptions.find(
-        //         (o) => o.key == recordType
-        //       );
-        //       if (opt) defVal[rti.recordTypeGroupField] = opt.group;
-        //     }
-        //   }
-        //   this.OpenAddRecord({ e: e, data: data, defaultValues: defVal });
-        // }
+        const { sender, button } = data;
+        if(button.value == 'accept'){
+          console.log('SelectedSurveys: ', sender.ChildComponent.surveyIds, "\nButton: ", button);
+        }
       },
       (err) => {
         console.log('\nOpenRecordTypeSelect, Error ', err);
@@ -440,7 +426,8 @@ export class FreespanComponent extends FormCommon implements OnInit, AfterViewIn
           // params of popup component
           component: SurveySelectComponent,
           data: {
-            hostObject: this,
+            hostObject: this
+
             // defaultValue: this.RecordTypeSelectDefault,
             // form: new FormGroup({}),
             // tableConfig: tbl.TableConfig,
@@ -449,13 +436,17 @@ export class FreespanComponent extends FormCommon implements OnInit, AfterViewIn
           },
         },
         title: 'Select survey(s) to plot',
-        // buttons: this.dataSet.btnCancelAccept,
+        buttons: this.ds.btnCancelAccept,
         icon: 'fa fa-check',
-        // buttonClick: this.RecordTypeSelectButtonClick,
+        buttonClick: this.SurveySelectButtonClick,
       },
     });
 
     return ref.afterClosed();
+  }
+
+  SurveySelectButtonClick(args: any) {
+    args.sender.dialogRef.close(args);
   }
 
 

@@ -147,7 +147,7 @@ export class DataGridBComponent
       opt.BaseFilterDefineOff();
     }
 
-    console.log("this.autoGrid || this.customGrid : ", this.autoGrid ," ### ")
+    console.log("this.autoGrid || this.customGrid : ", this.autoGrid, " ### ")
 
     if (this.autoGrid || this.customGrid) {
       // perform data grid columns definition using the
@@ -218,7 +218,7 @@ export class DataGridBComponent
 
   @Input() gridManagementData: any = {};
 
-  @Input() CampEvtSelectorGrid: any ={};//Neo 20210413
+  @Input() CampEvtSelectorGrid: any = {};//Neo 20210413
   @Input() labelCampEvt: string = 'Campaign/Event Selector';//Neo 20210413
   @Input() labelAdd: string = 'Add';
   @Input() labelEdit: string = 'Edit';
@@ -390,7 +390,7 @@ export class DataGridBComponent
   @Input() filterListener: Function = null;
 
   @Input() fontFactor: number = 1;
-  @Output() campEvtClick: EventEmitter<any>= new EventEmitter();
+  @Output() campEvtClick: EventEmitter<any> = new EventEmitter();
   @Output() manageClick: EventEmitter<any> = new EventEmitter();
   @Output() addClick: EventEmitter<any> = new EventEmitter();
   @Output() editClick: EventEmitter<any> = new EventEmitter();
@@ -807,8 +807,14 @@ export class DataGridBComponent
   @Input() ExcludedIds: Array<number> = [];
   @Input() IncludedIds: Array<number>;
   @Input() set SelectedIds(value: Array<number>) {
-    if (!this.grid) return;
-    this.grid.SelectedIds = value;
+    setTimeout(() => {
+      if (!this.grid) {
+        return;
+      } else {
+      }
+      this.grid.SelectedIds = value;
+    })
+
   }
 
   public get RecordCount(): number {
@@ -1211,7 +1217,7 @@ export class DataGridBComponent
 
 
   //Neo 20210413
-  CampEvtClick(e: any){
+  CampEvtClick(e: any) {
     this.campEvtClick.emit({ e: e, sender: this });
   }
 
@@ -2731,12 +2737,12 @@ export class DataGridBComponent
   get isNoGrid(): boolean {
     return !this.grid ? true : false;
   }
-  
+
   private _SelectMode: boolean = false;
-  @Input() set SelectMode(value:boolean){
+  @Input() set SelectMode(value: boolean) {
     this._SelectMode = value;
   }
-  get SelectMode():boolean{
+  get SelectMode(): boolean {
     return this._SelectMode
   }
 

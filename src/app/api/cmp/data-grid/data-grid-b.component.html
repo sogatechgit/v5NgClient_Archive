@@ -1,7 +1,7 @@
 <div #GRID_WRAPPER id="main_wrapper" class="container-fluid p-0 m-0">
 
   <!--toolbar start -->
-  <div class="toolbar" *ngIf="!noToolbar" [style.font-size.em]="fontFactor">
+  <div class="toolbar" *ngIf="!noToolbar" [style.font-size.em]="fontFactor" style="background:red;">
 
     <!--Neo 20210413-->
     <app-toolbar-button (buttonClick)="CampEvtClick($event)" [rights]="GetRights('allowCampEvt')"
