@@ -1,5 +1,5 @@
 /***********************************************************************
-* Automatically generated on 5/20/2021 9:12:02 AM
+* Automatically generated on 5/21/2021 8:45:48 AM
 ***********************************************************************/
 
 import { AppCommonMethodsService } from '../api/svc/app-common-methods.service';
@@ -846,6 +846,144 @@ export class TblAnomalyTypesRow extends TableRowBase{
 
   // Returs the table object where the row is a member of.
   public get Table():TblAnomalyTypes{ return super._Table(); }
+
+
+}
+
+
+
+
+export class TblCompliance extends TableBase {
+
+  public rows:Array<TblComplianceRow> = [];
+
+  public tableFieldPrefix="CA_";
+	private _tableLinks:Array<string> = [];
+	private _links:Array<any> = [];
+	public clientConfig:any = {
+  "roles": "",
+  "keyField": "CA_ID",
+  "assetField": "CA_REC_TAG",
+  "deletedFlagField": "CA_DELETED",
+  "deletedDateStamp": "CA_DELETED_DATE",
+  "deletedByStamp": "CA_DELETED_BY",
+  "updatedDateStamp": "CA_UPD_DATE",
+  "updatedByStamp": "CA_UPD_BY",
+  "gridColumns": [
+    "CA_REC_TAG|cap=Asset;mnw=150",
+    "CA_SCE|cap=SCE;wd=60;center",
+    "CA_TASK_REF|cap=Task Reference;wd=90",
+    "CA_TASK_DESC|cap=Task Description;wd=120",
+    "CA_TASK_FREQ|cap=Task Frequency;wd=90;center",
+    "CA_TASK_TYPE|cap=Task Type;wd=70;center",
+    "CA_LAST_DATE|cap=Last Date;wd=80",
+    "CA_HRS_NEEDED|cap=Hours Needed;wd=80;center",
+    "CA_LAST_DATE|cap=Last Date;wd=90",
+    "CA_TARGET_DATE|cap=Target Date;wd=90",
+    "CA_NEXT_TARGET_DATE|cap=Next to Target Date;wd=90",
+    "CA_LAFD|cap=LAPD;wd=70"
+  ]
+};
+
+  constructor(public http:HttpClient,public apiUrl:string, public tables:Array<any>, public apiCommon:AppCommonMethodsService) {
+    super(http, apiUrl,tables,apiCommon);
+
+    this.derivedTable = this;
+
+    this.tableCode="ca";
+
+	this.columns.push(new ColumnInfo('CA_ID', 'number', 'ID', '', '', 0, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_REC_TAG', 'number', 'Asset', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_TASK_FREQ', 'number', 'Task Frequency', '', '@lookupgroup=254;@map=CTF', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_TASK_TYPE', 'number', 'Task Type', '', '@lookupgroup=252;@map=CTT', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_DEV_NEEDED', 'number', 'Deviation Needed', '', '@lookupswitch=YN-', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_SCE', 'number', 'SCE', '', '@lookupswitch=YN-', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_TASK_REF', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_TASK_DESC', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
+	this.columns.push(new ColumnInfo('CA_HRS_NEEDED', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_FREQ_JUST', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
+	this.columns.push(new ColumnInfo('CA_NEXT_TARGET_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_LAST_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_TARGET_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_DEV_INITIATOR', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_DEV_APPROVER', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_RSK_ASS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
+	this.columns.push(new ColumnInfo('CA_DEV_MIT', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
+	this.columns.push(new ColumnInfo('CA_LAFD', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_LAFD_DEV_1', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_LAFD_DEV_2', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_LAFD_DEV_NEEDED', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_LAFD_DEV_INITIATOR', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_LAFD_RSK_ASS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
+	this.columns.push(new ColumnInfo('CA_LAFD_MIT', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, true, this));
+	this.columns.push(new ColumnInfo('CA_LAFD_DEV_APPROVER', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_UPD_BY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_UPD_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_STATUS', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_DELETED', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_DELETED_BY', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('CA_DELETED_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+
+    this.InitializeTable();
+
+  }
+
+  Add(row?:TblComplianceRow):TblComplianceRow
+  {
+    return super.Add(row);
+  }
+
+  NewRow():TblComplianceRow{return new TblComplianceRow();}
+  GetRows():Array<TblComplianceRow>{return this.rows;}
+  public set currentRow(value:TblComplianceRow){super.__currentRow(value);}
+  public get currentRow():TblComplianceRow{return super.__currentRow();}
+  public TableLinks():Array<string>{return this._tableLinks;}
+  public Links():Array<any>{return this._links;}
+  public get dirtyRows():Array<TblComplianceRow>{return super.__dirtyRows();}
+  public get newRows():Array<TblComplianceRow>{return super.__newRows();}
+
+
+}
+
+export class TblComplianceRow extends TableRowBase{
+	constructor(
+		public CA_ID?:number, 
+		public CA_REC_TAG?:number, 
+		public CA_TASK_FREQ?:number, 
+		public CA_TASK_TYPE?:number, 
+		public CA_DEV_NEEDED?:number, 
+		public CA_SCE?:number, 
+		public CA_TASK_REF?:string, 
+		public CA_TASK_DESC?:string, 
+		public CA_HRS_NEEDED?:number, 
+		public CA_FREQ_JUST?:string, 
+		public CA_NEXT_TARGET_DATE?:Date, 
+		public CA_LAST_DATE?:Date, 
+		public CA_TARGET_DATE?:Date, 
+		public CA_DEV_INITIATOR?:string, 
+		public CA_DEV_APPROVER?:string, 
+		public CA_RSK_ASS?:string, 
+		public CA_DEV_MIT?:string, 
+		public CA_LAFD?:Date, 
+		public CA_LAFD_DEV_1?:Date, 
+		public CA_LAFD_DEV_2?:Date, 
+		public CA_LAFD_DEV_NEEDED?:number, 
+		public CA_LAFD_DEV_INITIATOR?:string, 
+		public CA_LAFD_RSK_ASS?:string, 
+		public CA_LAFD_MIT?:string, 
+		public CA_LAFD_DEV_APPROVER?:string, 
+		public CA_UPD_BY?:string, 
+		public CA_UPD_DATE?:Date, 
+		public CA_STATUS?:number, 
+		public CA_DELETED?:number, 
+		public CA_DELETED_BY?:string, 
+		public CA_DELETED_DATE?:Date){
+    super();
+
+  }
+
+  // Returs the table object where the row is a member of.
+  public get Table():TblCompliance{ return super._Table(); }
 
 
 }
@@ -4100,6 +4238,72 @@ export class TblUsersRow extends TableRowBase{
 
   // Returs the table object where the row is a member of.
   public get Table():TblUsers{ return super._Table(); }
+
+
+}
+
+
+
+
+export class QrySpansCampaign extends TableBase {
+
+  public rows:Array<QrySpansCampaignRow> = [];
+
+  public tableFieldPrefix="SCP_";
+	private _tableLinks:Array<string> = [];
+	private _links:Array<any> = [];
+	public clientConfig:any = {
+  "roles": "",
+  "keyField": "SCP_ID",
+  "gridColumns": [
+    "SCP_TITLE|cap=Campaign",
+    "SCP_PERIOD|cap=Period;center;wd=200"
+  ]
+};
+
+  constructor(public http:HttpClient,public apiUrl:string, public tables:Array<any>, public apiCommon:AppCommonMethodsService) {
+    super(http, apiUrl,tables,apiCommon);
+
+    this.derivedTable = this;
+
+    this.tableCode="vwcspan";
+
+	this.columns.push(new ColumnInfo('SCP_ID', 'number', '', '', '', 0, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SCP_TITLE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SCP_PERIOD', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+
+    this.InitializeTable();
+
+  }
+
+  Add(row?:QrySpansCampaignRow):QrySpansCampaignRow
+  {
+    return super.Add(row);
+  }
+
+  NewRow():QrySpansCampaignRow{return new QrySpansCampaignRow();}
+  GetRows():Array<QrySpansCampaignRow>{return this.rows;}
+  public set currentRow(value:QrySpansCampaignRow){super.__currentRow(value);}
+  public get currentRow():QrySpansCampaignRow{return super.__currentRow();}
+  public TableLinks():Array<string>{return this._tableLinks;}
+  public Links():Array<any>{return this._links;}
+  public get dirtyRows():Array<QrySpansCampaignRow>{return super.__dirtyRows();}
+  public get newRows():Array<QrySpansCampaignRow>{return super.__newRows();}
+
+
+}
+
+export class QrySpansCampaignRow extends TableRowBase{
+	constructor(
+		public SCP_ID?:number, 
+		public SCP_TITLE?:string, 
+		public SCP_PERIOD?:string){
+    super();
+
+  }
+
+  // Returs the table object where the row is a member of.
+  public get Table():QrySpansCampaign{ return super._Table(); }
 
 
 }

@@ -23,6 +23,8 @@ import { DesDatModule } from './des-dat/des-dat.module';
 import { ChemDbModule } from './chem-db/chem-db.module';
 import { SvyDatModule } from './svy-dat/svy-dat.module';
 
+import { ComplianceModule } from './compliance/compliance.module';
+
 import { ReferenceModule } from './reference/reference.module';
 
 
@@ -41,6 +43,7 @@ const both = [
   AnomaliesModule,
   DesDatModule,
   SvyDatModule,
+  ComplianceModule,
 
   AssetManagementModule,
   ChemDbModule,

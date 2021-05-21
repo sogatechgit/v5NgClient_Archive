@@ -132,7 +132,15 @@
           "label": "Seismic",
           "active": false,
           "loaded": false
+        },
+        {
+          "id": 9,
+          "label": "Compliance",
+          "ready": true,
+          "active": false,
+          "loaded": false
         }
+
       ]
     },
     {

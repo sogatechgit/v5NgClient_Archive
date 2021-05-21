@@ -32,6 +32,7 @@ import { TblAnomalies, TblAnomaliesRow } from './app.tables';
 import { TblAnomaliesArchive, TblAnomaliesArchiveRow } from './app.tables';
 import { TblAnomaliesSub, TblAnomaliesSubRow } from './app.tables';
 import { TblAnomalyTypes, TblAnomalyTypesRow } from './app.tables';
+import { TblCompliance, TblComplianceRow } from './app.tables';
 import { TblChangeTracker, TblChangeTrackerRow } from './app.tables';
 import { TblChemDBBAC, TblChemDBBACRow } from './app.tables';
 import { TblChemDBcorr, TblChemDBcorrRow } from './app.tables';
@@ -66,6 +67,7 @@ import { TblSurveyHeader, TblSurveyHeaderRow } from './app.tables';
 import { TblSurveyPosition, TblSurveyPositionRow } from './app.tables';
 import { TblTreeStruc, TblTreeStrucRow } from './app.tables';
 import { TblUsers, TblUsersRow } from './app.tables';
+import { QrySpansCampaign, QrySpansCampaignRow } from './app.tables';
 import { QrySpansHeader, QrySpansHeaderRow } from './app.tables';
 import { QryRefLinks, QryRefLinksRow } from './app.tables';
 //</INCLUDES>
@@ -121,6 +123,7 @@ export class AppDataset extends DatasetBase {
     //<RELATIONS>
     this.tblAnomalies.tableRelations.push(new Relation("lkp", "lkp", this.tblAnomalies, this.tblLookups, "AN_STATUS", "LKP_ID", false));
     this.tblAnomalies.tableRelations.push(new Relation("node", "lkp", this.tblAnomalies, this.tblNodesAttrib, "AN_ASSET_ID", "REC_TAG", false));
+    this.tblCompliance.tableRelations.push(new Relation("node", "lkp", this.tblCompliance, this.tblNodesAttrib, "CA_REC_TAG", "REC_TAG", false));
     this.tblChemDBHeader.tableRelations.push(new Relation("lkp", "lkp", this.tblChemDBHeader, this.tblLookups, "AN_STATUS", "LKP_ID", false));
     this.tblChemDBHeader.tableRelations.push(new Relation("node", "lkp", this.tblChemDBHeader, this.tblNodesAttrib, "AN_ASSET_ID", "REC_TAG", false));
     this.tblDesignData.tableRelations.push(new Relation("node", "lkp", this.tblDesignData, this.tblNodesAttrib, "DD_ASSET", "REC_TAG", false));
@@ -166,6 +169,7 @@ export class AppDataset extends DatasetBase {
   public tblAnomaliesArchive:TblAnomaliesArchive = this.AddTable(new TblAnomaliesArchive(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblAnomaliesSub:TblAnomaliesSub = this.AddTable(new TblAnomaliesSub(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblAnomalyTypes:TblAnomalyTypes = this.AddTable(new TblAnomalyTypes(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblCompliance:TblCompliance = this.AddTable(new TblCompliance(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblChangeTracker:TblChangeTracker = this.AddTable(new TblChangeTracker(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblChemDBBAC:TblChemDBBAC = this.AddTable(new TblChemDBBAC(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblChemDBcorr:TblChemDBcorr = this.AddTable(new TblChemDBcorr(this.http, this.apiUrl, this.tables, this.apiCommon));
@@ -200,6 +204,7 @@ export class AppDataset extends DatasetBase {
   public tblSurveyPosition:TblSurveyPosition = this.AddTable(new TblSurveyPosition(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblTreeStruc:TblTreeStruc = this.AddTable(new TblTreeStruc(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblUsers:TblUsers = this.AddTable(new TblUsers(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public qrySpansCampaign:QrySpansCampaign = this.AddTable(new QrySpansCampaign(this.http, this.apiUrl, this.tables, this.apiCommon));
   public qrySpansHeader:QrySpansHeader = this.AddTable(new QrySpansHeader(this.http, this.apiUrl, this.tables, this.apiCommon));
   public qryRefLinks:QryRefLinks = this.AddTable(new QryRefLinks(this.http, this.apiUrl, this.tables, this.apiCommon));
 //</INSTANTIATE>

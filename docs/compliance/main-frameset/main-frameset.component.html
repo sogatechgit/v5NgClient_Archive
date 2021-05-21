@@ -45,11 +45,11 @@
     </div>
   </div>
   <div class="hor_sep1">&nbsp;</div>
-  <div class="card-body p-0 bg-light" *ngIf="!isAuthenticated">
+  <div class="card-body p-0 bg-light" *ngIf="false">
     <app-login [data]="{DataSet:ds,parent:this}"></app-login>
   </div>
 
-  <div id="body" *ngIf="isAuthenticated">
+  <div id="body" *ngIf="true">
     <div id="sidenav" [style.min-width.px]="navWidth" [style.max-width.px]="navWidth">
 
       <app-tree-view *ngIf="true" #mainTree [treeData]="ds.mainTreeData" [colorDefinitions]="ds.colorDefinitions"
@@ -72,35 +72,25 @@
           <!-- <app-anom-action-items [style.visibility]="t.V(2)" *ngIf="isLoaded(2)" [parentKeyValue]="3332"
             style="position: relative;"></app-anom-action-items> -->
 
-          <app-anomalies [style.z-index]="t.Z(1)" [style.visibility]="t.V(1)" *ngIf="isLoaded(1)"
-            [CurrentTreeNode]="CurrentTreeNode">
+          <app-anomalies [style.z-index]="t.Z(1)" [style.visibility]="t.V(1)" *ngIf="isLoaded(1)" [CurrentTreeNode]="CurrentTreeNode">
           </app-anomalies>
 
           <!--owner: neo-->
-          <app-des-dat [style.z-index]="t.Z(2)" [style.visibility]="t.V(2)" *ngIf="isLoaded(2)"
-            [CurrentTreeNode]="CurrentTreeNode">
+          <app-des-dat [style.z-index]="t.Z(2)" [style.visibility]="t.V(2)" *ngIf="isLoaded(2)" [CurrentTreeNode]="CurrentTreeNode">
           </app-des-dat>
-          <app-chem-db [style.z-index]="t.Z(3)" [style.visibility]="t.V(3)" *ngIf="isLoaded(3)"
-            [CurrentTreeNode]="CurrentTreeNode">
+          <app-chem-db [style.z-index]="t.Z(3)" [style.visibility]="t.V(3)" *ngIf="isLoaded(3)" [CurrentTreeNode]="CurrentTreeNode">
           </app-chem-db>
 
-          <app-svy-dat [style.z-index]="t.Z(5)" [style.visibility]="t.V(5)" *ngIf="isLoaded(5)"
-            [CurrentTreeNode]="CurrentTreeNode">
+          <app-svy-dat [style.z-index]="t.Z(5)"  [style.visibility]="t.V(5)" *ngIf="isLoaded(5)" [CurrentTreeNode]="CurrentTreeNode">
           </app-svy-dat>
 
+
           <!--owner: terence-->
-          <app-reference [style.z-index]="t.Z(7)" [style.visibility]="t.V(7)" *ngIf="isLoaded(7)"
-            [CurrentTreeNode]="CurrentTreeNode">
+          <app-reference [style.z-index]="t.Z(7)" [style.visibility]="t.V(7)" *ngIf="isLoaded(7)" [CurrentTreeNode]="CurrentTreeNode">
           </app-reference>
 
-          <!-- owner: angie -->
-          <app-freespan [style.z-index]="t.Z(6)" [style.visibility]="t.V(6)" *ngIf="isLoaded(6)"
-            [CurrentTreeNode]="CurrentTreeNode">
-          </app-freespan>
-
           <!--owner: reinhard-->
-          <app-compliance [style.z-index]="t.Z(9)" [style.visibility]="t.V(9)" *ngIf="isLoaded(9)"
-            [CurrentTreeNode]="CurrentTreeNode">
+          <app-compliance [style.z-index]="t.Z(9)" [style.visibility]="t.V(9)" *ngIf="isLoaded(9)" [CurrentTreeNode]="CurrentTreeNode">
           </app-compliance>
 
 
@@ -122,7 +112,7 @@
 
     <span [matTooltip]="NodePath">Path:&nbsp;</span><span id="node-path"
       [title]="'Path: ' + NodePath">{{NodePath}}</span>
-    <!-- <span *ngIf="ds.serverTime">&nbsp;|&nbsp;Server Time: {{ds.serverTime}}</span> -->
+      <!-- <span *ngIf="ds.serverTime">&nbsp;|&nbsp;Server Time: {{ds.serverTime}}</span> -->
 
   </div>
 
