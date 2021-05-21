@@ -69,4 +69,10 @@ export class SpanPipeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  RemoveCampaign(){
+    const svy  = this.spanComponent.surveys.find(sv=>sv.id == this.surveyId);
+    if(svy)svy.active =false;
+  }
+
 }

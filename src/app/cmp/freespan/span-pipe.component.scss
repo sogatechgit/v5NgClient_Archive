@@ -34,6 +34,16 @@
     display: grid;
     align-items: start;
     padding: 0px;;
+
+    display: flex;
+
+    i#remove{
+        color:$bs_danger;
+        margin-right:0.5em;
+        cursor:pointer;
+        z-index:100;
+        font-size: .7em;
+    }
 }
 
 #lbl_gap,
@@ -75,6 +85,8 @@
     position:relative;
 
     display: flex;
+
+
 }
 
 #span_labels-X{

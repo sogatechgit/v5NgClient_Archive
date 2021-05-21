@@ -366,9 +366,9 @@ export class FreespanComponent extends FormCommon implements OnInit, AfterViewIn
     console.log('Choose survey ...');
 
     //const actsvy = this.surveys.filter(svy => (svy.id == 1 || svy.id == 68))
-    const actsvy = this.surveys.filter(svy => (svy.id == 13 || svy.id == 68))
-    console.log("ActiveSurveys: ", actsvy)
-    actsvy.forEach(svy => svy.active = true);
+    // const actsvy = this.surveys.filter(svy => (svy.id == 13 || svy.id == 68))
+    // console.log("ActiveSurveys: ", actsvy)
+    // actsvy.forEach(svy => svy.active = true);
 
 
 
@@ -381,8 +381,12 @@ export class FreespanComponent extends FormCommon implements OnInit, AfterViewIn
     const subsSelect = this.OpenSurveySelect().subscribe(
       (data) => {
         const { sender, button } = data;
-        if(button.value == 'accept'){
-          console.log('SelectedSurveys: ', sender.ChildComponent.surveyIds, "\nButton: ", button);
+        if (button.value == 'accept') {
+          console.log('SelectedSurveys: ', sender.ChildComponent.surveyIds, this.surveys);
+          this.surveys.forEach(svy => {
+            svy.active = (sender.ChildComponent.surveyIds.indexOf(svy.id) != -1);
+          })
+          this.GetSpansData();
         }
       },
       (err) => {
