@@ -88,7 +88,7 @@ export class SpanBarComponent implements OnInit, AfterViewInit {
   get title(): string {
     const e = this.event;
     if (!e) return '';
-    if (this.isSpan || this.isStrake) return `Start Kp : ${e.SP_KS}\nEnd Kp : ${e.SP_KE}\nLength : ${e.SP_LEN} m\nHeight : ${e.SP_HT} mm\nStart Surface : ${e.SP_STS}\nInter. Surface : ${e.SP_STI}\nEnd Surface : ${e.SP_STE}`;
+    if (this.isSpan || this.isStrake) return `Start Kp : ${e.SP_KS}\nEnd Kp : ${e.SP_KE}\nLength : ${e.SP_LEN} m\nHeight : ${e.SP_HT!=null ? e.SP_HT + ' mm' : '(na)'}\nStart Surface : ${e.SP_STS}\nInter. Surface : ${e.SP_STI}\nEnd Surface : ${e.SP_STE}`;
     if (this.isStabilization || this.isBerm || this.isSeabed) return `Kp : ${e.SP_KS}`
     return ''
   }
@@ -123,7 +123,7 @@ export class SpanBarComponent implements OnInit, AfterViewInit {
 
 
   get spanLabel(): string {
-    return `${this.event.SP_HT}/${this.event.SP_LEN}`
+    return `${this.event.SP_HT ? this.event.SP_HT :'<na>'}/${this.event.SP_LEN}`
   }
 
   get isLeftOverflow(): boolean {
