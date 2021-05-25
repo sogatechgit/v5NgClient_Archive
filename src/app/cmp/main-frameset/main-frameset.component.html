@@ -94,6 +94,11 @@
           </app-reference>
 
           <!-- owner: angie -->
+          <app-seismic [style.z-index]="t.Z(8)" [style.visibility]="t.V(8)" *ngIf="isLoaded(8)"
+            [CurrentTreeNode]="CurrentTreeNode">
+          </app-seismic>          
+
+          <!-- owner: angie -->
           <app-freespan [style.z-index]="t.Z(6)" [style.visibility]="t.V(6)" *ngIf="isLoaded(6)"
             [CurrentTreeNode]="CurrentTreeNode">
           </app-freespan>

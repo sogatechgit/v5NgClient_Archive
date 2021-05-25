@@ -130,7 +130,8 @@
         {
           "id": 8,
           "label": "Seismic",
-          "active": false,
+          "ready": true,
+          "active": true,
           "loaded": false
         },
         {

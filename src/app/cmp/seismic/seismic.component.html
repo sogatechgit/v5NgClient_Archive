@@ -1,2 +1,52 @@
-<app-form-header [title]="moduleTitle"></app-form-header>
-<p>Seismic module is under construction</p>
+<div id="wrapper" #wrapper style="flex: 1 1 0;height:100%;border:1px solid orange;overflow: hidden;">
+    <!-- <img src="./assets/seismic/philippines.svg" alt="" style="width:100%;height:100%;object-fit: scale-down;"> -->
+    <!-- <?xml version="1.0" encoding="UTF-8" standalone="no"?> -->
+
+    <!-- width="702.39001" height="1209.4381" -->
+    <!-- width="597.0315935" height="1028.022385" -->
+    <!-- mapsvg:geoViewBox="116.927573 20.834769 126.606549 4.640292"> -->
+    <!-- viewBox="0 0 702.39001 1209.4381" -->
+    <!-- width="597.0315935" height="1028.022385"  -->
+    <!-- width="351.195005" height="604.71905"  -->
+
+    <svg *ngIf="showMap" xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" id="svg2"
+        [attr.viewBox]="viewBox" [attr.width]="mapWidth" [attr.height]="mapHeight" style="background-color: beige;">
+
+        <ng-container *ngFor="let path of mapContours">
+            <path *ngIf="isPath(path)" [attr.id]="path.id" [attr.title]="path.title" [attr.d]="path.d"
+                [attr.stroke]="path.strokeColor ? path.strokeColor : '#ffc107'"
+                [attr.fill]="path.fillColor ? path.fillColor : '#8C6E0E'"
+                [attr.stroke-width]="path.strokeWidth ? path.strokeWidth : .707" />
+
+            <rect *ngIf="isRect(path)" [attr.x]="path.x" [attr.y]="path.y" [attr.width]="path.width"
+                [attr.height]="path.height" [attr.fill]="path.fillColor ? path.fillColor : 'none'"
+                [attr.stroke]="path.strokeColor ? path.strokeColor : 'black'"
+                [attr.stroke-width]="path.strokeWidth ? path.strokeWidth : 1" stroke-linecap="round"
+                stroke-linejoin="round" stroke-miterlimit="10"></rect>
+
+            <line fill="none" *ngIf="isLine(path)" [attr.stroke]="path.strokeColor ? path.strokeColor : 'black'"
+                [attr.stroke-width]="path.strokeWidth ? path.strokeWidth : 1" [attr.x1]="path.x1" [attr.y1]="path.y1"
+                [attr.x2]="path.x2" [attr.y2]="path.y2" stroke-linecap="round" stroke-linejoin="round"
+                stroke-miterlimit="10" />
+
+            <polyline fill="none" *ngIf="isPoly(path)" [attr.stroke]="path.strokeColor ? path.strokeColor : 'black'"
+                [attr.stroke-width]="path.strokeWidth ? path.strokeWidth : 1" [attr.points]="path.points"
+                stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" />
+        </ng-container>
+
+
+    
+    </svg>
+
+    <svg class="event dotg" style="position: absolute;top:50px;left:50px;z-index:100;" viewbox="0 0 100 100" transform="translate(-6 -6)">
+        <ellipse cx="50" cy="50" rx="45" ry="45" />
+        <path d="M25.5 18.4 L 37 30 L 40.5 26.4 L 47.6 47.6 L 26.4 40.6 L 30 37 L 18.4 25.5z" />
+        <path d="M81.6 25.5 L 70 37 L 73.6 40.6 L 52.4 47.6 L 59.4 26.4 L 63 30 L 74.5 18.4z" />
+        <path d="M18.4 74.5 L 30 63 L 26.4 59.4 L 47.6 52.4 L 40.5 73.6 L 37 70 L 25.5 81.6z" />
+        <path d="M74.5 81.6 L 63 70 L 59.4 73.6 L 52.4 52.4 L 73.6 59.4 L 70 63 L 81.6 74.5z" />
+    </svg>
+
+
+</div>
