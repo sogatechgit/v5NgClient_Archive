@@ -27,6 +27,12 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     })
   }
 
+  public dashWidth:number = 1.2;
+  public markerSize:number = 12;
+  get markerSizeHalf():number{
+    return this.markerSize / 2.0
+  };
+
   private _mapContours: Array<ICountour> = null;
   get mapContours(): Array<ICountour> {
     if (!this._mapContours) return [];
@@ -69,6 +75,8 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     // return this.nativeHeight/2;
   }
 
+
+
   get fullFactor(): number {
     return 1;
   };
@@ -96,6 +104,10 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   get wrapHeight(): number {
     if (!this.wrapper) return 0;
     return this.wrapper.nativeElement.offsetHeight;
+  }
+
+  get debugMessage():string{
+    return `viewBox: ${this.viewBox}, width: ${this.wrapWidth}, height: ${this.wrapHeight}`
   }
 
   InitMap() {

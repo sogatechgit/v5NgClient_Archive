@@ -10,15 +10,17 @@
 .dotg, .dotv, .doty, .sqrr,.sqra, .event
 {
     cursor:pointer;
-    width:100px;
-    height:100px;
-    border: 1px solid red;;
+    // width:100px;
+    // height:100px;
+    // border: 1px solid red;
     // fill:$bs_warning;
     // fill:$bs_success;
-    // position:absolute;
+    position:absolute;
+    // transform:"translate(-6 -6)";
     // top:0px;
     // left:0px;
-    // z-index:88;
+    z-index:88;
+    
 }
 
 .sqrw path,.sqrwl path,.event path{
@@ -40,7 +42,8 @@
         
 .dotg ellipse,.dotv ellipse,.doty ellipse, .dotgl ellipse,.dotvl ellipse,.dotyl ellipse
 {
-    stroke-width:5;
+    // stroke-width:5;
+    stroke-width:1em;
 }
         
 .dotg ellipse,.dotgl ellipse
@@ -58,7 +61,9 @@
 .doty ellipse,.dotyl ellipse
 {
     fill:url(#grad_y);
-    stroke:#ddd500;
+    // stroke:#ddd500;
+    
+    stroke:red;
 }
 
 .levt ellipse
