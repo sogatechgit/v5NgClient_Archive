@@ -112,6 +112,33 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
   InitMap() {
 
+    // console.log("d3",d3)
+
+    return new Promise<void>((resolve, reject) => {
+      ////do your initialisation stuff here
+      const path = './assets/seismic/worldmap.json';
+      const subs = this.http.get(path).subscribe(
+        (result: any) => {
+          console.log('\nSEISMIC SUCCESS RESULT', result);
+
+          // this._mapConfig = result.config;
+          // this._mapContours = result.data;
+
+          resolve();
+          subs.unsubscribe();
+        },
+        (error) => {
+          console.log('\nERROR RESULT', error);
+
+          subs.unsubscribe();
+          reject(error);
+        }
+      );
+    }).catch((err) => {
+      console.log('\nERROR RESULT err', err);
+    });
+
+
     return new Promise<void>((resolve, reject) => {
       ////do your initialisation stuff here
       const path = './assets/seismic/seismicmap.json';
