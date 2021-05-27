@@ -4,6 +4,7 @@
         "nativeHeight": 1209.4381
     },
     "data": [
+        
         {
             "id": "PH-SUR",
             "title": "Surigao del Sur",
@@ -603,11 +604,20 @@
             "strokeWidth":1.2
         },
         {
-            "id": "",
+            "id": "redline",
             "title": "",
             "d": "M156.835,523.88c7.122,4.856,15.346,7.851,23.922,8.711l6.004,0.097l1.163,0.677l11.685-0.341c1.785,0.229,3.572,0.432,5.363,0.61 c2.751,0.015,5.497,0.24,8.214,0.675c1.297,0.208,2.551,0.625,3.714,1.237c1.618,0.852,3.27,1.64,4.951,2.361 c6.38,2.74,11.968,7.04,16.25,12.507h58.577l4.428,4.966h15.397l0.696,0.345h7.652l20.591,13.223 c11.507,8.257,24.176,14.76,37.593,19.295",
+
             "fillColor":"none",
             "strokeColor":"#FF0000",
+            "strokeWidth":1.2
+        },
+        {
+            "id": "redline overlay",
+            "title": "",
+            "d": "M156.835,523.88c7.122,4.856,15.346,7.851,23.922,8.711l6.004,0.097l1.163,0.677l11.685-0.341c1.785,0.229,3.572,0.432,5.363,0.61 c2.751,0.015,5.497,0.24,8.214,0.675c1.297,0.208,2.551,0.625,3.714,1.237c1.618,0.852,3.27,1.64,4.951,2.361 c6.38,2.74,11.968,7.04,16.25,12.507",
+            "fillColor":"none",
+            "strokeColor":"#28a745",
             "strokeWidth":1.2
         },
         {
@@ -663,6 +673,136 @@
             "fillColor":"none",
             "strokeColor":"#312fae",
             "strokeWidth":1.5
+        },
+        {
+            "id": "GLH-1",
+            "title": "Grid Line 1",
+            "fillColor":"none",
+            "strokeColor":"#909090",
+            "strokeWidth":0.5,
+            "isGrid":true,
+
+            "y":"520",
+
+            "type":"line"
+        },
+        {
+            "id": "GLH-2",
+            "title": "Grid Line 1",
+            "fillColor":"none",
+            "strokeColor":"#909090",
+            "strokeWidth":0.5,
+            "isGrid":true,
+
+            "y":"593.75",
+
+            "type":"line"
+        },
+        {
+            "id": "GLH-3",
+            "title": "Grid Line 1",
+            "fillColor":"none",
+            "strokeColor":"#909090",
+            "strokeWidth":0.5,
+            "isGrid":true,
+
+            "y":"667.5",
+
+            "type":"line"
+        },
+        {
+            "id": "GLH-4",
+            "title": "Grid Line 2",
+            "fillColor":"none",
+            "strokeColor":"#909090",
+            "strokeWidth":0.5,
+            "isGrid":true,
+
+            "y":"741.25",
+
+            "type":"line"
+        },
+        {
+            "id": "GLH-5",
+            "title": "Grid Line 2",
+            "fillColor":"none",
+            "strokeColor":"#909090",
+            "strokeWidth":0.5,
+            "isGrid":true,
+
+            "y":"815",
+
+            "type":"line"
+        },
+        {
+            "id": "GLV-1",
+            "title": "Grid Line 1",
+            "fillColor":"none",
+            "strokeColor":"#909090",
+            "strokeWidth":0.5,
+            "isGrid":true,
+            "x":"78.8",
+            "type":"line"
+        },
+        {
+            "id": "GLV-2",
+            "title": "Grid Line 1",
+            "fillColor":"none",
+            "strokeColor":"#909090",
+            "strokeWidth":0.5,
+            "isGrid":true,
+            "x":"151",
+            "type":"line"
+        },
+        {
+            "id": "GLV-3",
+            "title": "Grid Line 1",
+            "fillColor":"none",
+            "strokeColor":"#909090",
+            "strokeWidth":0.5,
+            "isGrid":true,
+            "x":"223.2",
+            "type":"line"
+        },
+        {
+            "id": "GLV-4",
+            "title": "Grid Line 1",
+            "fillColor":"none",
+            "strokeColor":"#909090",
+            "strokeWidth":0.5,
+            "isGrid":true,
+            "x":"295.4",
+            "type":"line"
+        },
+        {
+            "id": "GLV-5",
+            "title": "Grid Line 1",
+            "fillColor":"none",
+            "strokeColor":"#909090",
+            "strokeWidth":0.5,
+            "isGrid":true,
+            "x":"367.6",
+            "type":"line"
+        },
+        {
+            "id": "GLV-6",
+            "title": "Grid Line 1",
+            "fillColor":"none",
+            "strokeColor":"#909090",
+            "strokeWidth":0.5,
+            "isGrid":true,
+            "x":"439.8",
+            "type":"line"
+        },
+        {
+            "id": "GLV-7",
+            "title": "Grid Line 1",
+            "fillColor":"none",
+            "strokeColor":"#909090",
+            "strokeWidth":0.5,
+            "isGrid":true,
+            "x":"512",
+            "type":"line"
         }
 
         

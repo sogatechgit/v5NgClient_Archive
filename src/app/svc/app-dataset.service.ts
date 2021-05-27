@@ -61,6 +61,7 @@ import { TblMatrix, TblMatrixRow } from './app.tables';
 import { TblNodesAttrib, TblNodesAttribRow } from './app.tables';
 import { TblUserParam, TblUserParamRow } from './app.tables';
 import { TblRefFiles, TblRefFilesRow } from './app.tables';
+import { TblSeismic, TblSeismicRow } from './app.tables';
 import { TblSurvey, TblSurveyRow } from './app.tables';
 import { TblSurveyEvent, TblSurveyEventRow } from './app.tables';
 import { TblSurveyHeader, TblSurveyHeaderRow } from './app.tables';
@@ -198,6 +199,7 @@ export class AppDataset extends DatasetBase {
   public tblNodesAttrib:TblNodesAttrib = this.AddTable(new TblNodesAttrib(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblUserParam:TblUserParam = this.AddTable(new TblUserParam(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblRefFiles:TblRefFiles = this.AddTable(new TblRefFiles(this.http, this.apiUrl, this.tables, this.apiCommon));
+  public tblSeismic:TblSeismic = this.AddTable(new TblSeismic(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblSurvey:TblSurvey = this.AddTable(new TblSurvey(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblSurveyEvent:TblSurveyEvent = this.AddTable(new TblSurveyEvent(this.http, this.apiUrl, this.tables, this.apiCommon));
   public tblSurveyHeader:TblSurveyHeader = this.AddTable(new TblSurveyHeader(this.http, this.apiUrl, this.tables, this.apiCommon));

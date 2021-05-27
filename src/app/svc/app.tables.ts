@@ -1,5 +1,5 @@
 /***********************************************************************
-* Automatically generated on 5/25/2021 1:48:13 PM
+* Automatically generated on 5/27/2021 2:14:16 PM
 ***********************************************************************/
 
 import { AppCommonMethodsService } from '../api/svc/app-common-methods.service';
@@ -3502,6 +3502,161 @@ export class TblRefFilesRow extends TableRowBase{
 
   // Returs the table object where the row is a member of.
   public get Table():TblRefFiles{ return super._Table(); }
+
+
+}
+
+
+
+
+export class TblSeismic extends TableBase {
+
+  public rows:Array<TblSeismicRow> = [];
+
+  public tableFieldPrefix="SIS_";
+	private _tableLinks:Array<string> = [];
+	private _links:Array<any> = [];
+	public clientConfig:any = {
+  "roles": "",
+  "keyField": "SIS_REFNO",
+  "gridColumns": []
+};
+
+  constructor(public http:HttpClient,public apiUrl:string, public tables:Array<any>, public apiCommon:AppCommonMethodsService) {
+    super(http, apiUrl,tables,apiCommon);
+
+    this.derivedTable = this;
+
+    this.tableCode="sis";
+
+	this.columns.push(new ColumnInfo('SIS_REFNO', 'number', '', '', '', 0, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_YEAR', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_MONTH', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_DAY', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_LAT', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_LONG', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_MAG', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_MAGTYPE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_DEPTH', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_RATING', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_MAP', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_COMMENT', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_TIME', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_REF', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_SOURCE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_REFERENCE', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_N', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_E', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_DISTFRMASSET', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_NEARESTASSET', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_NEARESTKP', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_EVENTTRIGGER', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_LATDMS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_LONGDMS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_NA', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_HOUR', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_UT', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_D', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_ALONG', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_ALAT', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_MLONG', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_MLAT', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_NEW', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_CHANGED', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_LOCALTIME', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_LOGGEDDATETIME', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_HREF', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_HORIZONTALINACCURACY', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_DEPTHINACCURACY', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_USINGHORIZONTALDEFAULT', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_USINGDEPTHDEFAULT', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_TRIGGERCLASS', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_ACTUALDATE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_MANUALGENERATED', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_BOT', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_ISUPDATED', 'number', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_TITLE', 'string', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+	this.columns.push(new ColumnInfo('SIS_PUBLISHED_DATE', 'Date', '', '', '', -1, -1, -1, -1, -1, false, false, false, this));
+
+    this.InitializeTable();
+
+  }
+
+  Add(row?:TblSeismicRow):TblSeismicRow
+  {
+    return super.Add(row);
+  }
+
+  NewRow():TblSeismicRow{return new TblSeismicRow();}
+  GetRows():Array<TblSeismicRow>{return this.rows;}
+  public set currentRow(value:TblSeismicRow){super.__currentRow(value);}
+  public get currentRow():TblSeismicRow{return super.__currentRow();}
+  public TableLinks():Array<string>{return this._tableLinks;}
+  public Links():Array<any>{return this._links;}
+  public get dirtyRows():Array<TblSeismicRow>{return super.__dirtyRows();}
+  public get newRows():Array<TblSeismicRow>{return super.__newRows();}
+
+
+}
+
+export class TblSeismicRow extends TableRowBase{
+	constructor(
+		public SIS_REFNO?:number, 
+		public SIS_YEAR?:number, 
+		public SIS_MONTH?:number, 
+		public SIS_DAY?:number, 
+		public SIS_LAT?:number, 
+		public SIS_LONG?:number, 
+		public SIS_MAG?:number, 
+		public SIS_MAGTYPE?:string, 
+		public SIS_DEPTH?:number, 
+		public SIS_RATING?:string, 
+		public SIS_MAP?:string, 
+		public SIS_COMMENT?:string, 
+		public SIS_DATE?:Date, 
+		public SIS_TIME?:Date, 
+		public SIS_REF?:number, 
+		public SIS_SOURCE?:string, 
+		public SIS_REFERENCE?:number, 
+		public SIS_N?:number, 
+		public SIS_E?:number, 
+		public SIS_DISTFRMASSET?:number, 
+		public SIS_NEARESTASSET?:string, 
+		public SIS_NEARESTKP?:number, 
+		public SIS_EVENTTRIGGER?:string, 
+		public SIS_LATDMS?:string, 
+		public SIS_LONGDMS?:string, 
+		public SIS_NA?:string, 
+		public SIS_HOUR?:number, 
+		public SIS_UT?:Date, 
+		public SIS_D?:Date, 
+		public SIS_ALONG?:string, 
+		public SIS_ALAT?:string, 
+		public SIS_MLONG?:string, 
+		public SIS_MLAT?:string, 
+		public SIS_NEW?:string, 
+		public SIS_CHANGED?:number, 
+		public SIS_LOCALTIME?:number, 
+		public SIS_LOGGEDDATETIME?:Date, 
+		public SIS_HREF?:string, 
+		public SIS_HORIZONTALINACCURACY?:number, 
+		public SIS_DEPTHINACCURACY?:number, 
+		public SIS_USINGHORIZONTALDEFAULT?:number, 
+		public SIS_USINGDEPTHDEFAULT?:number, 
+		public SIS_TRIGGERCLASS?:string, 
+		public SIS_ACTUALDATE?:string, 
+		public SIS_MANUALGENERATED?:number, 
+		public SIS_BOT?:number, 
+		public SIS_ISUPDATED?:number, 
+		public SIS_TITLE?:string, 
+		public SIS_PUBLISHED_DATE?:Date){
+    super();
+
+  }
+
+  // Returs the table object where the row is a member of.
+  public get Table():TblSeismic{ return super._Table(); }
 
 
 }

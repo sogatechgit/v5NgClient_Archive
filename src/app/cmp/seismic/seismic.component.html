@@ -1,4 +1,9 @@
-<div id="wrapper" #wrapper style="flex: 1 1 0;height:100%;border:1px solid orange;overflow: hidden;position: relative;">
+<div id="map_wrapper" #wrapper
+    style="flex: 1 1 0;height:100%;border:1px solid orange;overflow-y: auto;position: relative;">
+    <svg id="map_svg" *ngIf="false" [attr.width]="mapWidth" [attr.height]="mapHeight"
+        style="background-color: #87ceeb;">
+    </svg>
+    <!-- [attr.viewBox]="viewBox" -->
     <!-- <div id="view" style="position:absolute;border:1px solid lime;"
     [style.width.px]="viewWidth"
     [style.height.px]="viewHeight"
@@ -12,6 +17,12 @@
     <!-- viewBox="0 0 702.39001 1209.4381" -->
     <!-- width="597.0315935" height="1028.022385"  -->
     <!-- width="351.195005" height="604.71905"  -->
+
+    <!-- 
+    <svg id="dsvg" [attr.width]="width" [attr.height]="height">
+
+    </svg> -->
+
     <span
         style="position:absolute;z-index:200;background:yellow;padding:1px 10px 1px 10px;top:30px;opacity:0.5">{{debugMessage}}</span>
     <svg *ngIf="false" xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -67,7 +78,7 @@
                  are added to x/y of the referenced <rect> -->
     </svg>
 
-    <svg *ngIf="showMap && false" xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/"
+    <svg *ngIf="showMap" xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
         xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" [attr.viewBox]="viewBox"
         [attr.width]="mapWidth" [attr.height]="mapHeight" style="background-color: #87ceeb;">
@@ -95,13 +106,24 @@
                 stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" />
         </ng-container>
 
+        <ng-container *ngFor="let path of mapGridLines">
+            <line *ngIf="path.y != undefined" fill="none" [attr.stroke]="path.strokeColor ? path.strokeColor : 'black'"
+                [attr.stroke-width]="path.strokeWidth ? path.strokeWidth : 1" [attr.x1]="0" [attr.y1]="path.y"
+                [attr.x2]="nativeWidth" [attr.y2]="path.y" stroke-linecap="round" stroke-linejoin="round"
+                stroke-miterlimit="10" />
+            <line *ngIf="path.x != undefined" fill="none" [attr.stroke]="path.strokeColor ? path.strokeColor : 'black'"
+                [attr.stroke-width]="path.strokeWidth ? path.strokeWidth : 1" [attr.x1]="path.x" [attr.y1]="0"
+                [attr.x2]="path.x" [attr.y2]="nativeHeight" stroke-linecap="round" stroke-linejoin="round"
+                stroke-miterlimit="10" />
+        </ng-container>
+
+
         <use href="#dotg" [attr.x]="100+markerSizeHalf" [attr.y]="viewTop + markerSizeHalf" />
         <use href="#dotv" [attr.x]="markerSizeHalf" [attr.y]="viewTop + 200 + markerSizeHalf" />
         <use href="#doty" [attr.x]="100" [attr.y]="viewTop + viewHeight + markerSizeHalf" />
 
         <rect fill="red" fill-opacity="0.1" [attr.x]="0" [attr.y]="viewTop" [attr.width]="viewWidth"
-            [attr.height]="viewHeight" stroke="none" 
-            stroke-dasharray="10,2.5,2.5,2.5,5,5" />        
+            [attr.height]="viewHeight" stroke="none" stroke-dasharray="10,2.5,2.5,2.5,5,5" />
 
         <!-- <rect fill="none" [attr.x]="dashWidth/2.0" [attr.y]="viewTop + dashWidth/2" [attr.width]="viewWidth-dashWidth*2"
             [attr.height]="viewHeight-dashWidth*2" stroke="red" [attr.stroke-width]="dashWidth"

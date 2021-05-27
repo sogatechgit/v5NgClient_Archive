@@ -1,93 +1,113 @@
-@import './../../../appcssvars.scss';
+@import "./../../../appcssvars.scss";
 
-.dotgl, .dotvl, .dotyl,.sqrrl,.sqral,.sqrwl
-{
-    cursor:pointer;
-    width:20px;
-    height:20px;
+#svg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
-        
-.dotg, .dotv, .doty, .sqrr,.sqra, .event
-{
-    cursor:pointer;
+.country {
+    fill: #ccc;
+    stroke: #999;
+}
+
+.dotgl,
+.dotvl,
+.dotyl,
+.sqrrl,
+.sqral,
+.sqrwl {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
+.dotg,
+.dotv,
+.doty,
+.sqrr,
+.sqra,
+.event {
+    cursor: pointer;
     // width:100px;
     // height:100px;
     // border: 1px solid red;
     // fill:$bs_warning;
     // fill:$bs_success;
-    position:absolute;
+    position: absolute;
     // transform:"translate(-6 -6)";
     // top:0px;
     // left:0px;
-    z-index:88;
-    
+    z-index: 88;
 }
 
-.sqrw path,.sqrwl path,.event path{
-    fill:white;
+.sqrw path,
+.sqrwl path,
+.event path {
+    fill: white;
 }
 
-
-
-.sqrr path,.sqrrl path,.event path
-{
-    fill:red;
+.sqrr path,
+.sqrrl path,
+.event path {
+    fill: red;
 }
 
-.sqra path,.sqral path
-{
-    fill:#ffc082;
+.sqra path,
+.sqral path {
+    fill: #ffc082;
 }
-        
-        
-.dotg ellipse,.dotv ellipse,.doty ellipse, .dotgl ellipse,.dotvl ellipse,.dotyl ellipse
-{
+
+.dotg ellipse,
+.dotv ellipse,
+.doty ellipse,
+.dotgl ellipse,
+.dotvl ellipse,
+.dotyl ellipse {
     // stroke-width:5;
-    stroke-width:1em;
-}
-        
-.dotg ellipse,.dotgl ellipse
-{
-    fill:url(#grad_g);
-    stroke:#a4b25b;
+    stroke-width: 1em;
 }
 
-.dotv ellipse,.dotvl ellipse
-{
-    fill:url(#grad_v);
-    stroke:#9c1abd;
+.dotg ellipse,
+.dotgl ellipse {
+    fill: url(#grad_g);
+    stroke: #a4b25b;
 }
-        
-.doty ellipse,.dotyl ellipse
-{
-    fill:url(#grad_y);
+
+.dotv ellipse,
+.dotvl ellipse {
+    fill: url(#grad_v);
+    stroke: #9c1abd;
+}
+
+.doty ellipse,
+.dotyl ellipse {
+    fill: url(#grad_y);
     // stroke:#ddd500;
-    
-    stroke:red;
+
+    stroke: red;
 }
 
-.levt ellipse
-{
-    stroke-width:10;
-    stroke:lime;
-}
-                        
-.dotg path,.dotgl path
-{
-    fill:#8a283b;
-}
-        
-.dotv path,.dotvl path
-{
-    fill:#8a283b;
+.levt ellipse {
+    stroke-width: 10;
+    stroke: lime;
 }
 
-.doty path,.dotyl path
-{
-    fill:#8a283b;
-}   
+.dotg path,
+.dotgl path {
+    fill: #8a283b;
+}
 
-.edet
-{
-    font-size:10pt;
+.dotv path,
+.dotvl path {
+    fill: #8a283b;
+}
+
+.doty path,
+.dotyl path {
+    fill: #8a283b;
+}
+
+.edet {
+    font-size: 10pt;
 }
