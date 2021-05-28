@@ -1,5 +1,8 @@
+<!-- <div style="position:absolute;top:0px;left:0px;border:1px solid red;z-index:589;height:50px;width:50px;">589</div>
+<div style="position:absolute;top:50px;left:50px;border:1px solid blue;z-index:589;height:50px;width:50px;">589</div> -->
+
 <div id="map_wrapper" #wrapper
-    style="flex: 1 1 0;height:100%;border:1px solid orange;overflow-y: auto;position: relative;">
+    style="flex: 1 1 0;height:100%;border:1px solid orange;overflow: hidden;position: relative;">
     <svg id="map_svg" *ngIf="false" [attr.width]="mapWidth" [attr.height]="mapHeight"
         style="background-color: #87ceeb;">
     </svg>
@@ -22,6 +25,7 @@
     <svg id="dsvg" [attr.width]="width" [attr.height]="height">
 
     </svg> -->
+
 
     <span
         style="position:absolute;z-index:200;background:yellow;padding:1px 10px 1px 10px;top:30px;opacity:0.5">{{debugMessage}}</span>
@@ -46,7 +50,8 @@
         </g> -->
 
 
-        <svg id="dotg" class="dotg" viewBox="0 0 100 100" x="-12" y="-12" width="12" height="12">
+        <svg id="dotg" class="dotg" viewBox="0 0 100 100" [attr.x]="-markerSize" [attr.y]="-markerSize"
+            [attr.width]="markerSize" [attr.height]="markerSize">
             <ellipse cx="50" cy="50" rx="45" ry="45" />
             <path d="M25.5 18.4 L 37 30 L 40.5 26.4 L 47.6 47.6 L 26.4 40.6 L 30 37 L 18.4 25.5z" />
             <path d="M81.6 25.5 L 70 37 L 73.6 40.6 L 52.4 47.6 L 59.4 26.4 L 63 30 L 74.5 18.4z" />
@@ -54,7 +59,8 @@
             <path d="M74.5 81.6 L 63 70 L 59.4 73.6 L 52.4 52.4 L 73.6 59.4 L 70 63 L 81.6 74.5z" />
         </svg>
 
-        <svg id="dotv" class="dotv" viewBox="0 0 100 100" x="-12" y="-12" width="12" height="12">
+        <svg id="dotv" class="dotv" viewBox="0 0 100 100" [attr.x]="-markerSize" [attr.y]="-markerSize"
+            [attr.width]="markerSize" [attr.height]="markerSize">
             <ellipse cx="50" cy="50" rx="45" ry="45" />
             <path d="M25.5 18.4 L 37 30 L 40.5 26.4 L 47.6 47.6 L 26.4 40.6 L 30 37 L 18.4 25.5z" />
             <path d="M81.6 25.5 L 70 37 L 73.6 40.6 L 52.4 47.6 L 59.4 26.4 L 63 30 L 74.5 18.4z" />
@@ -62,13 +68,14 @@
             <path d="M74.5 81.6 L 63 70 L 59.4 73.6 L 52.4 52.4 L 73.6 59.4 L 70 63 L 81.6 74.5z" />
         </svg>
 
-        <svg id="doty" class="doty" viewBox="0 0 100 100" x="-12" y="-12" width="12" height="12">
+        <!-- <svg id="doty" class="dotv" viewBox="0 0 100 100" [attr.x]="-markerSizeNative" [attr.y]="-markerSizeNative"
+            [attr.width]="markerSizeNative" [attr.height]="markerSizeNative">
             <ellipse cx="50" cy="50" rx="45" ry="45" />
             <path d="M25.5 18.4 L 37 30 L 40.5 26.4 L 47.6 47.6 L 26.4 40.6 L 30 37 L 18.4 25.5z" />
             <path d="M81.6 25.5 L 70 37 L 73.6 40.6 L 52.4 47.6 L 59.4 26.4 L 63 30 L 74.5 18.4z" />
             <path d="M18.4 74.5 L 30 63 L 26.4 59.4 L 47.6 52.4 L 40.5 73.6 L 37 70 L 25.5 81.6z" />
             <path d="M74.5 81.6 L 63 70 L 59.4 73.6 L 52.4 52.4 L 73.6 59.4 L 70 63 L 81.6 74.5z" />
-        </svg>
+        </svg> -->
 
 
         <use href="#dotg" x="100" y="300" />
@@ -106,7 +113,7 @@
                 stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" />
         </ng-container>
 
-        <ng-container *ngFor="let path of mapGridLines">
+        <!-- <ng-container *ngFor="let path of mapGridLines">
             <line *ngIf="path.y != undefined" fill="none" [attr.stroke]="path.strokeColor ? path.strokeColor : 'black'"
                 [attr.stroke-width]="path.strokeWidth ? path.strokeWidth : 1" [attr.x1]="0" [attr.y1]="path.y"
                 [attr.x2]="nativeWidth" [attr.y2]="path.y" stroke-linecap="round" stroke-linejoin="round"
@@ -115,15 +122,50 @@
                 [attr.stroke-width]="path.strokeWidth ? path.strokeWidth : 1" [attr.x1]="path.x" [attr.y1]="0"
                 [attr.x2]="path.x" [attr.y2]="nativeHeight" stroke-linecap="round" stroke-linejoin="round"
                 stroke-miterlimit="10" />
+        </ng-container> -->
+        <!-- setup long grid -->
+        <!-- <line *ngFor="let path of longLines" fill="none" [attr.stroke]="gridColor"
+            [attr.stroke-width]="gridWidth" [attr.x1]="path.px" [attr.y1]="0"
+            [attr.x2]="nativeWidth" [attr.y2]="nativeHeight" 
+            stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" /> -->
+        <ng-container *ngIf="gridReady">
+            <g *ngFor="let path of longLines">
+                <line fill="none" [attr.stroke]="refGridLongPx==path.px ? 'red' : gridColor"
+                    [attr.stroke-width]="gridWidth" [attr.x1]="path.px" [attr.y1]="0" [attr.x2]="path.px"
+                    [attr.y2]="nativeHeight" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" />
+                <text [attr.x]="path.px + markerSize/2" [attr.font-size]="gridLabelSize"
+                    [attr.y]="viewTop+markerSize" 
+                    [attr.fill]="gridLabelColor" [attr.stroke-width]=".1" [attr.stroke]="gridLabelColor">{{path.text}}</text>
+            </g>
+
+            <g *ngFor="let path of latLines">
+                <line fill="none" [attr.stroke]="refGridLatPx==path.px ? 'red' : gridColor"
+                    [attr.stroke-width]="gridWidth" [attr.x1]="0" [attr.y1]="path.px" [attr.x2]="nativeWidth"
+                    [attr.y2]="path.px" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" />
+
+                <text [attr.x]="viewLeft+markerSize/3" [attr.font-size]="gridLabelSize"
+                    [attr.y]="path.px - markerSize/2" 
+                    [attr.fill]="gridLabelColor" [attr.stroke-width]=".1" [attr.stroke]="gridLabelColor">{{path.text}}</text>
+
+            </g>
+
         </ng-container>
 
-
-        <use href="#dotg" [attr.x]="100+markerSizeHalf" [attr.y]="viewTop + markerSizeHalf" />
+        <!-- <use href="#dotg" [attr.x]="100+markerSizeHalf" [attr.y]="viewTop + markerSizeHalf" />
         <use href="#dotv" [attr.x]="markerSizeHalf" [attr.y]="viewTop + 200 + markerSizeHalf" />
-        <use href="#doty" [attr.x]="100" [attr.y]="viewTop + viewHeight + markerSizeHalf" />
+        <use href="#doty" [attr.x]="100" [attr.y]="viewTop + viewHeight + markerSizeHalf" /> -->
 
-        <rect fill="red" fill-opacity="0.1" [attr.x]="0" [attr.y]="viewTop" [attr.width]="viewWidth"
+        <use href="#doty" [attr.x]="400" [attr.y]="550" />
+        <use href="#doty" [attr.x]="400" [attr.y]="500" />
+
+        <use href="#dotg" [attr.x]="78.8 + pxPerLong*5 + markerSize/2" [attr.y]="298.75  + pxPerLat*5 + markerSize/2" />
+        <use href="#dotv" [attr.x]="151 + pxPerLong + markerSize/2" [attr.y]="372.5 + pxPerLat*2 + markerSize/2" />
+
+        <rect fill="red" fill-opacity="0.008" [attr.x]="viewLeft" [attr.y]="viewTop" [attr.width]="viewWidth"
             [attr.height]="viewHeight" stroke="none" stroke-dasharray="10,2.5,2.5,2.5,5,5" />
+
+        <rect fill="green" fill-opacity="0.008" [attr.x]="0" [attr.y]="0" [attr.width]="nativeWidth"
+            [attr.height]="nativeHeight" stroke="none" stroke-dasharray="10,2.5,2.5,2.5,5,5" />
 
         <!-- <rect fill="none" [attr.x]="dashWidth/2.0" [attr.y]="viewTop + dashWidth/2" [attr.width]="viewWidth-dashWidth*2"
             [attr.height]="viewHeight-dashWidth*2" stroke="red" [attr.stroke-width]="dashWidth"
@@ -141,13 +183,11 @@
 
         <svg id="dotv" class="dotv" viewBox="0 0 100 100" [attr.x]="-markerSize" [attr.y]="-markerSize"
             [attr.width]="markerSize" [attr.height]="markerSize">
-            <g style="transform: translate(-6,-6);">
-                <ellipse cx="50" cy="50" rx="45" ry="45" />
-                <path d="M25.5 18.4 L 37 30 L 40.5 26.4 L 47.6 47.6 L 26.4 40.6 L 30 37 L 18.4 25.5z" />
-                <path d="M81.6 25.5 L 70 37 L 73.6 40.6 L 52.4 47.6 L 59.4 26.4 L 63 30 L 74.5 18.4z" />
-                <path d="M18.4 74.5 L 30 63 L 26.4 59.4 L 47.6 52.4 L 40.5 73.6 L 37 70 L 25.5 81.6z" />
-                <path d="M74.5 81.6 L 63 70 L 59.4 73.6 L 52.4 52.4 L 73.6 59.4 L 70 63 L 81.6 74.5z" />
-            </g>
+            <ellipse cx="50" cy="50" rx="45" ry="45" />
+            <path d="M25.5 18.4 L 37 30 L 40.5 26.4 L 47.6 47.6 L 26.4 40.6 L 30 37 L 18.4 25.5z" />
+            <path d="M81.6 25.5 L 70 37 L 73.6 40.6 L 52.4 47.6 L 59.4 26.4 L 63 30 L 74.5 18.4z" />
+            <path d="M18.4 74.5 L 30 63 L 26.4 59.4 L 47.6 52.4 L 40.5 73.6 L 37 70 L 25.5 81.6z" />
+            <path d="M74.5 81.6 L 63 70 L 59.4 73.6 L 52.4 52.4 L 73.6 59.4 L 70 63 L 81.6 74.5z" />
         </svg>
 
         <svg id="doty" class="doty" viewBox="0 0 100 100" [attr.x]="-markerSize" [attr.y]="-markerSize"

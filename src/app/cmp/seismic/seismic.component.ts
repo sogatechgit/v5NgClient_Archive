@@ -1,6 +1,6 @@
 import { AppMainServiceService } from './../../svc/app-main-service.service';
 import { FormCommon } from './../form.common';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import * as topojson from "topojson-client";
@@ -26,6 +26,32 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   @ViewChild('wrapper') wrapper: ElementRef;
   @ViewChild('svg') svg: ElementRef;
 
+
+  @Input() pxPerLong: number = 72.2;
+  @Input() pxPerLat: number = 73.75;
+
+
+  @Input() firstGridLong: number = undefined;  // x pos v-line
+  @Input() firstGridLat: number = undefined;   // y pos h-line
+
+  @Input() refGridLong: number = 119;  // x pos v-line
+  @Input() refGapLong: number = 1;
+  @Input() refDirectionLong: string = "E";
+  @Input() refGridLongPx: number = 151;  // x pos v-line
+
+  @Input() refGridLat: number = 10;   // y pos h-line  
+  @Input() refDirectionLat: string = "N";
+  @Input() refGapLat: number = -1;
+  @Input() refGridLatPx: number = 815;   // y pos h-line  
+
+  // @Input() gridColor: string = 'red';
+  // @Input() gridWidth: number = 2;
+
+  @Input() gridColor: string = '#a0a0a0';
+  // @Input() gridLabelColor: string = '#a0a0a0';
+  @Input() gridLabelColor: string = 'white';
+
+  @Input() gridWidth: number = 0.5;
   constructor(public dataSource: AppMainServiceService, public http: HttpClient) {
     super(dataSource);
   }
@@ -34,6 +60,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     this.InitMap();
     // this.InitMapD3();
     // this.InitD3US();
+
   }
 
   ngAfterViewInit() {
@@ -47,7 +74,38 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   }
 
   public dashWidth: number = 1.2;
-  public markerSize: number = 12;
+
+  private _markerSize: number = 10;
+  get markerSizeNative(): number {
+    return this._markerSize;
+  }
+  @Input() set markerSize(value: number) {
+    this._markerSize = value;
+  }
+  get markerSize(): number {
+    //return this._markerSize;
+    // return this.wrapWidth / 50;
+    return this._markerSize * this.scaleFactor;
+  }
+
+  get gridLabelSize():string{
+    return `${this.markerSize * 1.1}px`
+  }
+
+  get scaleFactor(): number {
+    //const hf = this.mapeWidth / this.viewWidth;
+    // return  this.mapHeight / this.nativeHeight;
+
+    //this.viewWidth
+
+    // const hf = this.nativeHeight / this.mapHeight;
+    // const wf = this.nativeWidth / this.mapWidth;
+
+    const hf = this.viewHeight / this.mapHeight;
+    const wf = this.viewWidth / this.mapWidth;
+    return Math.max(hf, wf);
+  }
+
   get markerSizeHalf(): number {
     return this.markerSize / 2.0
   };
@@ -61,12 +119,105 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   get mapGridLines(): Array<ICountour> {
     if (!this._mapGridLines) return [];
     return this._mapGridLines;
-  }  
+  }
 
   private _mapConfig: any = null;
   get mapConfig(): any {
     if (!this._mapConfig) return [];
     return this._mapConfig;
+  }
+
+  get gridReady(): boolean {
+    // return this._longLines.length != 0;
+    return this.longLines.length != 0 && this.latLines.length != 0;
+  }
+
+  get firstGridLongCalc(): number {
+    return !this.firstGridLong ? this.refGridLongPx % this.pxPerLong : this.firstGridLong;
+  }
+  get firstGridLatCalc(): number {
+    return !this.firstGridLat ? this.refGridLatPx % this.pxPerLat : this.firstGridLat;
+  }
+
+  get firstLatCalc(): number {
+    const px = this.firstGridLatCalc;
+    const ht = this.refGridLatPx - px;
+    // return  px;
+    // return  (ht / this.pxPerLat) * this.refGapLat;
+    return this.refGridLat - (ht / this.pxPerLat) * this.refGapLat;
+  }
+
+  get firstLongCalc(): number {
+    const px = this.firstGridLongCalc;
+    const wd = this.refGridLongPx - px;
+    // return  px;
+    // return  (ht / this.pxPerLat) * this.refGapLat;
+    return this.refGridLong - (wd / this.pxPerLong) * this.refGapLong;
+  }
+
+
+  private _longLines: Array<IGridLine> = [];
+  get longLines() {
+    if (this._longLines.length == 0 && this.nativeWidth != 0) {
+      const firstGridLong = this.firstGridLongCalc;
+      const firstLong = this.firstLongCalc;
+
+      /**
+       *       const firstGridLat = this.firstGridLatCalc;
+      const firstLat = this.firstLatCalc;
+       */
+
+      const wd = this.nativeWidth - firstGridLong;
+      const ret: Array<IGridLine> = [];
+
+      const gridCountFloat = String(wd / this.pxPerLong);
+      const gridCount = parseInt(gridCountFloat) + (wd % this.pxPerLong ? 1 : 0);
+
+      for (let idx = 0; idx < gridCount; idx++) {
+
+        ret.push({
+          px: this.toFixNum(firstGridLong + idx * this.pxPerLong, 3),
+          text: `${firstLong + idx * this.refGapLong} ${this.refDirectionLong}`
+        })
+      }
+      console.log("LONG LINES: ", ret);
+
+      this._longLines = ret;
+    }
+    return this._longLines
+  }
+  private _latLines: Array<IGridLine> = [];
+  get latLines() {
+    if (this._latLines.length == 0 && this.nativeHeight != 0) {
+      console.log("**** 1CALC LAT/LONG : ", this.firstLatCalc, this.firstLongCalc,", longToPx:",this.longToPx(22))
+
+      const firstGridLat = this.firstGridLatCalc;
+      const firstLat = this.firstLatCalc;
+
+      const ht = this.nativeHeight - firstGridLat;
+      const ret: Array<IGridLine> = [];
+
+      const gridCountFloat = String(ht / this.pxPerLat);
+      const gridCount = parseInt(gridCountFloat) + (ht % this.pxPerLat ? 1 : 0)
+
+      // get initial latitude text
+
+      for (let idx = 0; idx < gridCount; idx++) {
+        ret.push({ px: this.toFixNum(firstGridLat + idx * this.pxPerLat, 3), text: `${firstLat + idx * this.refGapLat} ${this.refDirectionLat}` })
+      }
+
+      console.log("LAT LINES: ", ret);
+
+      this._latLines = ret;
+    }
+    return this._latLines;
+
+    /**
+     * <line *ngIf="path.y != undefined" fill="none" [attr.stroke]="path.strokeColor ? path.strokeColor : 'black'"
+                [attr.stroke-width]="path.strokeWidth ? path.strokeWidth : 1" [attr.x1]="0" [attr.y1]="path.y"
+                [attr.x2]="nativeWidth" [attr.y2]="path.y" stroke-linecap="round" stroke-linejoin="round"
+                stroke-miterlimit="10" />
+     */
   }
 
   get showMap(): boolean {
@@ -75,28 +226,31 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
 
   get viewBox(): string {
-    //return `${this.viewLeft} ${this.viewTop} ${this.viewWidth} ${this.viewHeight}`;
-    //return '0 0 702.39001 1209.4381';
-    return `${0} ${0} ${this.mapWidth} ${this.mapHeight}`;
+    return `${this.viewLeft} ${this.viewTop} ${this.viewWidth} ${this.viewHeight}`;
+
+    // return `${0} ${0} ${this.mapWidth} ${this.mapHeight}`;
+
+    return `0 0 ${this.nativeWidth} ${this.nativeHeight}`;
   }
 
   get viewLeft(): number {
-    // return 0
-    return 0;
+    return 0
+    // return 200;
   }
   get viewTop(): number {
-    // return 0
-    return 480;
+    return 0
+    return 350;
     // return this.nativeHeight/4;
   }
   get viewWidth(): number {
-    return this.nativeWidth;
+    // return 480;
+    return this.nativeWidth - this.viewLeft;
     // return this.nativeWidth * 480 / this.nativeHeight;
   }
 
   get viewHeight(): number {
-    // return this.nativeHeight;
-    return 300;
+    // return 500;
+    return this.nativeHeight - this.viewTop;
     // return this.nativeHeight/2;
   }
 
@@ -106,14 +260,22 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     return 1;
   };
   get mapWidth(): number {
-    return this.nativeWidth;
+    // return this.nativeWidth;
+
     // return this.nativeWidth * this.fullFactor;
-    // return this.wrapWidth;
+
+    // return this.viewWidth
+
+    // return Math.max(this.wrapWidth,this.viewWidth);
+
+    return this.wrapWidth;
   }
   get mapHeight(): number {
-    return this.nativeHeight;
+    //  return this.nativeHeight;
     // return this.nativeHeight * this.fullFactor;
-    // return this.wrapHeight;
+
+    // return Math.max(this.wrapHeight,this.viewHeight);
+    return this.wrapHeight;
   }
 
   get nativeWidth(): number {
@@ -134,25 +296,40 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   }
 
   get debugMessage(): string {
-    return `viewBox: ${this.viewBox}, width: ${this.wrapWidth}, height: ${this.wrapHeight}`
+    return `viewBox: ${this.viewBox}, width: ${this.wrapWidth}, height: ${this.wrapHeight}, markerSize: ${this.markerSize}, 1tor: ${this.scaleFactor}, wf: ${this.nativeWidth / this.mapWidth}`
   }
 
   public width: number = 900;
   public height: number = 600;
 
-  InitD3US(){
+  toFixNum(num: any, places?: number) {
+    if (places == undefined) places = 2;
+    return parseFloat((num).toFixed(places))
+  }
+
+  longToPx(long: number): number {
+    // NS
+    const pxFirst = this.firstGridLongCalc;
+    return pxFirst;
+  }
+  latToPx(lat: number): number {
+    // EW
+    return -1;
+  }
+
+  InitD3US() {
     // const width = 900;
     // const height = 600;
     // const svg = d3.select("body").append("svg")
     //     .attr("width", width)
     //     .attr("height", height);
-     
+
     // const projection = d3.geoAlbersUsa()
     //     .translate([width / 2, height / 2]) // translate to center of screen
     //     .scale(1000); // scale things down so see entire US
-     
+
     // const path = d3.geoPath().projection(projection);
-     
+
     // d3.json('https://gist.githubusercontent.com/Bradleykingz/3aa5206b6819a3c38b5d73cb814ed470/raw/a476b9098ba0244718b496697c5b350460d32f99/us-states.json')
     //   .then(data=>{
     //     svg.selectAll('path')
@@ -179,7 +356,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     // const svg = d3.select('#map_wrapper').html('<svg width="900" height="600"></svg>').select('svg');
     // d3.select('#map_wrapper').html('<svg></svg>')
 
-    console.log("SVG:" ,svg);
+    console.log("SVG:", svg);
 
     // const projection = d3.geoMercator().scale(140).translate([width / 2, height / 1.4]);
     // const projection = d3.geoAlbersUsa()
@@ -187,8 +364,8 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     // .scale([1000]);
 
     const projection = d3.geoAlbersUsa()
-    .translate([width / 2, height / 2]) // translate to center of screen
-    .scale(1000);
+      .translate([width / 2, height / 2]) // translate to center of screen
+      .scale(1000);
 
     const path = d3.geoPath(projection);
 
@@ -198,20 +375,20 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     // d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
     //"https://gist.githubusercontent.com/Bradleykingz/3aa5206b6819a3c38b5d73cb814ed470/raw/a476b9098ba0244718b496697c5b350460d32f99/us-states.json
     // d3.json('./assets/seismic/provinces.json?v=1').then(data=>{
-      d3.json('https://gist.githubusercontent.com/Bradleykingz/3aa5206b6819a3c38b5d73cb814ed470/raw/a476b9098ba0244718b496697c5b350460d32f99/us-states.json').then(data=>{
-      console.log("DATA: ",data);
+    d3.json('https://gist.githubusercontent.com/Bradleykingz/3aa5206b6819a3c38b5d73cb814ed470/raw/a476b9098ba0244718b496697c5b350460d32f99/us-states.json').then(data => {
+      console.log("DATA: ", data);
 
-      const result:any = data;
+      const result: any = data;
 
       // const paths:any = topojson.feature(result, result.objects);
-      const paths:any = d3.geoPath().projection(projection);
+      const paths: any = d3.geoPath().projection(projection);
       // const countries:any = topojson.feature(result, result.features);
 
       // console.log("G: ",g, countries,path)
 
       g.selectAll('path').data(paths.features).enter()
         .append('path').attr('class', 'country').attr('d', path);
-      
+
     })
 
 
@@ -287,9 +464,10 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
         (result: any) => {
           console.log('\nSEISMIC SUCCESS RESULT', result);
 
+
           this._mapConfig = result.config;
-          this._mapContours = result.data.filter(item=>!item.isGrid);
-          this._mapGridLines= result.data.filter(item=>item.isGrid);
+          this._mapContours = result.data.filter(item => !item.isGrid);
+          this._mapGridLines = result.data.filter(item => item.isGrid);
 
           resolve();
           subs.unsubscribe();
@@ -343,6 +521,10 @@ export interface ICountour {
   width?: number;
   height?: number;
   points?: string;
+}
+export interface IGridLine {
+  text: string;      // title
+  px: number;
 }
 
 
