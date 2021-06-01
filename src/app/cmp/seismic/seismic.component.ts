@@ -1,17 +1,16 @@
 import { AppMainServiceService } from './../../svc/app-main-service.service';
 import { FormCommon } from './../form.common';
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import * as topojson from "topojson-client";
 
 
 import * as d3 from 'd3';
-import * as d3S from 'd3-selection';
-import * as d3Scale from 'd3-scale';
-import * as d3Shape from 'd3-shape';
-import * as d3Array from 'd3-array';
-import * as d3Axis from 'd3-axis';
+import { RequestParams } from 'src/app/api/mod/app-params.model';
+import { AppDataset } from 'src/app/svc/app-dataset.service';
+
+import { TblSeismicRow } from './../../svc/app.tables'
 
 //import * as t from 'topojson';
 
@@ -23,12 +22,26 @@ import * as d3Axis from 'd3-axis';
 })
 export class SeismicComponent extends FormCommon implements OnInit, AfterViewInit {
 
+  @HostListener('mousewheel', ['$event']) onMouseWheelChrome(event: any) {
+    this.mouseWheelFunc(event);
+  }
+
+  @HostListener('window:resize', ['$event']) handleResize(event: any) {
+    
+  }
+
   @ViewChild('wrapper') wrapper: ElementRef;
   @ViewChild('svg') svg: ElementRef;
+
+  @Input() refLongLowerLimit: number = 118;
+  @Input() refLongUpperLimit: number = 124;
+  @Input() refLatLowerLimit: number = 10;
+  @Input() refLatUpperLimit: number = 14;
 
 
   @Input() pxPerLong: number = 72.2;
   @Input() pxPerLat: number = 73.75;
+  // @Input() pxPerLat: number = 72.2;
 
 
   @Input() firstGridLong: number = undefined;  // x pos v-line
@@ -56,6 +69,17 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     super(dataSource);
   }
 
+  get ds(): AppDataset {
+    if (!this.dataSource) return null;
+    return this.dataSource.ActiveSource.appDataset;
+  }
+
+
+  private _events: Array<TblSeismicRow> = []
+  get events(): Array<TblSeismicRow> {
+    return this._events;
+  }
+
   ngOnInit(): void {
     this.InitMap();
     // this.InitMapD3();
@@ -75,7 +99,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
   public dashWidth: number = 1.2;
 
-  private _markerSize: number = 10;
+  private _markerSize: number = 9;
   get markerSizeNative(): number {
     return this._markerSize;
   }
@@ -85,11 +109,12 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   get markerSize(): number {
     //return this._markerSize;
     // return this.wrapWidth / 50;
-    return this._markerSize * this.scaleFactor;
+    return this._markerSize;
+    // return this._markerSize * this.scaleFactor;
   }
 
-  get gridLabelSize():string{
-    return `${this.markerSize * 1.1}px`
+  get gridLabelSize(): string {
+    return `${this.markerSize * 0.8}px`
   }
 
   get scaleFactor(): number {
@@ -132,27 +157,44 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     return this.longLines.length != 0 && this.latLines.length != 0;
   }
 
+  private _firstGridLongCalc: number = null;
   get firstGridLongCalc(): number {
-    return !this.firstGridLong ? this.refGridLongPx % this.pxPerLong : this.firstGridLong;
+    if (this._firstGridLongCalc == null) this._firstGridLongCalc = !this.firstGridLong ? this.refGridLongPx % this.pxPerLong : this.firstGridLong;
+    return this._firstGridLongCalc;
   }
+  private _firstGridLatCalc: number = null;
   get firstGridLatCalc(): number {
-    return !this.firstGridLat ? this.refGridLatPx % this.pxPerLat : this.firstGridLat;
+    if (this._firstGridLatCalc == null) this._firstGridLatCalc = !this.firstGridLat ? this.refGridLatPx % this.pxPerLat : this.firstGridLat;
+    return this._firstGridLatCalc;
   }
 
+  private _firstLatCalc: number = null;
   get firstLatCalc(): number {
-    const px = this.firstGridLatCalc;
-    const ht = this.refGridLatPx - px;
-    // return  px;
-    // return  (ht / this.pxPerLat) * this.refGapLat;
-    return this.refGridLat - (ht / this.pxPerLat) * this.refGapLat;
+
+    if (this._firstLatCalc == null) {
+      // first map latitude in 
+      const px = this.firstGridLatCalc;
+      const ht = this.refGridLatPx - px;
+      this._firstLatCalc = this.refGridLat - (ht / this.pxPerLat) * this.refGapLat;
+    }
+
+    return this._firstLatCalc;
   }
 
+  private _firstLongCalc: number = null;
   get firstLongCalc(): number {
-    const px = this.firstGridLongCalc;
-    const wd = this.refGridLongPx - px;
-    // return  px;
-    // return  (ht / this.pxPerLat) * this.refGapLat;
-    return this.refGridLong - (wd / this.pxPerLong) * this.refGapLong;
+    if (this._firstLongCalc == null) {
+      const px = this.firstGridLongCalc;
+      const wd = this.refGridLongPx - px;
+      this._firstLongCalc = this.refGridLong - (wd / this.pxPerLong) * this.refGapLong;
+    }
+
+    return this._firstLongCalc;
+  }
+
+
+  eventClick(event: any) {
+    console.log("Event: ", event);
   }
 
 
@@ -189,7 +231,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   private _latLines: Array<IGridLine> = [];
   get latLines() {
     if (this._latLines.length == 0 && this.nativeHeight != 0) {
-      console.log("**** 1CALC LAT/LONG : ", this.firstLatCalc, this.firstLongCalc,", longToPx:",this.longToPx(22))
+      console.log("**** 1CALC LAT/LONG : ", this.firstLatCalc, this.firstLongCalc, ", longToPx:", this.longToPx(22))
 
       const firstGridLat = this.firstGridLatCalc;
       const firstLat = this.firstLatCalc;
@@ -230,28 +272,79 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
     // return `${0} ${0} ${this.mapWidth} ${this.mapHeight}`;
 
-    return `0 0 ${this.nativeWidth} ${this.nativeHeight}`;
+    // return `0 0 ${this.nativeWidth} ${this.nativeHeight}`;
   }
 
   get viewLeft(): number {
-    return 0
-    // return 200;
+    // return 0;
+    //return 65;
+    return this.zoomLimits.left;
+    return 200;
   }
   get viewTop(): number {
-    return 0
-    return 350;
+    // return 0
+    // return 510;
+    return this.zoomLimits.top;
     // return this.nativeHeight/4;
   }
   get viewWidth(): number {
     // return 480;
-    return this.nativeWidth - this.viewLeft;
+    // return this.nativeWidth - this.viewLeft;
+    return this.zoomLimits.width;
     // return this.nativeWidth * 480 / this.nativeHeight;
   }
 
   get viewHeight(): number {
-    // return 500;
+    return this.zoomLimits.height;
+    return 220;
     return this.nativeHeight - this.viewTop;
     // return this.nativeHeight/2;
+  }
+
+  get zoomLimits(): IRect {
+    /**
+ * 
+@Input() refLongLowerLimit: number = 118;
+@Input() refLongUpperLimit: number = 124;
+@Input() refLatLowerLimit: number = 10;
+@Input() refLatUpperLimit: number = 14;
+
+ */
+
+    const left = this.longToPx(this.isLongRev ? this.refLongUpperLimit : this.refLongLowerLimit)
+    const top = this.latToPx(this.isLatRev ? this.refLatUpperLimit : this.refLatLowerLimit)
+
+    const right = this.longToPx(this.isLongRev ? this.refLongLowerLimit : this.refLongUpperLimit)
+    const bottom = this.latToPx(this.isLatRev ? this.refLatLowerLimit : this.refLatUpperLimit)
+
+    return {
+      top: top, left: left,
+      width: right - left,
+      height: bottom - top
+    };
+  }
+
+  get isLatRev(): boolean {
+    return this.refGapLat < 0;
+  }
+  get isLongRev(): boolean {
+    return this.refGapLong < 0;
+  }
+
+
+  get zoomAll(): IRect {
+    return { top: 0, left: 0, width: this.nativeWidth, height: this.nativeHeight }
+  }
+
+  private _zoomCustom: IRect = null;
+  get zoomCustom(): IRect {
+    return this._zoomCustom;
+  }
+
+
+  get viewLimits(): string {
+
+    return ``
   }
 
 
@@ -296,11 +389,42 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   }
 
   get debugMessage(): string {
-    return `viewBox: ${this.viewBox}, width: ${this.wrapWidth}, height: ${this.wrapHeight}, markerSize: ${this.markerSize}, 1tor: ${this.scaleFactor}, wf: ${this.nativeWidth / this.mapWidth}`
+    return `viewBox: ${this.viewBox}, width: ${this.wrapWidth}, height: ${this.wrapHeight}, markerSize: ${this.markerSize}, 1tor: ${this.scaleFactor}, wf: ${this.nativeWidth / this.mapWidth}, LAT DMS:${this.dmsToDec('14 Deg 12 Mins 50 Secs')}, firstLatCalc: ${this.firstLatCalc}, firstLongCalc: ${this.firstLongCalc}, firstGridLongCalc: ${this.firstGridLongCalc}, LONG DMS: ${this.dmsToDec('120 Deg 47 Mins 41 Secs')}, LONG PX: ${(this.dmsToDec('120 Deg 47 Mins 41 Secs') - this.firstLongCalc) * this.pxPerLong + this.firstGridLongCalc}:${this.longDMSToPx('120 Deg 47 Mins 41 Secs')}:${this.latDMSToPx('14 Deg 12 Mins 50 Secs')}, this.firstGridLatCalc:${this.firstGridLatCalc}, events: ${this.events.length}`
+  }
+
+
+  private _maskPrompt: string = 'MAP'
+  get maskPrompt(): string {
+    switch (this._maskPrompt) {
+      case 'MAP':
+        return 'Loading seismic map. Please wait...'
+      case 'EVT':
+        return 'Loading seismic events. Please wait...'
+      default:
+        return 'Loading data. Please wait...'
+    }
+  }
+
+  private _loadingData: boolean = true;
+  get loadingData(): boolean {
+    return this._loadingData;
   }
 
   public width: number = 900;
   public height: number = 600;
+
+  mouseWheelFunc(event: any) {
+    console.log("mouseWheelFunc: ", event);
+  }
+
+  dotHREF(event: TblSeismicRow): string {
+    const { SIS_MAG } = event
+    if (SIS_MAG > 5) {
+      return '#dotv';
+    } else {
+      return '#dotg';
+    }
+  }
 
   toFixNum(num: any, places?: number) {
     if (places == undefined) places = 2;
@@ -310,11 +434,32 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   longToPx(long: number): number {
     // NS
     const pxFirst = this.firstGridLongCalc;
-    return pxFirst;
+    return pxFirst + this.pxPerLong * (long - this.firstLongCalc) * (this.refGapLong < 0 ? -1 : 1);
   }
   latToPx(lat: number): number {
     // EW
-    return -1;
+    const pxFirst = this.firstGridLatCalc;
+    return pxFirst + this.pxPerLat * (lat - this.firstLatCalc) * (this.refGapLat < 0 ? -1 : 1);
+  }
+
+  longDMSToPx(dms: string): number {
+    return this.longToPx(this.dmsToDec(dms));
+  }
+  latDMSToPx(dms: string): number {
+    return this.latToPx(this.dmsToDec(dms));
+  }
+
+  DMSToMarker(dms: string, isLat?: boolean): number {
+    const dmsVal = isLat ? this.latDMSToPx(dms) : this.longDMSToPx(dms)
+    return dmsVal + this.markerSize / 2;
+
+    // return 100;
+  }
+
+  dmsToDec(dms: string): number {
+    // 14 Deg 12 Mins 50 Secs
+    const dmsArr = dms.replace(/  /gi, ' ').split(' ');
+    return parseInt(dmsArr[0]) + parseInt(dmsArr[2]) / 60 + parseInt(dmsArr[4]) / 3600
   }
 
   InitD3US() {
@@ -471,6 +616,34 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
           resolve();
           subs.unsubscribe();
+
+
+          // get Actual Data....
+          this._maskPrompt = 'EVT';
+          const params: Array<RequestParams> = [{
+            code: 'sis',
+            filter: `{SIS_LONG|gte|${this.refLongLowerLimit}}^{SIS_LONG|lte|${this.refLongUpperLimit}}^{SIS_LAT|gte|${this.refLatLowerLimit}}^{SIS_LAT|lte|${this.refLatUpperLimit}}`,
+            includedFields: 'SIS_REFNO`SIS_LATDMS`SIS_LONGDMS`SIS_NEARESTASSET`SIS_NEARESTKP`SIS_DATE`SIS_TIME`SIS_N`SIS_E`SIS_HREF`SIS_MAG`SIS_TRIGGERCLASS`SIS_TITLE',
+            sortFields: '-SIS_DATE,-SIS_TIME',
+            snapshot: true
+          }]
+
+
+          const sdata = this.ds.Get(params, {
+            onSuccess: (data) => {
+              console.log("SEISMIC DATA: ", data)
+              this._events = data.processed.data[0];
+              data.processed.data[0].forEach((event: TblSeismicRow) => {
+                event.XTRA = { long: this.DMSToMarker(event.SIS_LONGDMS), lat: this.DMSToMarker(event.SIS_LATDMS, true) }
+              })
+              this._loadingData = false;
+            },
+            onError: (err) => {
+              this._maskPrompt = 'Error: ' + err.message;
+            }
+          })
+
+
         },
         (error) => {
           console.log('\nERROR RESULT', error);
@@ -525,6 +698,13 @@ export interface ICountour {
 export interface IGridLine {
   text: string;      // title
   px: number;
+}
+
+export interface IRect {
+  top: number;
+  left: number;
+  width: number;
+  height: number;
 }
 
 

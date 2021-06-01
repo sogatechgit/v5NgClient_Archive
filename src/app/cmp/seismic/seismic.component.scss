@@ -1,11 +1,11 @@
 @import "./../../../appcssvars.scss";
 
-#svg {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
+// #svg {
+//     position: absolute;
+//     left: 50%;
+//     top: 50%;
+//     transform: translate(-50%, -50%);
+// }
 .country {
     fill: #ccc;
     stroke: #999;
@@ -38,7 +38,7 @@
     // transform:"translate(-6 -6)";
     // top:0px;
     // left:0px;
-    z-index: 1088;
+    z-index: 3088;
 }
 
 .sqrw path,
@@ -71,6 +71,7 @@
 .dotg ellipse,
 .dotgl ellipse {
     fill: url(#grad_g);
+    // fill:radial-gradient(circle at center, red 0, blue, green 100%);
     stroke: #a4b25b;
 }
 
@@ -83,6 +84,7 @@
 .doty ellipse,
 .dotyl ellipse {
     fill: url(#grad_y);
+    // fill:radial-gradient(circle at center, red 0, blue, green 100%);
     // stroke:#ddd500;
 
     stroke: yellow;
