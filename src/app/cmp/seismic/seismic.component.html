@@ -1,8 +1,7 @@
 <!-- <div style="position:absolute;top:0px;left:0px;border:1px solid red;z-index:589;height:50px;width:50px;">589</div>
 <div style="position:absolute;top:50px;left:50px;border:1px solid blue;z-index:589;height:50px;width:50px;">589</div> -->
 
-<app-progress-mask #mask *ngIf="loadingData" 
-    [fontFactor]="1" [maskOpacity]=".15" [maskColor]="'white'"
+<app-progress-mask #mask *ngIf="loadingData" [fontFactor]="1" [maskOpacity]=".15" [maskColor]="'white'"
     [message]="maskPrompt"></app-progress-mask>
 
 <div id="map_wrapper" #wrapper
@@ -65,8 +64,9 @@
         </ng-container>
 
 
-        <rect fill="#dc3545" fill-opacity="0.5" [attr.x]="zoomLimits.left" [attr.y]="zoomLimits.top" [attr.width]="zoomLimits.width"
-            [attr.height]="zoomLimits.height" stroke="none" stroke-dasharray="10,2.5,2.5,2.5,5,5" />
+        <rect fill="#dc3545" fill-opacity="0.5" [attr.x]="zoomLimits.left" [attr.y]="zoomLimits.top"
+            [attr.width]="zoomLimits.width" [attr.height]="zoomLimits.height" stroke="none"
+            stroke-dasharray="10,2.5,2.5,2.5,5,5" />
 
         <rect fill="#28a745" fill-opacity="0.3" [attr.x]="0" [attr.y]="0" [attr.width]="nativeWidth"
             [attr.height]="nativeHeight" stroke="none" stroke-dasharray="10,2.5,2.5,2.5,5,5" />
@@ -76,7 +76,8 @@
             stroke-dasharray="10,2.5,2.5,2.5,5,5" /> -->
         <defs>
 
-            <svg id="dotg" [attr.title]="'hello dot!'" class="dotg" viewBox="0 0 100 100" [attr.width]="markerSize" [attr.height]="markerSize">
+            <svg id="dotg" [attr.title]="'hello dot!'" class="dotg" viewBox="0 0 100 100" [attr.x]="-markerSize"
+                [attr.y]="-markerSize" [attr.width]="markerSize" [attr.height]="markerSize">
                 <ellipse cx="50" cy="50" rx="45" ry="45" />
                 <path d="M25.5 18.4 L 37 30 L 40.5 26.4 L 47.6 47.6 L 26.4 40.6 L 30 37 L 18.4 25.5z" />
                 <path d="M81.6 25.5 L 70 37 L 73.6 40.6 L 52.4 47.6 L 59.4 26.4 L 63 30 L 74.5 18.4z" />
@@ -118,9 +119,19 @@
         </defs>
 
         <ng-container *ngFor="let evt of events;let idx=index;">
-            <use (click)="eventClick(evt)" [attr.href]="dotHREF(evt)" [attr.x]="evt.XTRA.long"
-                [attr.y]="evt.XTRA.lat" />
+            <!-- <use (click)="eventClick(evt)" [attr.href]="dotHREF(evt)" [attr.x]="evt.XTRA.long"
+                [attr.y]="evt.XTRA.lat" /> -->
+
+            <!-- <use (click)="eventClick(evt)" [attr.href]="dotHREF(evt)" [attr.x]="DMSToMarker(evt.SIS_LONGDMS)"
+                [attr.y]="DMSToMarker(evt.SIS_LATDMS, true)" /> -->
+
+            <!-- { long: this.DMSToMarker(event.SIS_LONGDMS), lat: this.DMSToMarker(event.SIS_LATDMS, true) } -->
+
         </ng-container>
+        <use (click)="null" [attr.href]="'#dotg'" [attr.x]="DMSToMarker('122 Deg 20 Mins 16 Secs')"
+            [attr.y]="DMSToMarker('10 Deg 1 Mins 20 Secs', true)" />
+        <!-- <use (click)="null" [attr.href]="'#dotv'" [attr.x]="DMSToMarker('122 Deg 20 Mins 16 Secs')"
+            [attr.y]="DMSToMarker('10 Deg 1 Mins 20 Secs', true)" /> -->
 
     </svg>
 

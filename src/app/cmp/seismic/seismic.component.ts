@@ -26,9 +26,22 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     this.mouseWheelFunc(event);
   }
 
+  private _resizeTimer: any;
   @HostListener('window:resize', ['$event']) handleResize(event: any) {
+    /*
+        const hf = this.viewHeight / this.mapHeight;
+        const wf = this.viewWidth / this.mapWidth;
+        return Math.max(hf, wf);
     
+    */
+   if(this._resizeTimer)clearTimeout(this._resizeTimer);
+    this._resizeTimer = setTimeout(() => {
+      const hf = this.viewHeight / this.mapHeight;
+      const wf = this.viewWidth / this.mapWidth;
+      this._scaleFactor = Math.max(hf, wf);
+    });
   }
+
 
   @ViewChild('wrapper') wrapper: ElementRef;
   @ViewChild('svg') svg: ElementRef;
@@ -91,6 +104,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     setTimeout(() => {
       //const facWidth = this.wrapWidth / 
       console.log(`Wrapper: w:${this.wrapWidth}, h:${this.wrapHeight}`)
+      this.handleResize(null);
 
       // this.InitMapD3();
 
@@ -109,7 +123,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   get markerSize(): number {
     //return this._markerSize;
     // return this.wrapWidth / 50;
-    return this._markerSize;
+    return this._markerSize * this.scaleFactor;
     // return this._markerSize * this.scaleFactor;
   }
 
@@ -117,18 +131,14 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     return `${this.markerSize * 0.8}px`
   }
 
+  private _scaleFactor: number = 1;
   get scaleFactor(): number {
-    //const hf = this.mapeWidth / this.viewWidth;
-    // return  this.mapHeight / this.nativeHeight;
 
-    //this.viewWidth
+    // const hf = this.viewHeight / this.mapHeight;
+    // const wf = this.viewWidth / this.mapWidth;
+    // return Math.max(hf, wf);
 
-    // const hf = this.nativeHeight / this.mapHeight;
-    // const wf = this.nativeWidth / this.mapWidth;
-
-    const hf = this.viewHeight / this.mapHeight;
-    const wf = this.viewWidth / this.mapWidth;
-    return Math.max(hf, wf);
+    return this._scaleFactor;
   }
 
   get markerSizeHalf(): number {
@@ -607,8 +617,8 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
       const path = './assets/seismic/seismicmap.json';
       const subs = this.http.get(path).subscribe(
         (result: any) => {
+          
           console.log('\nSEISMIC SUCCESS RESULT', result);
-
 
           this._mapConfig = result.config;
           this._mapContours = result.data.filter(item => !item.isGrid);
@@ -631,9 +641,11 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
           const sdata = this.ds.Get(params, {
             onSuccess: (data) => {
-              console.log("SEISMIC DATA: ", data)
+              console.log("SEISMIC DATA: ", data);
+              
               this._events = data.processed.data[0];
               data.processed.data[0].forEach((event: TblSeismicRow) => {
+                // set longpx and latpx for each event
                 event.XTRA = { long: this.DMSToMarker(event.SIS_LONGDMS), lat: this.DMSToMarker(event.SIS_LATDMS, true) }
               })
               this._loadingData = false;
