@@ -4,18 +4,12 @@
 <app-progress-mask #mask *ngIf="loadingData" [fontFactor]="1" [maskOpacity]=".15" [maskColor]="'white'"
     [message]="maskPrompt"></app-progress-mask>
 
-<div id="map_wrapper" #wrapper
-    style="flex: 1 1 0;height:100%;border:1px solid orange;overflow: hidden;position: relative;">
-    <svg id="map_svg" *ngIf="false" [attr.width]="mapWidth" [attr.height]="mapHeight"
-        style="background-color: #87ceeb;">
-    </svg>
+<div id="map_wrapper" #wrapper>
 
-    <span *ngIf="false"
-        style="position:absolute;z-index:200;background:yellow;padding:1px 10px 1px 10px;top:30px;opacity:0.5">{{debugMessage}}</span>
-    <svg *ngIf="showMap" xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/"
+    <svg id="map_image" *ngIf="showMap" xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
         xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" [attr.viewBox]="viewBox"
-        [attr.width]="mapWidth" [attr.height]="mapHeight" style="background-color: black;">
+        [attr.width]="mapWidth" [attr.height]="mapHeight">
         <!-- 009dc4 87ceeb -->
 
         <ng-container *ngFor="let path of mapContours">
@@ -64,16 +58,13 @@
         </ng-container>
 
 
-        <rect fill="#dc3545" fill-opacity="0.5" [attr.x]="zoomLimits.left" [attr.y]="zoomLimits.top"
+        <!-- <rect fill="#dc3545" fill-opacity="0.5" [attr.x]="zoomLimits.left" [attr.y]="zoomLimits.top"
             [attr.width]="zoomLimits.width" [attr.height]="zoomLimits.height" stroke="none"
             stroke-dasharray="10,2.5,2.5,2.5,5,5" />
 
         <rect fill="#28a745" fill-opacity="0.3" [attr.x]="0" [attr.y]="0" [attr.width]="nativeWidth"
-            [attr.height]="nativeHeight" stroke="none" stroke-dasharray="10,2.5,2.5,2.5,5,5" />
+            [attr.height]="nativeHeight" stroke="none" stroke-dasharray="10,2.5,2.5,2.5,5,5" /> -->
 
-        <!-- <rect fill="none" [attr.x]="dashWidth/2.0" [attr.y]="viewTop + dashWidth/2" [attr.width]="viewWidth-dashWidth*2"
-            [attr.height]="viewHeight-dashWidth*2" stroke="red" [attr.stroke-width]="dashWidth"
-            stroke-dasharray="10,2.5,2.5,2.5,5,5" /> -->
         <defs>
 
             <svg id="dotg" [attr.title]="'hello dot!'" class="dotg" viewBox="0 0 100 100" [attr.x]="-markerSize"
@@ -103,12 +94,24 @@
                 <path d="M74.5 81.6 L 63 70 L 59.4 73.6 L 52.4 52.4 L 73.6 59.4 L 70 63 L 81.6 74.5z" />
             </svg>
 
-            <svg id="sqrrl" class="doty" [attr.x]="-markerSize" [attr.y]="-markerSize" 
-                [attr.width]="markerSize * 10"
+            <svg id="sqrrl" [attr.x]="-markerSize" [attr.y]="-markerSize" [attr.width]="markerSize * 10"
                 [attr.height]="markerSize * 10" viewBox="0 0 100 100">
-                <rect width="100" height="100" style="stroke:blue;stroke-width:10;fill:#ffff00;" />
-                <rect x="25" y="25" width="50" height="50" style="stroke:lime;stroke-width:3;fill:red;
-                transform-origin:50 50;transform: rotate(-45deg);" />
+                <rect x="0" y="0" width="100" height="100" style="stroke:gray;stroke-width:4;fill:#ffff00;" />
+                <rect x="-27" y="44" width="55" height="55" style="stroke:gray;fill:red;transform: rotate(-45deg);" />
+            </svg>
+
+            <svg id="sqrrw" [attr.x]="-markerSize" [attr.y]="-markerSize" [attr.width]="markerSize * 10"
+                [attr.height]="markerSize * 10" viewBox="0 0 100 100">
+                <rect x="0" y="0" width="100" height="100" style="stroke:gray;stroke-width:4;fill:#ffff00;" />
+                <rect x="-27" y="44" width="55" height="55"
+                    style="stroke:gray;stroke-width:4;fill:white;transform: rotate(-45deg);" />
+            </svg>
+
+            <svg id="sqrra" [attr.x]="-markerSize" [attr.y]="-markerSize" [attr.width]="markerSize * 10"
+                [attr.height]="markerSize * 10" viewBox="0 0 100 100">
+                <rect x="0" y="0" width="100" height="100" style="stroke:gray;stroke-width:4;fill:#ffff00;" />
+                <rect x="-27" y="44" width="55" height="55"
+                    style="stroke:gray;stroke-width:4;fill:orange;transform: rotate(-45deg);" />
             </svg>
 
             <radialGradient id="grad_g" r="90%">
@@ -139,26 +142,72 @@
         <!-- <use (click)="null" [attr.href]="'#dotg'" [attr.x]="DMSToMarker('122 Deg 20 Mins 16 Secs')"
             [attr.y]="DMSToMarker('10 Deg 1 Mins 20 Secs', true)" /> -->
         <use (click)="null" [attr.href]="'#sqrrl'" [attr.x]="DMSToMarker('119 Deg 0 Mins 0 Secs')"
-            [attr.y]="DMSToMarker('12 Deg 0 Mins 0 Secs', true)" />
+            [attr.width]="markerSize" [attr.height]="markerSize" [attr.y]="DMSToMarker('12 Deg 0 Mins 0 Secs', true)" />
 
+        <use (click)="null" [attr.href]="'#sqrrw'" [attr.x]="DMSToMarker('119 Deg 0 Mins 0 Secs')"
+            [attr.width]="markerSize" [attr.height]="markerSize" [attr.y]="DMSToMarker('11 Deg 0 Mins 0 Secs', true)" />
 
+        <use (click)="null" [attr.href]="'#sqrra'" [attr.x]="DMSToMarker('119 Deg 0 Mins 0 Secs')"
+            [attr.width]="markerSize" [attr.height]="markerSize"
+            [attr.y]="DMSToMarker('11 Deg 30 Mins 0 Secs', true)" />
 
     </svg>
 
-    <!-- <svg class="event dotg" style="position: absolute;top:50px;left:50px;z-index:100;" 
-        viewbox="0 0 100 100" transform="translate(-6 -6)">
-        <ellipse cx="50" cy="50" rx="45" ry="45" />
-        <path d="M25.5 18.4 L 37 30 L 40.5 26.4 L 47.6 47.6 L 26.4 40.6 L 30 37 L 18.4 25.5z" />
-        <path d="M81.6 25.5 L 70 37 L 73.6 40.6 L 52.4 47.6 L 59.4 26.4 L 63 30 L 74.5 18.4z" />
-        <path d="M18.4 74.5 L 30 63 L 26.4 59.4 L 47.6 52.4 L 40.5 73.6 L 37 70 L 25.5 81.6z" />
-        <path d="M74.5 81.6 L 63 70 L 59.4 73.6 L 52.4 52.4 L 73.6 59.4 L 70 63 L 81.6 74.5z" />
-    </svg> -->
 
+    <div id="legend">
+        <span>Legend</span>
+        <svg>
+            <use [attr.href]="'#sqrrl'" [attr.x]="markerSize+3" [attr.y]="markerSize+3" 
+            [attr.width]="markerLegendSize" [attr.height]="markerLegendSize" />
+        </svg>
+        <span>Event within inspection triggering gates (action required - RED)</span>
+        <svg>
+            <use [attr.href]="'#sqrra'" [attr.x]="markerSize+3" [attr.y]="markerSize+3" 
+            [attr.width]="markerLegendSize" [attr.height]="markerLegendSize" />
+        </svg>
+        <span>Event possibly within inspection triggering gates (action required - AMBER)</span>
+        <svg>
+            <use [attr.href]="'#sqrrw'" [attr.x]="markerSize+3" [attr.y]="markerSize+3" 
+            [attr.width]="markerLegendSize" [attr.height]="markerLegendSize" />
+        </svg>
+        <span>SPEX Asset: Facilities (OGP, SWP/CGS. SSMA, CALM, Sta. Rita)</span>
+        <svg>
+            <line x1="3" y1="10" [attr.x2]="3+markerLegendSize" y2="10" style="stroke:green;stroke-width:4;" />
+        </svg>
+        <span>Seismic fault zones</span>
+        <svg>
+            <use [attr.href]="'#doty'" [attr.x]="markerSize+3" [attr.y]="markerSize+3" 
+            [attr.width]="markerLegendSize" [attr.height]="markerLegendSize" />
+        </svg>
+        <span>Event Magnitude > 5, within the last 90 days (no response required - GREEN)</span>
+        <svg>
+            <use [attr.href]="'#dotv'" [attr.x]="markerSize+3" [attr.y]="markerSize+3" 
+            [attr.width]="markerLegendSize" [attr.height]="markerLegendSize" />
+        </svg>
+        <span>Event Magnitude > 5, more than 90 days ago (no response required - GREEN)</span>
+        <svg>
+            <use [attr.href]="'#dotg'" [attr.x]="markerSize+3" [attr.y]="markerSize+3" 
+            [attr.width]="markerLegendSize" [attr.height]="markerLegendSize" />
+        </svg>
+        <span>Event Magnitude < 5, within the last year (no response required - GREEN)</span>
+        <svg>
+            <line x1="3" y1="10" [attr.x2]="3+markerLegendSize" y2="10" style="stroke:purple;stroke-width:4;" />
+        </svg>
+        <span>SPEX Asset: pipelines and umbilicals (GEP, CEP, TPFL's, TSR, UMB's A/B)</span>
 
-    <!-- <symbol id="flag">
-        <path d="M2.5 2q0 0.563-0.5 0.859v9.891q0 0.102-0.074 0.176t-0.176 0.074h-0.5q-0.102 0-0.176-0.074t-0.074-0.176v-9.891q-0.5-0.297-0.5-0.859 0-0.414 0.293-0.707t0.707-0.293 0.707 0.293 0.293 0.707zM14 2.5v5.961q0 0.195-0.098 0.301t-0.309 0.215q-1.68 0.906-2.883 0.906-0.477 0-0.965-0.172t-0.848-0.375-0.902-0.375-1.113-0.172q-1.5 0-3.625 1.141-0.133 0.070-0.258 0.070-0.203 0-0.352-0.148t-0.148-0.352v-5.797q0-0.25 0.242-0.43 0.164-0.109 0.617-0.336 1.844-0.937 3.289-0.937 0.836 0 1.563 0.227t1.711 0.688q0.297 0.148 0.688 0.148 0.422 0 0.918-0.164t0.859-0.367 0.688-0.367 0.426-0.164q0.203 0 0.352 0.148t0.148 0.352z" stroke="red" fill="#d9534f"></path>
-      </symbol> -->
+        <!-- 
 
+Event within inspection triggering gates (action required - RED)
+Event possibly within inspection triggering gates (action required - AMBER)
+SPEX Asset: Facilities (OGP, SWP/CGS. SSMA, CALM, Sta. Rita)
+Seismic fault zones
+Event Magnitude > 5, within the last 90 days (no response required - GREEN)
+Event Magnitude > 5, more than 90 days ago (no response required - GREEN)
+Event Magnitude < 5, within the last year (no response required - GREEN)
+SPEX Asset: pipelines and umbilicals (GEP, CEP, TPFL's, TSR, UMB's A/B)
+
+         -->
+    </div>
 
 
 </div>

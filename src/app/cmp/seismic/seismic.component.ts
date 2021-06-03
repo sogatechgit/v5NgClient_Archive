@@ -113,10 +113,11 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
   public dashWidth: number = 1.2;
 
-  private _markerSize: number = 9;
+  private _markerSize: number = 11;
   get markerSizeNative(): number {
     return this._markerSize;
   }
+  @Input() markerLegendSize: number = 18;
   @Input() set markerSize(value: number) {
     this._markerSize = value;
   }
