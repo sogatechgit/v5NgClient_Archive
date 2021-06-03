@@ -34,7 +34,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
         return Math.max(hf, wf);
     
     */
-   if(this._resizeTimer)clearTimeout(this._resizeTimer);
+    if (this._resizeTimer) clearTimeout(this._resizeTimer);
     this._resizeTimer = setTimeout(() => {
       const hf = this.viewHeight / this.mapHeight;
       const wf = this.viewWidth / this.mapWidth;
@@ -91,6 +91,15 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   private _events: Array<TblSeismicRow> = []
   get events(): Array<TblSeismicRow> {
     return this._events;
+  }
+
+  private _eventsFiltered: Array<TblSeismicRow> = null;
+  get eventsFiltered(): Array<TblSeismicRow> {
+    if (this._eventsFiltered == null ? true : this._eventsFiltered.length == 0) {
+      this._eventsFiltered = this._events;
+    }
+
+    return this._eventsFiltered;
   }
 
   ngOnInit(): void {
@@ -159,8 +168,20 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
   private _mapConfig: any = null;
   get mapConfig(): any {
-    if (!this._mapConfig) return [];
+    if (!this._mapConfig) return {};
     return this._mapConfig;
+  }
+
+  get legends(): Array<any> {
+    if (!this.mapConfig) return []
+    if (!this.mapConfig.legendDefinition) return [];
+    return this.mapConfig.legendDefinition;
+  }
+
+  get displays(): Array<any> {
+    if (!this.mapConfig) return []
+    if (!this.mapConfig.displayOptions) return [];
+    return this.mapConfig.displayOptions;
   }
 
   get gridReady(): boolean {
@@ -206,6 +227,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
   eventClick(event: any) {
     console.log("Event: ", event);
+
   }
 
 
@@ -424,6 +446,41 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   public width: number = 900;
   public height: number = 600;
 
+  DisplaySelect(display: any) {
+    console.log("Eventr:", display);
+    const active = this.displays.find(d => d.active)
+    if (active) active.active = false;
+    display.active = true;
+
+    const { code } = display;
+    if (code == 'ALL') {
+
+    } else {
+      const fcode = code.substring(0, 2);
+      const cnt = +code.substring(2);
+      console.log("fcode:", fcode, "count:", cnt)
+      const ret: Array<TblSeismicRow> = []
+      switch (fcode) {
+        case 'LE':
+          // this._eventsFiltered
+          for (let i = 0; i < cnt; i++) {
+            const evt = this.events[i];
+            ret.push(evt);
+          }
+          console.log("FltEvents: ",ret);
+          this._eventsFiltered = ret;
+          break;
+        case 'WK':
+          break;
+        case 'MO':
+          break;
+        case 'YR':
+          break;
+        default:
+      }
+    }
+  }
+
   mouseWheelFunc(event: any) {
     console.log("mouseWheelFunc: ", event);
   }
@@ -618,7 +675,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
       const path = './assets/seismic/seismicmap.json';
       const subs = this.http.get(path).subscribe(
         (result: any) => {
-          
+
           console.log('\nSEISMIC SUCCESS RESULT', result);
 
           this._mapConfig = result.config;
@@ -643,7 +700,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
           const sdata = this.ds.Get(params, {
             onSuccess: (data) => {
               console.log("SEISMIC DATA: ", data);
-              
+
               this._events = data.processed.data[0];
               data.processed.data[0].forEach((event: TblSeismicRow) => {
                 // set longpx and latpx for each event

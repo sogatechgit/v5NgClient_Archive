@@ -730,7 +730,7 @@ export class AppDataset extends DatasetBase {
     }); // for each (r)
 
     return items;
-  }
+  } // GetLookupItems-end
 
   public GetLookupItem(
     lookupObject: Array<any>,

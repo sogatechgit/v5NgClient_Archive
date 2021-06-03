@@ -9,7 +9,8 @@
     <svg id="map_image" *ngIf="showMap" xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
         xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" [attr.viewBox]="viewBox"
-        [attr.width]="mapWidth" [attr.height]="mapHeight">
+        [attr.width]="mapWidth" [attr.height]="mapHeight"
+        style="border:1px solid blue;">
         <!-- 009dc4 87ceeb -->
 
         <ng-container *ngFor="let path of mapContours">
@@ -58,12 +59,12 @@
         </ng-container>
 
 
-        <!-- <rect fill="#dc3545" fill-opacity="0.5" [attr.x]="zoomLimits.left" [attr.y]="zoomLimits.top"
-            [attr.width]="zoomLimits.width" [attr.height]="zoomLimits.height" stroke="none"
+        <rect fill="#dc3545" fill-opacity="0.5" [attr.x]="zoomLimits.left" [attr.y]="zoomLimits.top"
+            [attr.width]="zoomLimits.width" [attr.height]="zoomLimits.height" stroke="red" stroke-width="2"
             stroke-dasharray="10,2.5,2.5,2.5,5,5" />
 
         <rect fill="#28a745" fill-opacity="0.3" [attr.x]="0" [attr.y]="0" [attr.width]="nativeWidth"
-            [attr.height]="nativeHeight" stroke="none" stroke-dasharray="10,2.5,2.5,2.5,5,5" /> -->
+            [attr.height]="nativeHeight" stroke="none" stroke-dasharray="10,2.5,2.5,2.5,5,5" />
 
         <defs>
 
@@ -129,7 +130,7 @@
 
         </defs>
 
-        <ng-container *ngFor="let evt of events;let idx=index;">
+        <ng-container *ngFor="let evt of eventsFiltered;let idx=index;">
             <use (click)="eventClick(evt)" [attr.href]="dotHREF(evt)" [attr.x]="evt.XTRA.long"
                 [attr.y]="evt.XTRA.lat" />
 
@@ -141,7 +142,9 @@
         </ng-container>
         <!-- <use (click)="null" [attr.href]="'#dotg'" [attr.x]="DMSToMarker('122 Deg 20 Mins 16 Secs')"
             [attr.y]="DMSToMarker('10 Deg 1 Mins 20 Secs', true)" /> -->
-        <use (click)="null" [attr.href]="'#sqrrl'" [attr.x]="DMSToMarker('119 Deg 0 Mins 0 Secs')"
+
+
+        <!-- <use (click)="null" [attr.href]="'#sqrrl'" [attr.x]="DMSToMarker('119 Deg 0 Mins 0 Secs')"
             [attr.width]="markerSize" [attr.height]="markerSize" [attr.y]="DMSToMarker('12 Deg 0 Mins 0 Secs', true)" />
 
         <use (click)="null" [attr.href]="'#sqrrw'" [attr.x]="DMSToMarker('119 Deg 0 Mins 0 Secs')"
@@ -149,65 +152,40 @@
 
         <use (click)="null" [attr.href]="'#sqrra'" [attr.x]="DMSToMarker('119 Deg 0 Mins 0 Secs')"
             [attr.width]="markerSize" [attr.height]="markerSize"
-            [attr.y]="DMSToMarker('11 Deg 30 Mins 0 Secs', true)" />
+            [attr.y]="DMSToMarker('11 Deg 30 Mins 0 Secs', true)" /> -->
 
     </svg>
 
 
+    <!-- 
+        All Events
+Events within the last week
+Events within the last month
+Events within the last 3 months
+Events within the last 6 months
+Events within the last year
+     -->
+</div>
+<div id="tools" [style.width.px]="mapConfig.toolsWidth">
     <div id="legend">
         <span>Legend</span>
-        <svg>
-            <use [attr.href]="'#sqrrl'" [attr.x]="markerSize+3" [attr.y]="markerSize+3" 
-            [attr.width]="markerLegendSize" [attr.height]="markerLegendSize" />
-        </svg>
-        <span>Event within inspection triggering gates (action required - RED)</span>
-        <svg>
-            <use [attr.href]="'#sqrra'" [attr.x]="markerSize+3" [attr.y]="markerSize+3" 
-            [attr.width]="markerLegendSize" [attr.height]="markerLegendSize" />
-        </svg>
-        <span>Event possibly within inspection triggering gates (action required - AMBER)</span>
-        <svg>
-            <use [attr.href]="'#sqrrw'" [attr.x]="markerSize+3" [attr.y]="markerSize+3" 
-            [attr.width]="markerLegendSize" [attr.height]="markerLegendSize" />
-        </svg>
-        <span>SPEX Asset: Facilities (OGP, SWP/CGS. SSMA, CALM, Sta. Rita)</span>
-        <svg>
-            <line x1="3" y1="10" [attr.x2]="3+markerLegendSize" y2="10" style="stroke:green;stroke-width:4;" />
-        </svg>
-        <span>Seismic fault zones</span>
-        <svg>
-            <use [attr.href]="'#doty'" [attr.x]="markerSize+3" [attr.y]="markerSize+3" 
-            [attr.width]="markerLegendSize" [attr.height]="markerLegendSize" />
-        </svg>
-        <span>Event Magnitude > 5, within the last 90 days (no response required - GREEN)</span>
-        <svg>
-            <use [attr.href]="'#dotv'" [attr.x]="markerSize+3" [attr.y]="markerSize+3" 
-            [attr.width]="markerLegendSize" [attr.height]="markerLegendSize" />
-        </svg>
-        <span>Event Magnitude > 5, more than 90 days ago (no response required - GREEN)</span>
-        <svg>
-            <use [attr.href]="'#dotg'" [attr.x]="markerSize+3" [attr.y]="markerSize+3" 
-            [attr.width]="markerLegendSize" [attr.height]="markerLegendSize" />
-        </svg>
-        <span>Event Magnitude < 5, within the last year (no response required - GREEN)</span>
-        <svg>
-            <line x1="3" y1="10" [attr.x2]="3+markerLegendSize" y2="10" style="stroke:purple;stroke-width:4;" />
-        </svg>
-        <span>SPEX Asset: pipelines and umbilicals (GEP, CEP, TPFL's, TSR, UMB's A/B)</span>
-
-        <!-- 
-
-Event within inspection triggering gates (action required - RED)
-Event possibly within inspection triggering gates (action required - AMBER)
-SPEX Asset: Facilities (OGP, SWP/CGS. SSMA, CALM, Sta. Rita)
-Seismic fault zones
-Event Magnitude > 5, within the last 90 days (no response required - GREEN)
-Event Magnitude > 5, more than 90 days ago (no response required - GREEN)
-Event Magnitude < 5, within the last year (no response required - GREEN)
-SPEX Asset: pipelines and umbilicals (GEP, CEP, TPFL's, TSR, UMB's A/B)
-
-         -->
+        <ng-container *ngFor="let leg of legends">
+            <svg>
+                <use *ngIf="leg.href" [attr.href]="'#'+leg.href" [attr.x]="markerSize+3" [attr.y]="markerSize+3"
+                    [attr.width]="markerLegendSize" [attr.height]="markerLegendSize" />
+                <line *ngIf="leg.lineColor" x1="3" y1="10" [attr.x2]="3+markerLegendSize" y2="10"
+                    [style.stroke]="leg.lineColor" style="stroke-width:4;" />
+            </svg>
+            <span>{{leg.label}}</span>
+        </ng-container>
     </div>
 
-
+    <div id="display">
+        <span>Display</span>
+        <ng-container *ngFor="let disp of displays">
+            <i [id]="'d_'+disp.id" (click)="DisplaySelect(disp)"
+                [class]="'far fa-' + (disp.active ? 'dot-': '') + 'circle'"></i>
+            <label [for]="'d_'+disp.id" (click)="DisplaySelect(disp)">{{disp.label}}</label>
+        </ng-container>
+    </div>
 </div>
