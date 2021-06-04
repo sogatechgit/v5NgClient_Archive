@@ -7,13 +7,13 @@
             {
                 "id": 1,
                 "code":"ALL",
-                "label": "All Events",
-                "active": true
+                "label": "All Events"
             },
             {
                 "id": 2,
                 "code":"LE10",
-                "label": "Last 10 events"
+                "label": "Last 10 events",
+                "active": true
             },
             {
                 "id": 3,

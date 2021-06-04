@@ -4,7 +4,7 @@
 <app-progress-mask #mask *ngIf="loadingData" [fontFactor]="1" [maskOpacity]=".15" [maskColor]="'white'"
     [message]="maskPrompt"></app-progress-mask>
 
-<div id="map_wrapper" #wrapper>
+<div id="map_wrapper" [style.grid-column]="showTools ? '1 / -2' : '1 / -1'" #wrapper>
 
     <svg id="map_image" *ngIf="showMap" xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -166,7 +166,7 @@ Events within the last 6 months
 Events within the last year
      -->
 </div>
-<div id="tools" [style.width.px]="mapConfig.toolsWidth">
+<div id="tools" [style.display]="showTools ? 'grid' : 'none'" [style.width.px]="mapConfig.toolsWidth">
     <div id="legend">
         <span>Legend</span>
         <ng-container *ngFor="let leg of legends">
@@ -189,3 +189,4 @@ Events within the last year
         </ng-container>
     </div>
 </div>
+<i (click)="ToggleTools()" id="control" [style.grid-column]="showTools ? -1 : -2" [title]="controlTitle" [class]="'fa fa-angle-double-' + (showTools ? 'right' : 'left')"></i>

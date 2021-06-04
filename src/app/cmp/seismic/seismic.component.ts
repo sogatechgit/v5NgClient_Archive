@@ -78,6 +78,9 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   @Input() gridLabelColor: string = 'white';
 
   @Input() gridWidth: number = 0.5;
+
+  public showTools:boolean = true;
+
   constructor(public dataSource: AppMainServiceService, public http: HttpClient) {
     super(dataSource);
   }
@@ -95,8 +98,9 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
   private _eventsFiltered: Array<TblSeismicRow> = null;
   get eventsFiltered(): Array<TblSeismicRow> {
-    if (this._eventsFiltered == null ? true : this._eventsFiltered.length == 0) {
-      this._eventsFiltered = this._events;
+    if (this._eventsFiltered == null) {
+      //this._eventsFiltered = this._events;
+      return [];
     }
 
     return this._eventsFiltered;
@@ -120,6 +124,11 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     })
   }
 
+  ToggleTools(){
+    this.showTools = !this.showTools;
+  }
+
+
   public dashWidth: number = 1.2;
 
   private _markerSize: number = 11;
@@ -135,6 +144,16 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     // return this.wrapWidth / 50;
     return this._markerSize * this.scaleFactor;
     // return this._markerSize * this.scaleFactor;
+  }
+
+  get controlTitle():string{
+    const filter = this.activeDisplay;
+    //return (this.showTools ? 'Hide' : 'Show') +' tools panel...';
+    if(this.showTools){
+      return 'Hide tools panel ...';
+    }else{
+      return `Show tools panel ...\n\nCurrent Filter:\n${filter.label}`;
+    }
   }
 
   get gridLabelSize(): string {
@@ -438,6 +457,10 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     }
   }
 
+  get activeDisplay():any{
+    return this.displays.find(d => d.active)
+  }
+
   private _loadingData: boolean = true;
   get loadingData(): boolean {
     return this._loadingData;
@@ -447,18 +470,26 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   public height: number = 600;
 
   DisplaySelect(display: any) {
-    console.log("Eventr:", display);
-    const active = this.displays.find(d => d.active)
+
+    const active = this.activeDisplay;
     if (active) active.active = false;
     display.active = true;
 
     const { code } = display;
-    if (code == 'ALL') {
 
+    this.filterEvents(code);
+
+  }
+
+  filterEvents(code: string) {
+
+    if (code == 'ALL') {
+      this._eventsFiltered = this.events;
     } else {
+      let days = 0;
       const fcode = code.substring(0, 2);
       const cnt = +code.substring(2);
-      console.log("fcode:", fcode, "count:", cnt)
+
       const ret: Array<TblSeismicRow> = []
       switch (fcode) {
         case 'LE':
@@ -467,17 +498,27 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
             const evt = this.events[i];
             ret.push(evt);
           }
-          console.log("FltEvents: ",ret);
+          console.log("FltEvents: ", ret, ret[0].SIS_TIME, ret[0].SIS_DATE);
           this._eventsFiltered = ret;
           break;
         case 'WK':
+          days = 7 * cnt;
           break;
         case 'MO':
+          days = 30 * cnt;
           break;
         case 'YR':
+          days = 365.25 * cnt;
           break;
         default:
       }
+
+      if (days) {
+        const date = new Date();
+        date.setDate(date.getDate() - days);
+        this._eventsFiltered = this.events.filter(evt => evt.XTRA.stamp >= date);
+      }
+
     }
   }
 
@@ -704,8 +745,11 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
               this._events = data.processed.data[0];
               data.processed.data[0].forEach((event: TblSeismicRow) => {
                 // set longpx and latpx for each event
-                event.XTRA = { long: this.DMSToMarker(event.SIS_LONGDMS), lat: this.DMSToMarker(event.SIS_LATDMS, true) }
-              })
+                event.XTRA = { long: this.DMSToMarker(event.SIS_LONGDMS), lat: this.DMSToMarker(event.SIS_LATDMS, true), stamp: this.EventDateAndTime(event) }
+              });
+
+              const active = this.activeDisplay;
+              if(active)this.filterEvents(active.code);
               this._loadingData = false;
             },
             onError: (err) => {
@@ -726,6 +770,10 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
       console.log('\nERROR RESULT err', err);
     });
 
+  }
+
+  EventDateAndTime(event: TblSeismicRow): Date {
+    return new Date(String(event.SIS_DATE).split("T")[0] + 'T' + String(event.SIS_TIME).split("T")[1]);
   }
 
   ctrType(contour: ICountour): string {
