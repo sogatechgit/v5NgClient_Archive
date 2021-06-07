@@ -388,7 +388,10 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     return { top: 0, left: 0, width: this.nativeWidth, height: this.nativeHeight }
   }
 
-  private _zoomCustom: IRect = null;
+  
+  private _zoomCustom: IRect = {
+    top:1,left:1,width:this.zoomLimits.width,height:this.zoomLimits.height
+  };
   get zoomCustom(): IRect {
     return this._zoomCustom;
   }
@@ -523,7 +526,15 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   }
 
   mouseWheelFunc(event: any) {
-    console.log("mouseWheelFunc: ", event);
+    if(event.deltaY<0){
+      console.log("up mouseWheelFunc: ", event);
+      this._zoomCustom.width = this._zoomCustom.width * 0.95
+      this._zoomCustom.height = this._zoomCustom.height * 0.95
+    }else{
+      console.log("down mouseWheelFunc: ", event);
+      this._zoomCustom.width = Math.min(this._zoomCustom.width * 1.05,this.zoomLimits.width)
+      this._zoomCustom.height = Math.min(this._zoomCustom.height * 1.05,this.zoomLimits.height)
+    }
   }
 
   dotHREF(event: TblSeismicRow): string {
