@@ -38,7 +38,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     this._resizeTimer = setTimeout(() => {
       const hf = this.viewHeight / this.mapHeight;
       const wf = this.viewWidth / this.mapWidth;
-      this._scaleFactor = Math.max(hf, wf);
+      this._scaleFactor = Math.max(hf, wf) * (this.zoomCustom.width / this.zoomLimits.width );
     });
   }
 
@@ -79,7 +79,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
   @Input() gridWidth: number = 0.5;
 
-  public showTools:boolean = true;
+  public showTools: boolean = false;
 
   constructor(public dataSource: AppMainServiceService, public http: HttpClient) {
     super(dataSource);
@@ -124,7 +124,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     })
   }
 
-  ToggleTools(){
+  ToggleTools() {
     this.showTools = !this.showTools;
   }
 
@@ -146,12 +146,12 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     // return this._markerSize * this.scaleFactor;
   }
 
-  get controlTitle():string{
+  get controlTitle(): string {
     const filter = this.activeDisplay;
     //return (this.showTools ? 'Hide' : 'Show') +' tools panel...';
-    if(this.showTools){
+    if (this.showTools) {
       return 'Hide tools panel ...';
-    }else{
+    } else {
       return `Show tools panel ...\n\nCurrent Filter:\n${filter.label}`;
     }
   }
@@ -321,11 +321,13 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
   get viewBox(): string {
     return `${this.viewLeft} ${this.viewTop} ${this.viewWidth} ${this.viewHeight}`;
-
-    // return `${0} ${0} ${this.mapWidth} ${this.mapHeight}`;
-
-    // return `0 0 ${this.nativeWidth} ${this.nativeHeight}`;
   }
+  get viewBoxCustom(): string {
+    return `${this.zoomCustom.left} ${this.zoomCustom.top} ${this.zoomCustom.width} ${this.zoomCustom.height}`;
+  }
+
+
+  public customZoom: boolean = false;
 
   get viewLeft(): number {
     // return 0;
@@ -363,11 +365,23 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
  */
 
-    const left = this.longToPx(this.isLongRev ? this.refLongUpperLimit : this.refLongLowerLimit)
-    const top = this.latToPx(this.isLatRev ? this.refLatUpperLimit : this.refLatLowerLimit)
+    const left = this.longToPx(this.isLongRev ? this.refLongUpperLimit : this.refLongLowerLimit);
+    const top = this.latToPx(this.isLatRev ? this.refLatUpperLimit : this.refLatLowerLimit);
 
-    const right = this.longToPx(this.isLongRev ? this.refLongLowerLimit : this.refLongUpperLimit)
-    const bottom = this.latToPx(this.isLatRev ? this.refLatLowerLimit : this.refLatUpperLimit)
+    const right = this.longToPx(this.isLongRev ? this.refLongLowerLimit : this.refLongUpperLimit);
+    const bottom = this.latToPx(this.isLatRev ? this.refLatLowerLimit : this.refLatUpperLimit);
+
+    /**
+     *  {"top":520,"left":78.8,"width":433.2,"height":295}
+     * {"top":590.4946627841089,"left":182.9183564478593,"width":225.4483934872601,"height":153.52556804880345}
+     */
+
+    // return {
+    //   top: 590.4946627841089,
+    //   left: 182.9183564478593,
+    //   width: 225.4483934872601,
+    //   height: 153.52556804880345
+    // }
 
     return {
       top: top, left: left,
@@ -388,9 +402,9 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     return { top: 0, left: 0, width: this.nativeWidth, height: this.nativeHeight }
   }
 
-  
+
   private _zoomCustom: IRect = {
-    top:1,left:1,width:this.zoomLimits.width,height:this.zoomLimits.height
+    top: this.zoomLimits.top, left: this.zoomLimits.left, width: this.zoomLimits.width, height: this.zoomLimits.height
   };
   get zoomCustom(): IRect {
     return this._zoomCustom;
@@ -444,7 +458,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   }
 
   get debugMessage(): string {
-    return `viewBox: ${this.viewBox}, width: ${this.wrapWidth}, height: ${this.wrapHeight}, markerSize: ${this.markerSize}, 1tor: ${this.scaleFactor}, wf: ${this.nativeWidth / this.mapWidth}, LAT DMS:${this.dmsToDec('14 Deg 12 Mins 50 Secs')}, firstLatCalc: ${this.firstLatCalc}, firstLongCalc: ${this.firstLongCalc}, firstGridLongCalc: ${this.firstGridLongCalc}, LONG DMS: ${this.dmsToDec('120 Deg 47 Mins 41 Secs')}, LONG PX: ${(this.dmsToDec('120 Deg 47 Mins 41 Secs') - this.firstLongCalc) * this.pxPerLong + this.firstGridLongCalc}:${this.longDMSToPx('120 Deg 47 Mins 41 Secs')}:${this.latDMSToPx('14 Deg 12 Mins 50 Secs')}, this.firstGridLatCalc:${this.firstGridLatCalc}, events: ${this.events.length}`
+    return `viewBox: ${this.viewBox}, viewBoxCustom: ${this.viewBoxCustom}, zoomLimits: ${JSON.stringify(this.zoomLimits)}, zoomCustom: ${JSON.stringify(this.zoomCustom)}, nativeWidth: ${JSON.stringify(this.nativeWidth)}, nativeWidth: ${this.nativeWidth}, nativeHeight: ${this.nativeHeight}, mapWidth: ${this.mapWidth}, mapHeight: ${this.mapHeight}, x: ${this.svgToScreen({ x: 200, y: 700 }, { width: 10, height: 10 }).x}`
   }
 
 
@@ -460,7 +474,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     }
   }
 
-  get activeDisplay():any{
+  get activeDisplay(): any {
     return this.displays.find(d => d.active)
   }
 
@@ -526,15 +540,24 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   }
 
   mouseWheelFunc(event: any) {
-    if(event.deltaY<0){
-      console.log("up mouseWheelFunc: ", event);
+    if (event.deltaY < 0) {
       this._zoomCustom.width = this._zoomCustom.width * 0.95
       this._zoomCustom.height = this._zoomCustom.height * 0.95
-    }else{
-      console.log("down mouseWheelFunc: ", event);
-      this._zoomCustom.width = Math.min(this._zoomCustom.width * 1.05,this.zoomLimits.width)
-      this._zoomCustom.height = Math.min(this._zoomCustom.height * 1.05,this.zoomLimits.height)
+    } else {
+      this._zoomCustom.width = Math.min(this._zoomCustom.width * 1.05, this.zoomLimits.width)
+      this._zoomCustom.height = Math.min(this._zoomCustom.height * 1.05, this.zoomLimits.height)
     }
+
+    this.customZoom =true;
+
+    const { layerX, layerY } = event;
+    const cp = this.screenToSVG({ x: layerX, y: layerY })
+
+    this._zoomCustom.top = cp.y - this._zoomCustom.height / 2;
+    this._zoomCustom.left = cp.x - this._zoomCustom.width / 2;
+
+    console.log(`LayerX: ${layerX}, LayerY: ${layerY}, svgX: ${cp.x}, svgY: ${cp.y}`)
+    this.handleResize(null);
   }
 
   dotHREF(event: TblSeismicRow): string {
@@ -760,7 +783,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
               });
 
               const active = this.activeDisplay;
-              if(active)this.filterEvents(active.code);
+              if (active) this.filterEvents(active.code);
               this._loadingData = false;
             },
             onError: (err) => {
@@ -804,6 +827,54 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     return this.ctrType(contour) == SVG_TYPE.POLYLINE;
   }
 
+  screenToSVG(point: IPoint, marker?: IRectSize) {
+    const { x, y } = point;
+    const { ratio, viewOffsetX, viewOffsetY } = this.transPoint;
+
+    const markerWidth = marker ? marker.width : 0;
+    const markerHeight = marker ? marker.height : 0;
+
+    return { x: ratio * (x + markerWidth / 2) + viewOffsetX, y: ratio * (y + markerWidth / 2) + viewOffsetY };
+  }
+
+  svgToScreen(point: IPoint, marker?: IRectSize): IPoint {
+    const { x, y } = point;
+    const { ratio, viewOffsetX, viewOffsetY } = this.transPoint;
+
+    const markerWidth = marker ? marker.width : 0;
+    const markerHeight = marker ? marker.height : 0;
+
+    return { x: (x - viewOffsetX) / ratio - markerWidth / 2, y: (y - viewOffsetY) / ratio - markerHeight / 2 };
+
+  }
+
+  get transPoint(): ITransPoint {
+
+    const viewTop = this.viewTop;
+    const viewLeft = this.viewLeft;
+    const viewWidth = this.viewWidth;
+    const viewHeight = this.viewHeight;
+
+    const scrWidth = this.mapWidth;
+    const scrHeight = this.mapHeight;
+
+    const maxRatio = Math.max(viewWidth / scrWidth, viewHeight / scrHeight);
+
+    const viewWidthCalc = scrWidth * maxRatio;
+    const viewHeightCalc = scrHeight * maxRatio;
+
+    const viewOffsetX = viewLeft - (viewWidthCalc - viewWidth) / 2;
+    const viewOffsetY = viewTop - (viewHeightCalc - viewHeight) / 2;
+
+    return { ratio: maxRatio, viewOffsetX: viewOffsetX, viewOffsetY: viewOffsetY };
+  }
+
+}
+
+export interface ITransPoint {
+  viewOffsetX: number;
+  viewOffsetY: number;
+  ratio: number;
 }
 
 export interface ICountour {
@@ -835,6 +906,17 @@ export interface IRect {
   width: number;
   height: number;
 }
+
+export interface IPoint {
+  x: number;
+  y: number;
+}
+
+export interface IRectSize {
+  width: number;
+  height: number;
+}
+
 
 
 export enum SVG_TYPE {

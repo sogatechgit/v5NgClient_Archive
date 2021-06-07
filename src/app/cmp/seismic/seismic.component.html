@@ -6,11 +6,20 @@
 
 <div style="background: yellow;opacity:0.5;position:absolute;z-index:1000;top:20px;left:10px;width:700px;">{{debugMessage}}</div>
 
+<!-- <div style="background: lime;position:absolute;z-index:1500;top:270px;left:225px;width:10px;height:10px;border-radius: 5px;">&nbsp;</div> -->
+
+<div style="background: lime;position:absolute;z-index:1500;top:351px;left:586px;width:10px;height:10px;border-radius: 5px;">&nbsp;</div>
+<div style="background: yellow;position:absolute;z-index:1500;top:270px;left:265px;width:10px;height:10px;border-radius: 5px;">&nbsp;</div>
+<!-- <div style="background: blue;position:absolute;z-index:1500;top:424px;left:163px;width:10px;height:10px;border-radius: 5px;">&nbsp;</div> -->
+<div style="background: magenta;position:absolute;z-index:1500;width:10px;height:10px;border-radius: 5px;"
+[style.top.px]="svgToScreen({x:200,y:700},{width:10,height:10}).y" [style.left.px]="svgToScreen({x:200,y:700},{width:10,height:10}).x">&nbsp;</div>
+
 <div id="map_wrapper" [style.grid-column]="showTools ? '1 / -2' : '1 / -1'" #wrapper>
 
     <svg id="map_image" *ngIf="showMap" xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-        xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" [attr.viewBox]="viewBox"
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" 
+        [attr.viewBox]="customZoom ? viewBoxCustom : viewBox"
         [attr.width]="mapWidth" [attr.height]="mapHeight"
         style="border:1px solid blue;">
         <!-- 009dc4 87ceeb -->
@@ -62,11 +71,13 @@
 
 
         <rect id="rect_limits" fill="#dc3545" fill-opacity="0.5" [attr.x]="zoomLimits.left" [attr.y]="zoomLimits.top"
-            [attr.width]="zoomLimits.width" [attr.height]="zoomLimits.height" stroke="red" stroke-width="2"
+            [attr.width]="zoomLimits.width" [attr.height]="zoomLimits.height" stroke="none" stroke-width="2"
             stroke-dasharray="10,2.5,2.5,2.5,5,5" />
 
-            <rect id="rect_limits" fill="#dc3545" fill-opacity="0.5" [attr.x]="zoomLimits.left" [attr.y]="zoomLimits.top"
-            [attr.width]="zoomCustom.width" [attr.height]="zoomCustom.height" stroke="orange" stroke-width="4"/>
+            <rect id="rect_limits" fill="#dc3545" fill-opacity="0.5" 
+            [attr.x]="zoomCustom.left" [attr.y]="zoomCustom.top"
+            [attr.width]="zoomCustom.width" [attr.height]="zoomCustom.height" 
+            stroke="none" stroke-width="4"/>
 
         <rect fill="#28a745" fill-opacity="0.3" [attr.x]="0" [attr.y]="0" [attr.width]="nativeWidth"
             [attr.height]="nativeHeight" stroke="none" stroke-dasharray="10,2.5,2.5,2.5,5,5" />

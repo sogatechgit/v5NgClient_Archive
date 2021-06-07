@@ -44,6 +44,8 @@
 
             align-content: end;
 
+            overflow: hidden;
+
             > span:nth-child(1) {
                 grid-row: 1;
                 grid-column: 1 / -1;
