@@ -4,24 +4,15 @@
 <app-progress-mask #mask *ngIf="loadingData" [fontFactor]="1" [maskOpacity]=".15" [maskColor]="'white'"
     [message]="maskPrompt"></app-progress-mask>
 
-<div style="background: yellow;opacity:0.5;position:absolute;z-index:1000;top:20px;left:10px;width:700px;">{{debugMessage}}</div>
 
-<!-- <div style="background: lime;position:absolute;z-index:1500;top:270px;left:225px;width:10px;height:10px;border-radius: 5px;">&nbsp;</div> -->
-
-<div style="background: lime;position:absolute;z-index:1500;top:351px;left:586px;width:10px;height:10px;border-radius: 5px;">&nbsp;</div>
-<div style="background: yellow;position:absolute;z-index:1500;top:270px;left:265px;width:10px;height:10px;border-radius: 5px;">&nbsp;</div>
-<!-- <div style="background: blue;position:absolute;z-index:1500;top:424px;left:163px;width:10px;height:10px;border-radius: 5px;">&nbsp;</div> -->
-<div style="background: magenta;position:absolute;z-index:1500;width:10px;height:10px;border-radius: 5px;"
-[style.top.px]="svgToScreen({x:200,y:700},{width:10,height:10}).y" [style.left.px]="svgToScreen({x:200,y:700},{width:10,height:10}).x">&nbsp;</div>
-
-<div id="map_wrapper" [style.grid-column]="showTools ? '1 / -2' : '1 / -1'" #wrapper>
+<div id="map_wrapper" class="noselect" [style.grid-column]="showTools ? '1 / -2' : '1 / -1'" #wrapper>
 
     <svg id="map_image" *ngIf="showMap" xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-        xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" 
-        [attr.viewBox]="customZoom ? viewBoxCustom : viewBox"
-        [attr.width]="mapWidth" [attr.height]="mapHeight"
-        style="border:1px solid blue;">
+        xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
+        [attr.viewBox]="customZoom ? viewBoxCustom : viewBox" [attr.width]="mapWidth" [attr.height]="mapHeight"
+        style="border:1px solid blue;" (mousedown)="MouseEvent($event)" (mouseout)="MouseEvent($event)"
+        (mouseup)="MouseEvent($event)" (mousemove)="MouseEvent($event)">
         <!-- 009dc4 87ceeb -->
 
         <ng-container *ngFor="let path of mapContours">
@@ -70,27 +61,37 @@
         </ng-container>
 
 
-        <rect id="rect_limits" fill="#dc3545" fill-opacity="0.5" [attr.x]="zoomLimits.left" [attr.y]="zoomLimits.top"
+        <rect id="rect_limits" fill="none" fill-opacity="0.5" [attr.x]="zoomLimits.left" [attr.y]="zoomLimits.top"
             [attr.width]="zoomLimits.width" [attr.height]="zoomLimits.height" stroke="none" stroke-width="2"
             stroke-dasharray="10,2.5,2.5,2.5,5,5" />
 
-            <rect id="rect_limits" fill="#dc3545" fill-opacity="0.5" 
-            [attr.x]="zoomCustom.left" [attr.y]="zoomCustom.top"
-            [attr.width]="zoomCustom.width" [attr.height]="zoomCustom.height" 
-            stroke="none" stroke-width="4"/>
+        <rect id="rect_limits" fill="none" fill-opacity="0.5" [attr.x]="zoomCustom.left" [attr.y]="zoomCustom.top"
+            [attr.width]="zoomCustom.width" [attr.height]="zoomCustom.height" stroke="none" stroke-width="4" />
 
-        <rect fill="#28a745" fill-opacity="0.3" [attr.x]="0" [attr.y]="0" [attr.width]="nativeWidth"
+        <rect fill="none" fill-opacity="0.3" [attr.x]="0" [attr.y]="0" [attr.width]="nativeWidth"
             [attr.height]="nativeHeight" stroke="none" stroke-dasharray="10,2.5,2.5,2.5,5,5" />
 
         <defs>
 
-            <svg id="dotg" [attr.title]="'hello dot!'" class="dotg" viewBox="0 0 100 100" [attr.x]="-markerSize"
-                [attr.y]="-markerSize" [attr.width]="markerSize" [attr.height]="markerSize">
+            <svg id="dotg" class="dotg" viewBox="0 0 100 100" [attr.x]="-markerSize" [attr.y]="-markerSize"
+                [attr.width]="markerSize" [attr.height]="markerSize">
                 <ellipse cx="50" cy="50" rx="45" ry="45" />
                 <path d="M25.5 18.4 L 37 30 L 40.5 26.4 L 47.6 47.6 L 26.4 40.6 L 30 37 L 18.4 25.5z" />
                 <path d="M81.6 25.5 L 70 37 L 73.6 40.6 L 52.4 47.6 L 59.4 26.4 L 63 30 L 74.5 18.4z" />
                 <path d="M18.4 74.5 L 30 63 L 26.4 59.4 L 47.6 52.4 L 40.5 73.6 L 37 70 L 25.5 81.6z" />
                 <path d="M74.5 81.6 L 63 70 L 59.4 73.6 L 52.4 52.4 L 73.6 59.4 L 70 63 L 81.6 74.5z" />
+            </svg>
+
+            <svg id="dotb" class="dotg levt" viewBox="0 0 100 100" [attr.x]="-markerSize" 
+            [attr.y]="-markerSize"
+                [attr.width]="markerSize" [attr.height]="markerSize">
+                <ellipse cx="50" cy="50" rx="45" ry="45" />
+                <ng-container *ngIf="blink">
+                    <path d="M25.5 18.4 L 37 30 L 40.5 26.4 L 47.6 47.6 L 26.4 40.6 L 30 37 L 18.4 25.5z" />
+                    <path d="M81.6 25.5 L 70 37 L 73.6 40.6 L 52.4 47.6 L 59.4 26.4 L 63 30 L 74.5 18.4z" />
+                    <path d="M18.4 74.5 L 30 63 L 26.4 59.4 L 47.6 52.4 L 40.5 73.6 L 37 70 L 25.5 81.6z" />
+                    <path d="M74.5 81.6 L 63 70 L 59.4 73.6 L 52.4 52.4 L 73.6 59.4 L 70 63 L 81.6 74.5z" />
+                </ng-container>
             </svg>
 
             <svg id="dotv" class="dotv" viewBox="0 0 100 100" [attr.x]="-markerSize" [attr.y]="-markerSize"
@@ -156,8 +157,16 @@
             <!-- { long: this.DMSToMarker(event.SIS_LONGDMS), lat: this.DMSToMarker(event.SIS_LATDMS, true) } -->
 
         </ng-container>
-        <!-- <use (click)="null" [attr.href]="'#dotg'" [attr.x]="DMSToMarker('122 Deg 20 Mins 16 Secs')"
-            [attr.y]="DMSToMarker('10 Deg 1 Mins 20 Secs', true)" /> -->
+
+        <!-- <use (click)="eventClick(latestEvent)" *ngIf="latestEvent" [attr.href]="'#dotb'" [attr.x]="latestEvent.XTRA.long"
+            [attr.y]="latestEvent.XTRA.lat" /> -->
+
+            <use *ngIf="latestEvent ? latestEvent.XTRA : false" (click)="null" [attr.href]="'#dotb'" [attr.x]="latestEvent.XTRA.long"
+            [attr.y]="latestEvent.XTRA.lat"  (click)="eventClick(latestEvent)" />
+
+<!-- 
+        <use (click)="null" [attr.href]="'#dotb'" [attr.x]="DMSToMarker('119 Deg 0 Mins 0 Secs')"
+            [attr.y]="DMSToMarker('11 Deg 0 Mins 0 Secs', true)" /> -->
 
 
         <!-- <use (click)="null" [attr.href]="'#sqrrl'" [attr.x]="DMSToMarker('119 Deg 0 Mins 0 Secs')"
@@ -170,8 +179,14 @@
             [attr.width]="markerSize" [attr.height]="markerSize"
             [attr.y]="DMSTMarker('11 Deg 30 Mins 0 Secs', true)" /> -->
 
-            <line x1="200" y1="600" x2="200" y2="800" stroke="blue" stroke-width="2" />    
-            <line x1="100" y1="700" x2="300" y2="700" stroke="red" stroke-width="2" />    
+        <!-- <line x1="200" y1="600" x2="200" y2="800" stroke="blue" stroke-width="2" />
+        <line x1="100" y1="700" x2="300" y2="700" stroke="red" stroke-width="2" /> -->
+
+        <!-- <rect (click)="ZoomLimits()" title="zoom limits" 
+            [attr.x]="zoomCustom.left + zoomCustom.width - markerSize * 3.2"
+            [attr.y]="zoomCustom.top + zoomCustom.height - markerSize * 2.4" [attr.width]="markerSize * 2.8"
+            [attr.height]="markerSize * 2" stroke="black" style="opacity: 0.2;cursor:pointer;" [attr.stroke-width]="markerSize * 0.2"
+            fill="gray" /> -->
 
     </svg>
 
@@ -208,4 +223,7 @@ Events within the last year
         </ng-container>
     </div>
 </div>
-<i (click)="ToggleTools()" id="control" [style.grid-column]="showTools ? -1 : -2" [title]="controlTitle" [class]="'fa fa-angle-double-' + (showTools ? 'right' : 'left')"></i>
+<i (click)="ToggleTools()" id="control" [style.grid-column]="showTools ? -1 : -2" [title]="controlTitle"
+    [class]="'fa fa-angle-double-' + (showTools ? 'right' : 'left')"></i>
+<div title="Set zoom to entire monitored area..." id="zoomLimits" (click)="ZoomLimits()" class="noselect"
+    [style.grid-column]="showTools ? 1 : 2">&nbsp;</div>

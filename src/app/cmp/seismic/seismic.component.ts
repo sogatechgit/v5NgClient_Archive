@@ -11,6 +11,7 @@ import { RequestParams } from 'src/app/api/mod/app-params.model';
 import { AppDataset } from 'src/app/svc/app-dataset.service';
 
 import { TblSeismicRow } from './../../svc/app.tables'
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 //import * as t from 'topojson';
 
@@ -26,6 +27,16 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     this.mouseWheelFunc(event);
   }
 
+  // @HostListener('mouseover') onMouseOver(event:any) {
+  //   //this.border = '5px solid green';
+  // }
+
+  // @HostListener('mousedown') onMouseDown(event:any) {
+  //   console.log("Mousedown! ", event)
+  //   //this.border = '5px solid green';
+  // }
+
+
   private _resizeTimer: any;
   @HostListener('window:resize', ['$event']) handleResize(event: any) {
     /*
@@ -38,7 +49,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     this._resizeTimer = setTimeout(() => {
       const hf = this.viewHeight / this.mapHeight;
       const wf = this.viewWidth / this.mapWidth;
-      this._scaleFactor = Math.max(hf, wf) * (this.zoomCustom.width / this.zoomLimits.width );
+      this._scaleFactor = Math.max(hf, wf) * (this.customZoom ? (this.zoomCustom.width / this.zoomLimits.width) : 1);
     });
   }
 
@@ -75,7 +86,9 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
   @Input() gridColor: string = '#a0a0a0';
   // @Input() gridLabelColor: string = '#a0a0a0';
-  @Input() gridLabelColor: string = 'white';
+
+  // @Input() gridLabelColor: string = 'white';
+  @Input() gridLabelColor: string = 'red';
 
   @Input() gridWidth: number = 0.5;
 
@@ -106,11 +119,23 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     return this._eventsFiltered;
   }
 
+  get latestEvent():TblSeismicRow{
+    if(this._events.length==0) return null;
+    return  this._events[0];
+  }
+
   ngOnInit(): void {
     this.InitMap();
     // this.InitMapD3();
     // this.InitD3US();
 
+    this.blinkPulse();
+
+  }
+
+  blinkPulse() {
+    this.blink = !this.blink;
+    setTimeout(() => this.blinkPulse(), 500);
   }
 
   ngAfterViewInit() {
@@ -495,6 +520,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     const { code } = display;
 
     this.filterEvents(code);
+    this.ToggleTools();
 
   }
 
@@ -548,13 +574,16 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
       this._zoomCustom.height = Math.min(this._zoomCustom.height * 1.05, this.zoomLimits.height)
     }
 
-    this.customZoom =true;
+    this.customZoom = true;
 
     const { layerX, layerY } = event;
     const cp = this.screenToSVG({ x: layerX, y: layerY })
 
-    this._zoomCustom.top = cp.y - this._zoomCustom.height / 2;
-    this._zoomCustom.left = cp.x - this._zoomCustom.width / 2;
+    const ratioX = (cp.x - this.viewLeft) / this.viewWidth;
+    const ratioY = (cp.y - this.viewTop) / this.viewHeight;
+
+    this._zoomCustom.top = cp.y - this._zoomCustom.height * ratioY;
+    this._zoomCustom.left = cp.x - this._zoomCustom.width * ratioX;
 
     console.log(`LayerX: ${layerX}, LayerY: ${layerY}, svgX: ${cp.x}, svgY: ${cp.y}`)
     this.handleResize(null);
@@ -718,6 +747,15 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     //   });
   }
 
+  ZoomLimits() {
+    this.customZoom = false;
+    this.zoomCustom.top = this.zoomLimits.top;
+    this.zoomCustom.left = this.zoomLimits.left;
+    this.zoomCustom.width = this.zoomLimits.width;
+    this.zoomCustom.height = this.zoomLimits.height;
+    this.handleResize(null);
+  }
+
   InitMap() {
 
     // return new Promise<void>((resolve, reject) => {
@@ -848,12 +886,14 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
   }
 
+  public blink: boolean = true;
+
   get transPoint(): ITransPoint {
 
-    const viewTop = this.viewTop;
-    const viewLeft = this.viewLeft;
-    const viewWidth = this.viewWidth;
-    const viewHeight = this.viewHeight;
+    const viewTop = this.customZoom ? this.zoomCustom.top : this.viewTop;
+    const viewLeft = this.customZoom ? this.zoomCustom.left : this.viewLeft;
+    const viewWidth = this.customZoom ? this.zoomCustom.width : this.viewWidth;
+    const viewHeight = this.customZoom ? this.zoomCustom.height : this.viewHeight;
 
     const scrWidth = this.mapWidth;
     const scrHeight = this.mapHeight;
@@ -867,6 +907,48 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     const viewOffsetY = viewTop - (viewHeightCalc - viewHeight) / 2;
 
     return { ratio: maxRatio, viewOffsetX: viewOffsetX, viewOffsetY: viewOffsetY };
+  }
+
+  private mouseDown: boolean = false;
+  private mouseMoved: boolean = false;
+  private mousePointRef: IPoint = null;
+
+  MouseEvent(event: any) {
+    const { layerX, layerY } = event;
+    switch (event.type) {
+      case 'mousedown':
+        this.mouseDown = true;
+        this.mousePointRef = { x: layerX, y: layerY }
+        break;
+      case 'mouseup':
+
+        this.mouseDown = false;
+        this.mousePointRef = null;
+        break;
+      case 'mouseout':
+      case 'mousemove':
+        if (this.mouseDown && this.customZoom) {
+          const offX = this.mousePointRef.x - layerX;
+          const offY = this.mousePointRef.y - layerY;
+
+          const { left, top } = this.zoomCustom;
+
+          const cp = this.screenToSVG({ x: layerX, y: layerY })
+          const oldScreenOrigin = this.svgToScreen({ x: left, y: top });
+          const newOrigin = this.screenToSVG({ x: oldScreenOrigin.x + offX, y: oldScreenOrigin.y + offY });
+
+          this.zoomCustom.left = Math.max(newOrigin.x, this.zoomLimits.left);
+          this.zoomCustom.top = Math.max(newOrigin.y, this.zoomLimits.top);
+
+          this.mousePointRef.x = layerX;
+          this.mousePointRef.y = layerY;
+
+          // console.log(`NewOrigin: ${JSON.stringify(newOrigin)}`);
+
+          // console.log(`LayerX ${layerX}, LayerY ${layerY}, offX: ${offX}, offY: ${offY}, cpx: ${cp.x}, cpy: ${cp.y}`);
+        }
+        break;
+    }
   }
 
 }
