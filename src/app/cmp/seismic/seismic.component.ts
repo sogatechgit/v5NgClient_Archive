@@ -119,9 +119,9 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     return this._eventsFiltered;
   }
 
-  get latestEvent():TblSeismicRow{
-    if(this._events.length==0) return null;
-    return  this._events[0];
+  get latestEvent(): TblSeismicRow {
+    if (this._events.length == 0) return null;
+    return this._events[0];
   }
 
   ngOnInit(): void {
@@ -804,7 +804,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
           const params: Array<RequestParams> = [{
             code: 'sis',
             filter: `{SIS_LONG|gte|${this.refLongLowerLimit}}^{SIS_LONG|lte|${this.refLongUpperLimit}}^{SIS_LAT|gte|${this.refLatLowerLimit}}^{SIS_LAT|lte|${this.refLatUpperLimit}}`,
-            includedFields: 'SIS_REFNO`SIS_LATDMS`SIS_LONGDMS`SIS_NEARESTASSET`SIS_NEARESTKP`SIS_DATE`SIS_TIME`SIS_N`SIS_E`SIS_HREF`SIS_MAG`SIS_TRIGGERCLASS`SIS_TITLE',
+            includedFields: 'SIS_REFNO`SIS_LATDMS`SIS_LONGDMS`SIS_NEARESTASSET`SIS_NEARESTKP`SIS_DISTFRMASSET`SIS_DATE`SIS_TIME`SIS_N`SIS_E`SIS_HREF`SIS_MAG`SIS_DEPTH`SIS_TRIGGERCLASS`SIS_TITLE`SIS_PUBLISHED_DATE`SIS_SOURCE',
             sortFields: '-SIS_DATE,-SIS_TIME',
             snapshot: true
           }]
@@ -884,6 +884,22 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
 
     return { x: (x - viewOffsetX) / ratio - markerWidth / 2, y: (y - viewOffsetY) / ratio - markerHeight / 2 };
 
+  }
+
+  EventTitle(event: TblSeismicRow): string {
+    const { XTRA, SIS_LATDMS, SIS_LONGDMS, SIS_TITLE, SIS_TRIGGERCLASS, SIS_MAG, SIS_N, SIS_E, SIS_DATE, SIS_TIME, SIS_NEARESTASSET, SIS_NEARESTKP, SIS_DISTFRMASSET, SIS_DEPTH, SIS_SOURCE, SIS_PUBLISHED_DATE } = event;
+    const s = (n: number) => { return ' '.repeat(n) }
+    const title = SIS_TITLE ? SIS_TITLE : `M${SIS_MAG} - ${SIS_NEARESTASSET}(nearest asset)`;
+    return `${title}
+${'-'.repeat(75)}
+Trigger class${s(7)} ${SIS_TRIGGERCLASS}
+Nearest Asset${s(5)} ${SIS_NEARESTASSET}
+Nearest kp${s(10)} ${SIS_NEARESTKP}
+Long / Lat${s(11)} ${this.dmsToDec(SIS_LONGDMS).toFixed(4)}E / ${this.dmsToDec(SIS_LATDMS).toFixed(4)}N
+Depth${s(17)} ${SIS_DEPTH}km
+Source${s(17)} ${SIS_SOURCE}
+Publish Date${s(8)} ${SIS_PUBLISHED_DATE}
+`
   }
 
   public blink: boolean = true;

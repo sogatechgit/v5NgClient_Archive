@@ -9,34 +9,95 @@
         {
           "tree_id": 1,
           "name": "Integrity Status",
-          "roots": [{ "location": "aa", "id": 772 }]
+          "roots": [
+            {
+              "location": "aa",
+              "id": 772
+            }
+          ]
         },
         {
           "tree_id": 2,
           "name": "Equipment",
-          "roots": [{ "location": "ab", "id": 11542 }]
+          "roots": [
+            {
+              "location": "ab",
+              "id": 11542
+            }
+          ]
         },
         {
           "tree_id": 5,
           "name": "Other",
           "roots": [
-            { "location": "ac", "id": 11690 },
-            { "location": "ad", "id": 89680 },
-            { "location": "ae", "id": 89683 },
-            { "location": "af", "id": 89684 },
-            { "location": "ag", "id": 89685 },
-            { "location": "ah", "id": 89686 },
-            { "location": "ai", "id": 89687 },
-            { "location": "aj", "id": 89688 },
-            { "location": "ak", "id": 89689 },
-            { "location": "al", "id": 89690 },
-            { "location": "am", "id": 89873 },
-            { "location": "an", "id": 89874 },
-            { "location": "ao", "id": 89875 },
-            { "location": "ap", "id": 89877 },
-            { "location": "aq", "id": 90169 },
-            { "location": "ar", "id": 95874 },
-            { "location": "as", "id": 95875 }
+            {
+              "location": "ac",
+              "id": 11690
+            },
+            {
+              "location": "ad",
+              "id": 89680
+            },
+            {
+              "location": "ae",
+              "id": 89683
+            },
+            {
+              "location": "af",
+              "id": 89684
+            },
+            {
+              "location": "ag",
+              "id": 89685
+            },
+            {
+              "location": "ah",
+              "id": 89686
+            },
+            {
+              "location": "ai",
+              "id": 89687
+            },
+            {
+              "location": "aj",
+              "id": 89688
+            },
+            {
+              "location": "ak",
+              "id": 89689
+            },
+            {
+              "location": "al",
+              "id": 89690
+            },
+            {
+              "location": "am",
+              "id": 89873
+            },
+            {
+              "location": "an",
+              "id": 89874
+            },
+            {
+              "location": "ao",
+              "id": 89875
+            },
+            {
+              "location": "ap",
+              "id": 89877
+            },
+            {
+              "location": "aq",
+              "id": 90169
+            },
+            {
+              "location": "ar",
+              "id": 95874
+            },
+            {
+              "location": "as",
+              "id": 95875
+            }
           ]
         }
       ],
@@ -54,12 +115,22 @@
         {
           "tree_id": 1,
           "name": "Integrity Status",
-          "roots": [{ "location": "aa", "id": 4667 }]
+          "roots": [
+            {
+              "location": "aa",
+              "id": 4667
+            }
+          ]
         },
         {
           "tree_id": 2,
           "name": "Equipment",
-          "roots": [{ "location": "ab", "id": 13970 }]
+          "roots": [
+            {
+              "location": "ab",
+              "id": 13970
+            }
+          ]
         }
       ],
       "url_local": "http://soga-alv/ngarbi/api/app",
@@ -68,8 +139,8 @@
       "url_use_deploy": false
     }
   ],
-  "report_list":{
-    "sample_property":"Hello Report"
+  "report_list": {
+    "sample_property": "Hello Report"
   },
   "app_menu": [
     {
@@ -131,7 +202,7 @@
           "id": 8,
           "label": "Seismic",
           "ready": true,
-          "active": true,
+          "active": false,
           "loaded": false
         },
         {
@@ -141,7 +212,6 @@
           "active": false,
           "loaded": false
         }
-
       ]
     },
     {
@@ -162,7 +232,12 @@
           "active": false,
           "loaded": false
         },
-        { "id": 11, "label": "Survey Upload", "active": false, "loaded": false }
+        {
+          "id": 11,
+          "label": "Survey Upload",
+          "active": false,
+          "loaded": false
+        }
       ]
     },
     {
@@ -192,11 +267,12 @@
     "url_deploy": "http://ngimsa.ivideolib.com/api/app",
     "url_use_deploy": false,
     "app_version": {
-      "ver": "Alpha 2.4.0",
-      "build": "20210522",
+      "ver": "Alpha 2.4.1",
+      "build": "20210609",
       "updates": [
-        "Activated Freespans Module (working but still carrying out speed optimization)" ,
-        "Activated reporting on Anomalies, Design Data, Chemical Database and Reference Library Modules" ,
+        "Activated Seismic Module (event details popup set as tooltip)",
+        "Activated Freespans Module (working but still carrying out speed optimization)",
+        "Activated reporting on Anomalies, Design Data, Chemical Database and Reference Library Modules",
         "Activated Compliance Module",
         "Implemented Oracle Database Backend",
         "Fixed tree search result grid display",
@@ -220,6 +296,15 @@
       ],
       "history": [
         {
+          "ver": "Alpha 2.4.0",
+          "build": "20210522",
+          "updates": [
+            "Activated Freespans Module (working but still carrying out speed optimization)",
+            "Activated reporting on Anomalies, Design Data, Chemical Database and Reference Library Modules",
+            "Activated Compliance Module"
+          ]
+        },
+        {
           "ver": "Alpha 2.3.2",
           "build": "20210427",
           "updates": [
@@ -234,7 +319,6 @@
             "Set fluid grid display on survey data module",
             "Attachment preview window launch on preview thumbnail"
           ]
-
         },
         {
           "ver": "Alpha 2.3.0",
@@ -253,7 +337,9 @@
         {
           "ver": "Alpha 2.2.1",
           "build": "20210211",
-          "updates": ["Fixed Attachment Component Manage Configuration"]
+          "updates": [
+            "Fixed Attachment Component Manage Configuration"
+          ]
         },
         {
           "ver": "Alpha 2.2.0",
@@ -343,7 +429,9 @@
         {
           "ver": "Alpha 1.4.1",
           "build": "20201005",
-          "updates": ["Enabled Reference Files data grid"]
+          "updates": [
+            "Enabled Reference Files data grid"
+          ]
         },
         {
           "ver": "Alpha 1.4.0",
@@ -359,7 +447,9 @@
         {
           "ver": "Alpha 1.3.9",
           "build": "20200911",
-          "updates": ["Fixed data grid scrolling issue (ping-pong behavior)"]
+          "updates": [
+            "Fixed data grid scrolling issue (ping-pong behavior)"
+          ]
         },
         {
           "ver": "Alpha 1.3.8",
@@ -395,12 +485,16 @@
         {
           "ver": "Alpha 1.3.5",
           "build": "20200819",
-          "updates": ["Completed Asset Selector function"]
+          "updates": [
+            "Completed Asset Selector function"
+          ]
         },
         {
           "ver": "Alpha 1.3.4",
           "build": "20200818",
-          "updates": ["Worked on data pre POST request routines"]
+          "updates": [
+            "Worked on data pre POST request routines"
+          ]
         },
         {
           "ver": "Alpha 1.3.3",
@@ -450,12 +544,16 @@
         {
           "ver": "Alpha 1.2.5",
           "build": "20200610",
-          "updates": ["Implemented Tree zoom feature"]
+          "updates": [
+            "Implemented Tree zoom feature"
+          ]
         },
         {
           "ver": "Alpha 1.2.4",
           "build": "20200609",
-          "updates": ["Implemented response data compression"]
+          "updates": [
+            "Implemented response data compression"
+          ]
         },
         {
           "ver": "Alpha 1.2.3",
@@ -513,7 +611,6 @@
       "default": "#6479a4"
     }
   },
-
   "tree_init_config": {
     "tree_root_location": "aa",
     "tree_location_filter_pattern": "aa,aa__",
@@ -522,299 +619,249 @@
     "tree_extract_tree_fields": "TRE_NOD_TAG`TRE_NOD_TAG_PAR`TRE_NOD_LOC`TRE_DAT_TAG",
     "tree_child_extract_levels": 1
   },
-  "Report_Data": 
-    {
-      "Host": "",
-      "List": [
-        
-        {
-          "rpttitle": "Reference Library Listing Summary",
-          "rptcode": "RF_01",
-          "rpttype": "rf"
-        },
-        
-        {
-          "rpttitle": "Reference Library Listing by Asset",
-          "rptcode": "RF_02",
-          "rpttype": "rf"
-        },
-        
-        {
-          "rpttitle": "Reference Library Listing by Category",
-          "rptcode": "RF_03",
-          "rpttype": "rf"
-        },
-        
-        {
-          "rpttitle": "Design Data Summary Listing by Asset",
-          "rptcode": "DD_01",
-          "rpttype": "desdat"
-        },
-        
-        {
-          "rpttitle": "Design Data Summary Listing by Type",
-          "rptcode": "DD_02",
-          "rpttype": "desdat"
-        },
-        
-        {
-          "rpttitle": "Chemical Data Listing by Asset/Sampling Location",
-          "rptcode": "CH_01",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Chemical Data Listing by Type",
-          "rptcode": "CH_02",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Chemical Data Listing by Sample Date",
-          "rptcode": "CH_03",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "PVT Analysis",
-          "rptcode": "CH_04",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Organic (Oil Wax) Analysis",
-          "rptcode": "CH_05",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Bacteria Analysis",
-          "rptcode": "CH_06",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Produced Water Analysis",
-          "rptcode": "CH_07",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Solid Analysis",
-          "rptcode": "CH_08",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Failure Analysis",
-          "rptcode": "CH_09",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Bacteria Analysis(Biocide Testing)",
-          "rptcode": "CH_10",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Corrosion Coupon",
-          "rptcode": "CH_11",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Scale Coupon",
-          "rptcode": "CH_12",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "BSW Readings",
-          "rptcode": "CH_13",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Water Quality(Oil&Grease)Analysis",
-          "rptcode": "CH_14",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Glycol Analysis",
-          "rptcode": "CH_15",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "WHRU Jacket Water(WHRU)",
-          "rptcode": "CH_16",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "WHRU Jacket Water (Jacket)",
-          "rptcode": "CH_17",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "WHRU Water Analysis",
-          "rptcode": "CH_18",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Chemical Treatment Rates",
-          "rptcode": "CH_19",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Chemical Documents",
-          "rptcode": "CH_20",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Fluid Service",
-          "rptcode": "CH_21",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Hydraulic Fluid Analysis-Contaminants",
-          "rptcode": "CH_22",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Hydraulic Fluid Analysis-Gen. Info",
-          "rptcode": "CH_23",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Hydraulic Fluid Analysis-Properties",
-          "rptcode": "CH_24",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Chemical Residuals",
-          "rptcode": "CH_25",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Service Reports",
-          "rptcode": "CH_26",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Chem Treating Manual",
-          "rptcode": "CH_27",
-          "rpttype": "chmhdr"
-        },
-        
-        {
-          "rpttitle": "Chem PFD",
-          "rptcode": "CH_28",
-          "rpttype": "chmhdr"
-        },
-
-        {
-          "rpttitle": "Anomalies By Asset Report",
-          "rptcode": "AN_01",
-          "rpttype": "an"
-        },
-        
-        {
-          "rpttitle": "Anomalies By Class Report",
-          "rptcode": "AN_02",
-          "rpttype": "an"
-        },
-        
-        {
-          "rpttitle": "Anomalies By Status Report",
-          "rptcode": "AN_03",
-          "rpttype": "an"
-        },
-        
-        {
-          "rpttitle": "Current Anomalies Report",
-          "rptcode": "AN_04",
-          "rpttype": "an"
-        },
-        
-        {
-          "rpttitle": "Non-routine Maintenance Reports",
-          "rptcode": "AN_05",
-          "rpttype": "an"
-        },
-        
-        {
-          "rpttitle": "Anomaly Criteria Report",
-          "rptcode": "AN_07",
-          "rpttype": "an"
-        },
-        
-        {
-          "rpttitle": "Anomaly Distibution Chart",
-          "rptcode": "AN_08",
-          "rpttype": "an"
-        },
-        
-        {
-          "rpttitle": "Anomaly KPI Report",
-          "rptcode": "AN_10",
-          "rpttype": "an"
-        },
-        
-        {
-          "rpttitle": "Anomaly Types Report",
-          "rptcode": "AN_14",
-          "rpttype": "an"
-        },
-        
-        {
-          "rpttitle": "Anomaly Summary Report",
-          "rptcode": "AN_16",
-          "rpttype": "an"
-        },
-        
-        {
-          "rpttitle": "Anomaly Action Items",
-          "rptcode": "AN_18",
-          "rpttype": "an"
-        },
-        
-        {
-          "rpttitle": "Inspection Anomaly Action Items",
-          "rptcode": "AN_24",
-          "rpttype": "an"
-        },
-        
-        {
-          "rpttitle": "Anomaly Integrity Status Report",
-          "rptcode": "AN_19",
-          "rpttype": "an"
-        },
-        
-        {
-          "rpttitle": "Anomaly Integrity Status By SCE/CE/SGS Report",
-          "rptcode": "AN_22",
-          "rpttype": "an"
-        },
-        
-        {
-          "rpttitle": "Anomaly Action Items Summary",
-          "rptcode": "AN_23",
-          "rpttype": "an"
-        }
-      ]
-    }
-  
+  "Report_Data": {
+    "Host": "",
+    "List": [
+      {
+        "rpttitle": "Reference Library Listing Summary",
+        "rptcode": "RF_01",
+        "rpttype": "rf"
+      },
+      {
+        "rpttitle": "Reference Library Listing by Asset",
+        "rptcode": "RF_02",
+        "rpttype": "rf"
+      },
+      {
+        "rpttitle": "Reference Library Listing by Category",
+        "rptcode": "RF_03",
+        "rpttype": "rf"
+      },
+      {
+        "rpttitle": "Design Data Summary Listing by Asset",
+        "rptcode": "DD_01",
+        "rpttype": "desdat"
+      },
+      {
+        "rpttitle": "Design Data Summary Listing by Type",
+        "rptcode": "DD_02",
+        "rpttype": "desdat"
+      },
+      {
+        "rpttitle": "Chemical Data Listing by Asset/Sampling Location",
+        "rptcode": "CH_01",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Chemical Data Listing by Type",
+        "rptcode": "CH_02",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Chemical Data Listing by Sample Date",
+        "rptcode": "CH_03",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "PVT Analysis",
+        "rptcode": "CH_04",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Organic (Oil Wax) Analysis",
+        "rptcode": "CH_05",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Bacteria Analysis",
+        "rptcode": "CH_06",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Produced Water Analysis",
+        "rptcode": "CH_07",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Solid Analysis",
+        "rptcode": "CH_08",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Failure Analysis",
+        "rptcode": "CH_09",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Bacteria Analysis(Biocide Testing)",
+        "rptcode": "CH_10",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Corrosion Coupon",
+        "rptcode": "CH_11",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Scale Coupon",
+        "rptcode": "CH_12",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "BSW Readings",
+        "rptcode": "CH_13",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Water Quality(Oil&Grease)Analysis",
+        "rptcode": "CH_14",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Glycol Analysis",
+        "rptcode": "CH_15",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "WHRU Jacket Water(WHRU)",
+        "rptcode": "CH_16",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "WHRU Jacket Water (Jacket)",
+        "rptcode": "CH_17",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "WHRU Water Analysis",
+        "rptcode": "CH_18",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Chemical Treatment Rates",
+        "rptcode": "CH_19",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Chemical Documents",
+        "rptcode": "CH_20",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Fluid Service",
+        "rptcode": "CH_21",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Hydraulic Fluid Analysis-Contaminants",
+        "rptcode": "CH_22",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Hydraulic Fluid Analysis-Gen. Info",
+        "rptcode": "CH_23",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Hydraulic Fluid Analysis-Properties",
+        "rptcode": "CH_24",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Chemical Residuals",
+        "rptcode": "CH_25",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Service Reports",
+        "rptcode": "CH_26",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Chem Treating Manual",
+        "rptcode": "CH_27",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Chem PFD",
+        "rptcode": "CH_28",
+        "rpttype": "chmhdr"
+      },
+      {
+        "rpttitle": "Anomalies By Asset Report",
+        "rptcode": "AN_01",
+        "rpttype": "an"
+      },
+      {
+        "rpttitle": "Anomalies By Class Report",
+        "rptcode": "AN_02",
+        "rpttype": "an"
+      },
+      {
+        "rpttitle": "Anomalies By Status Report",
+        "rptcode": "AN_03",
+        "rpttype": "an"
+      },
+      {
+        "rpttitle": "Current Anomalies Report",
+        "rptcode": "AN_04",
+        "rpttype": "an"
+      },
+      {
+        "rpttitle": "Non-routine Maintenance Reports",
+        "rptcode": "AN_05",
+        "rpttype": "an"
+      },
+      {
+        "rpttitle": "Anomaly Criteria Report",
+        "rptcode": "AN_07",
+        "rpttype": "an"
+      },
+      {
+        "rpttitle": "Anomaly Distibution Chart",
+        "rptcode": "AN_08",
+        "rpttype": "an"
+      },
+      {
+        "rpttitle": "Anomaly KPI Report",
+        "rptcode": "AN_10",
+        "rpttype": "an"
+      },
+      {
+        "rpttitle": "Anomaly Types Report",
+        "rptcode": "AN_14",
+        "rpttype": "an"
+      },
+      {
+        "rpttitle": "Anomaly Summary Report",
+        "rptcode": "AN_16",
+        "rpttype": "an"
+      },
+      {
+        "rpttitle": "Anomaly Action Items",
+        "rptcode": "AN_18",
+        "rpttype": "an"
+      },
+      {
+        "rpttitle": "Inspection Anomaly Action Items",
+        "rptcode": "AN_24",
+        "rpttype": "an"
+      },
+      {
+        "rpttitle": "Anomaly Integrity Status Report",
+        "rptcode": "AN_19",
+        "rpttype": "an"
+      },
+      {
+        "rpttitle": "Anomaly Integrity Status By SCE/CE/SGS Report",
+        "rptcode": "AN_22",
+        "rpttype": "an"
+      },
+      {
+        "rpttitle": "Anomaly Action Items Summary",
+        "rptcode": "AN_23",
+        "rpttype": "an"
+      }
+    ]
+  }
 }

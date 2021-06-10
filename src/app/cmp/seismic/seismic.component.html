@@ -149,7 +149,7 @@
 
         <ng-container *ngFor="let evt of eventsFiltered;let idx=index;">
             <use (click)="eventClick(evt)" [attr.href]="dotHREF(evt)" [attr.x]="evt.XTRA.long"
-                [attr.y]="evt.XTRA.lat" />
+                [attr.y]="evt.XTRA.lat"  ><title>{{EventTitle(evt)}}</title></use>
 
             <!-- <use (click)="eventClick(evt)" [attr.href]="dotHREF(evt)" [attr.x]="DMSToMarker(evt.SIS_LONGDMS)"
                 [attr.y]="DMSToMarker(evt.SIS_LATDMS, true)" /> -->
@@ -162,31 +162,8 @@
             [attr.y]="latestEvent.XTRA.lat" /> -->
 
             <use *ngIf="latestEvent ? latestEvent.XTRA : false" (click)="null" [attr.href]="'#dotb'" [attr.x]="latestEvent.XTRA.long"
-            [attr.y]="latestEvent.XTRA.lat"  (click)="eventClick(latestEvent)" />
+            [attr.y]="latestEvent.XTRA.lat"  (click)="eventClick(latestEvent)" ><title>{{EventTitle(latestEvent)}}</title></use>
 
-<!-- 
-        <use (click)="null" [attr.href]="'#dotb'" [attr.x]="DMSToMarker('119 Deg 0 Mins 0 Secs')"
-            [attr.y]="DMSToMarker('11 Deg 0 Mins 0 Secs', true)" /> -->
-
-
-        <!-- <use (click)="null" [attr.href]="'#sqrrl'" [attr.x]="DMSToMarker('119 Deg 0 Mins 0 Secs')"
-            [attr.width]="markerSize" [attr.height]="markerSize" [attr.y]="DMSToMarker('12 Deg 0 Mins 0 Secs', true)" />
-
-        <use (click)="null" [attr.href]="'#sqrrw'" [attr.x]="DMSToMarker('119 Deg 0 Mins 0 Secs')"
-            [attr.width]="markerSize" [attr.height]="markerSize" [attr.y]="DMSToMarker('11 Deg 0 Mins 0 Secs', true)" />
-
-        <use (click)="null" [attr.href]="'#sqrra'" [attr.x]="DMSToMarker('119 Deg 0 Mins 0 Secs')"
-            [attr.width]="markerSize" [attr.height]="markerSize"
-            [attr.y]="DMSTMarker('11 Deg 30 Mins 0 Secs', true)" /> -->
-
-        <!-- <line x1="200" y1="600" x2="200" y2="800" stroke="blue" stroke-width="2" />
-        <line x1="100" y1="700" x2="300" y2="700" stroke="red" stroke-width="2" /> -->
-
-        <!-- <rect (click)="ZoomLimits()" title="zoom limits" 
-            [attr.x]="zoomCustom.left + zoomCustom.width - markerSize * 3.2"
-            [attr.y]="zoomCustom.top + zoomCustom.height - markerSize * 2.4" [attr.width]="markerSize * 2.8"
-            [attr.height]="markerSize * 2" stroke="black" style="opacity: 0.2;cursor:pointer;" [attr.stroke-width]="markerSize * 0.2"
-            fill="gray" /> -->
 
     </svg>
 
@@ -225,5 +202,5 @@ Events within the last year
 </div>
 <i (click)="ToggleTools()" id="control" [style.grid-column]="showTools ? -1 : -2" [title]="controlTitle"
     [class]="'fa fa-angle-double-' + (showTools ? 'right' : 'left')"></i>
-<div title="Set zoom to entire monitored area..." id="zoomLimits" (click)="ZoomLimits()" class="noselect"
+<div [title]="'Click to set zoom to entire monitored area...\n\n- Use mouse wheel to zoom in/out and\n- Click-and-Drag to pan display while zoomed-in...'" id="zoomLimits" (click)="ZoomLimits()" class="noselect"
     [style.grid-column]="showTools ? 1 : 2">&nbsp;</div>
