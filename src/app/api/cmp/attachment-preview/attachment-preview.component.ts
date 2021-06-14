@@ -14,36 +14,51 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
   @Input() rootUrl: string;
   @Input() width: number;
 
-  @Input() iconFontSize: number =75;
+  @Input() iconFontSize: number = 75;
 
   public data: any;
 
   private fileStatus: any = {};
 
+  private _urlASX: string = null;
   private _url: string;
   @Input() set url(value: string) {
     // this.openPreview.observers.length
     // http://soga-alv/ngarbi/RefFiles/Attachments/REF_FILES/AN/20191230_175134.jpg
+    const objPath = this.urlDomain + '/' + value;
     this._url = this.urlDomain + '/' + value;
-
-    this._isPhoto = this.CheckIfPhoto(this._url);
-    if (!this._isPhoto) this._isVideo = this.CheckIfVideo(this._url);
+    
+    this._isPhoto = this.CheckIfPhoto(this.url);
+    if (!this._isPhoto) {
+      this._isVideo = this.CheckIfVideo(this.url);
+      if(this._isVideo){
+        this._isASX = value.toLowerCase().indexOf('.asx') != -1;
+      }else{
+        this._isASX = false;
+      }
+    }
     else this._isVideo = false;
 
     if (!this.isVideo && !this.isPhoto) {
-      // console.log('Ref is a neither a photo nor a video!');
+      console.log('Ref is a neither a photo nor a video!');
       this._fileExists = false;
       return;
     }
 
+
     const staObj = this.fileStatus[this.urlKey];
+
+    console.log("##### staObj: " , staObj);
+
     if (!staObj) {
       // get status
       const fd = new FormData();
       fd.append('path', value);
+      console.log('urlFileStatus Check: ', this.urlFileStatus)
+
       const subs = this.http.post(this.urlFileStatus, fd).subscribe(
         (res: any) => {
-          console.log('File check result: ', res);
+          console.log('File check result: ', res, "ASXText: ", res.asxtext);
           this.fileStatus[this.urlKey] = res;
           this._fileExists = res.exists;
         },
@@ -90,10 +105,10 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
   }
 
   get url(): string {
-    return this._url;
+    return this._urlASX ? this._urlASX : this._url;
   }
 
-  constructor(public dataSource: AppMainServiceService) {}
+  constructor(public dataSource: AppMainServiceService) { }
 
   ngAfterViewInit() {
     console.log('AfterViewInit DATA: ', this.data);
@@ -127,7 +142,7 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
     }
   }
 
-  OpenPreview(){
+  OpenPreview() {
     this.openPreview.emit(this)
   }
 
@@ -186,7 +201,7 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
 
     const ext = urlArr[urlArr.length - 1];
 
-    const validVideo = ['mp4', 'mpeg', 'avi'];
+    const validVideo = ['mp4', 'mpeg', 'avi', 'asx'];
 
     return validVideo.indexOf(ext) != -1;
   }
@@ -219,7 +234,11 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
   private _isVideo: boolean = false;
   get isVideo(): boolean {
     return this._isVideo;
-    //return this.validUrl ? this.url.indexOf('.mp4') != -1 : false;
+  }
+
+  private _isASX: boolean = false;
+  get isASX(): boolean {
+    return this._isASX;
   }
 
   private _isPhoto: boolean = false;

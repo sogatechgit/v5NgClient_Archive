@@ -56,8 +56,11 @@ export class AppMainServiceService {
   ) {
     // declare datasets for each configured OpCo
     appConfig.default.DataSources.forEach((e: IDataSource) => {
-      console.log('LOCATION HOSTNAME', location.hostname);
+      console.log('LOCATION HOSTNAME', location.hostname,e.ref_root);
       let apiUrl: string;
+
+      
+
       if (e.url_use_deploy || location.hostname != 'localhost') {
         if (location.hostname.toLowerCase().indexOf('soga-s-01') != -1) {
           apiUrl = e.url_soga;
@@ -86,6 +89,7 @@ export class AppMainServiceService {
             appHeader: e.app_header_main,
             appHeaderSub: e.app_header_sub,
             appTree: e.tree_definition,
+            referenceRoot: e.ref_root ? e.ref_root : "RefFiles",
           },
           this
         ),
@@ -275,6 +279,7 @@ export interface IDataSource {
   url_local: string;
   url_soga: string;
   url_use_deploy: boolean;
+  ref_root?: string;
 
   /**app_title": "SPEX - IMSA",
       "  app_title:string;

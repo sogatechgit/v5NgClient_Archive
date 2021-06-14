@@ -104,7 +104,8 @@
       "url_local": "http://soga-alv/ngarbi/api/app",
       "url_soga": "http://soga-s-01/imsaapi/api/app",
       "url_deploy": "http://ngimsa.ivideolib.com/api/app",
-      "url_use_deploy": false
+      "url_use_deploy": false,
+      "attachment_root": "RefFiles"
     },
     {
       "name": "spex",
@@ -152,7 +153,7 @@
         {
           "id": 1,
           "label": "Anomaly",
-          "active": false,
+          "active": true,
           "init_fields": "AN_ID`AN_TITLE`ASSET_ID`AN_ORIG_CLASS`AN_CURR_CLASS",
           "ready": true,
           "loaded": false

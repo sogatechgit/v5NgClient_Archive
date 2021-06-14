@@ -19,7 +19,8 @@ export class DatasetBase extends AppCommonMethods {
   constructor(
     public http: HttpClient,
     public apiCommon: AppCommonMethodsService,
-    public dialog: any
+    public dialog: any,
+    public data?:any
   ) {
     super();
   }
@@ -144,6 +145,10 @@ export class DatasetBase extends AppCommonMethods {
   }
   public set apiUrl(value: string) {
     this._apiUrl = value;
+  }
+
+  public get referenceRoot():string{
+    return this.data.referenceRoot;
   }
 
   public get urlBase(): string {

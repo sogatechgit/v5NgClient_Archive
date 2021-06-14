@@ -238,7 +238,7 @@ export class AttachmentsComponent extends ModuleCommon {
     const ref = e.sender.dialogRef;
     const val = button.value;
 
-    if(val == 'close'){
+    if(val == 'close' || val == 'cancel'){
       ref.close({ value: button.value, sender: sender });
     }else if(val == 'previous'){
       sender.ChildComponent.ShowPrev();

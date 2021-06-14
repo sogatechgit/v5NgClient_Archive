@@ -11,7 +11,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FileUploaderComponent implements OnInit {
   @Input() Multiple: boolean = true;
-  @Input() RootFolder: string = 'RefFiles';
+  @Input() RootFolder: string = this.ds.referenceRoot;
 
   private _SubFolder: string = '';
   @Input() set SubFolder(value: string) {

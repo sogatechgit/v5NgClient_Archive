@@ -117,7 +117,7 @@ export class AppDataset extends DatasetBase {
     public data?: any,
     private appMainServiceService?: AppMainServiceService
   ) {
-    super(http, apiCommon, null);
+    super(http, apiCommon, null, data);
 
     this.InitDS();
 
@@ -356,7 +356,7 @@ export class AppDataset extends DatasetBase {
   }
 
   LockRecord(tableCode: string, recordId: number, onSuccess: Function): void {
- 
+
     this.SetCurrentServerTime();
 
     // 2021-04-07T14:47:45
@@ -756,7 +756,7 @@ export class AppDataset extends DatasetBase {
     return item[displayField];
   }
 
-  public RequestLookup(args: any) {}
+  public RequestLookup(args: any) { }
 
   public SetLookupData(
     args: Array<{
@@ -805,7 +805,7 @@ export class AppDataset extends DatasetBase {
         // process only if table code is defined and if table code is 'lkp' a filter value must be supplied
         filterField =
           filterField != undefined && filterValue != undefined
-            ? `{${filterField}|${filterValue}}${tableCode=='lkp' ? '^{LKP_DESC_B|neq|null}' : ''}`
+            ? `{${filterField}|${filterValue}}${tableCode == 'lkp' ? '^{LKP_DESC_B|neq|null}' : ''}`
             : undefined;
 
         reqParams.push({
@@ -917,8 +917,8 @@ export class AppDataset extends DatasetBase {
     const formattedSearch = withWild
       ? searchText
       : withExact
-      ? searchText.substring(1)
-      : `%${searchText}%`;
+        ? searchText.substring(1)
+        : `%${searchText}%`;
 
     // const filter = `{TRE_DAT_TYPE|${this.currentTreeId}}^({NODE_ID|${
     //   withExact ? 'eq' : 'lk'
@@ -926,11 +926,9 @@ export class AppDataset extends DatasetBase {
     //   withExact ? 'eq' : 'lk'
     // }|"${formattedSearch}"})`;
 
-    const filter = `{TRE_DAT_TYPE|${this.currentTreeId}}^({NODE_ID|${
-      withExact ? 'eq' : 'lk'
-    }|"${formattedSearch}"}|{NODE_DESC|${
-      withExact ? 'eq' : 'lk'
-    }|"${formattedSearch}"})`;
+    const filter = `{TRE_DAT_TYPE|${this.currentTreeId}}^({NODE_ID|${withExact ? 'eq' : 'lk'
+      }|"${formattedSearch}"}|{NODE_DESC|${withExact ? 'eq' : 'lk'
+      }|"${formattedSearch}"})`;
 
     this.Get(
       [
