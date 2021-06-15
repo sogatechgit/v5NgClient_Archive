@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { AppDataset } from './../../../svc/app-dataset.service';
 import { AppMainServiceService } from './../../../svc/app-main-service.service';
-import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { threadId } from 'node:worker_threads';
 
 @Component({
   selector: 'app-attachment-preview',
@@ -9,6 +10,7 @@ import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@
   styleUrls: ['./attachment-preview.component.scss'],
 })
 export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
+  @ViewChild('video') video: any;
   @Output() openPreview: EventEmitter<any> = new EventEmitter();
   @Input() refernceId: number;
   @Input() rootUrl: string;
@@ -20,22 +22,23 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
 
   private fileStatus: any = {};
 
-  private _urlASX: string = null;
   private _url: string;
   @Input() set url(value: string) {
-    // this.openPreview.observers.length
-    // http://soga-alv/ngarbi/RefFiles/Attachments/REF_FILES/AN/20191230_175134.jpg
-    const objPath = this.urlDomain + '/' + value;
+
     this._url = this.urlDomain + '/' + value;
-    
+
+    // asx info reset positioned at this line is necessary because this._url is being used to determine file type
+    this._asxInfo = {};
+
+    this._isASX = false;
+
     this._isPhoto = this.CheckIfPhoto(this.url);
+
+    console.log('@@@ URL:', this._url, ", this.CheckIfPhoto(this.url): ", this.CheckIfPhoto(this.url));
+
     if (!this._isPhoto) {
       this._isVideo = this.CheckIfVideo(this.url);
-      if(this._isVideo){
-        this._isASX = value.toLowerCase().indexOf('.asx') != -1;
-      }else{
-        this._isASX = false;
-      }
+      if (this._isVideo) this._isASX = value.toLowerCase().indexOf('.asx') != -1;
     }
     else this._isVideo = false;
 
@@ -48,7 +51,7 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
 
     const staObj = this.fileStatus[this.urlKey];
 
-    console.log("##### staObj: " , staObj);
+    console.log("##### staObj: ", staObj);
 
     if (!staObj) {
       // get status
@@ -58,7 +61,8 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
 
       const subs = this.http.post(this.urlFileStatus, fd).subscribe(
         (res: any) => {
-          console.log('File check result: ', res, "ASXText: ", res.asxtext);
+          //console.log('File check result: ', res, "ASXText: ", res.asxtext);
+          if (res.asxtext) this.SetASXInfo(res.asxtext);
           this.fileStatus[this.urlKey] = res;
           this._fileExists = res.exists;
         },
@@ -72,6 +76,13 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
     } else {
       console.log('From Cached Status: ', staObj, this._url);
       this._fileExists = staObj.exists;
+      if (this.isASX) {
+        // set asx url
+        console.log("%%%%%%  ASX URL !!!!!!!!!")
+        this.SetASXInfo(staObj.asxtext);
+      } else {
+        this._asxInfo = {};
+      }
     }
 
     if (this._isVideo && this._fileExists) {
@@ -105,7 +116,61 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
   }
 
   get url(): string {
-    return this._urlASX ? this._urlASX : this._url;
+    return this.asxInfo.url ? this.asxInfo.url : this._url;
+  }
+
+  private _asxInfo: IASXInfo = {};
+  get asxInfo(): IASXInfo {
+    return this._asxInfo;
+  }
+
+  get videoTitle():string{
+    return this.url;
+  }
+
+  SetASXInfo(asxtext: string) {
+
+    // get title
+    let asxArr = asxtext.split('<TITLE>')
+    if (asxArr.length == 2) this._asxInfo.title = asxArr[1].split('</TITLE>')[0];
+    // get href
+    asxArr = asxtext.split('<REF HREF ');
+    if (asxArr.length > 1) this._asxInfo.url = this.ds.extractFirstText(asxArr[1]);
+    // get start time 
+    asxArr = asxtext.split('<StartTime Value');
+    if (asxArr.length > 1) this._asxInfo.start = +this.ds.extractFirstText(asxArr[1]);
+    // get duration
+    asxArr = asxtext.split('<Duration Value');
+    if (asxArr.length > 1) this._asxInfo.duration = +this.ds.extractFirstText(asxArr[1]);
+
+    setTimeout(() => {
+      if (this.video) {
+        console.log("##### Is Video, ", this.video.nativeElement)
+
+        const video = this.video.nativeElement;
+        const { start, duration } = this._asxInfo;
+
+        video.ontimeupdate = null;
+        video.currentTime = start;
+
+        video.ontimeupdate = () => {
+          const end = start + duration;
+          if (video.currentTime < this._asxInfo.start) {
+            video.currentTime = start;
+            video.pause();
+          } else if (video.currentTime > end) {
+            video.currentTime = end;
+            video.pause();
+          } else if (video.currentTime == end) {
+            video.pause();
+          }
+        }
+
+        video.play();
+        // video.duration = 5;
+      }
+    }, 10)
+
   }
 
   constructor(public dataSource: AppMainServiceService) { }
@@ -245,4 +310,12 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
   get isPhoto(): boolean {
     return this._isPhoto;
   }
+}
+
+
+export interface IASXInfo {
+  title?: string;
+  url?: string;
+  start?: number;
+  duration?: number;
 }

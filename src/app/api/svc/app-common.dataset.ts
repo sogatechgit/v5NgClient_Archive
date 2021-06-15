@@ -251,6 +251,14 @@ export class DatasetBase extends AppCommonMethods {
     return this._SpecialTables[tableRole];
   }
 
+  extractFirstText(str):string{
+    const matches = str.match(/"(.*?)"/);
+    return matches
+      ? matches[1]
+      : str;
+  }
+  
+
   get PostHeaderInfo64(): string {
     return btoa(JSON.stringify(this.PostHeaderInfo));
   }

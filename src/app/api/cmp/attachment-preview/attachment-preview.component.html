@@ -20,7 +20,7 @@
 
     <img *ngIf="fileExists && isPhoto && !isLoading" [src]="url" alt=""
       style="width:100%;height:100%;object-fit:contain;" (load)="ImageLoaded($event)">
-    <video *ngIf="fileExists && isVideo && !isLoading" controls="controls"
+    <video [title]="videoTitle" #video *ngIf="fileExists && isVideo && !isLoading" controls currentTime="10"
       style="background-color: black;width:100%;height:100%;margin:auto auto;object-fit:contain;">
       <!-- .mp4 file for native playback in IE9+, Firefox, Chrome, Safari and most mobile browsers -->
       <source [src]="url" type="video/mp4" />
