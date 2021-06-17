@@ -20,9 +20,10 @@
 
     <img *ngIf="fileExists && isPhoto && !isLoading" [src]="url" alt=""
       style="width:100%;height:100%;object-fit:contain;" (load)="ImageLoaded($event)">
-    <video [title]="videoTitle" #video *ngIf="fileExists && isVideo && !isLoading" controls currentTime="10"
+    <video [title]="videoTitle" #video *ngIf="fileExists && isVideo && !isLoading" autoplay controls
       style="background-color: black;width:100%;height:100%;margin:auto auto;object-fit:contain;">
       <!-- .mp4 file for native playback in IE9+, Firefox, Chrome, Safari and most mobile browsers -->
+      <!-- <source src="http://ivideolib.com/Videos/G0240275/V02402750000217/video.mp4" type="video/mp4" /> -->
       <source [src]="url" type="video/mp4" />
       <!-- flash fallback for IE6, IE7, IE8 and Opera -->
 

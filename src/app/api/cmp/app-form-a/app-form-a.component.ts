@@ -648,7 +648,6 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
 
-    console.log('@@@@@ FORM DESTROYED! @@@@@');
   }
   ngOnInit(): void { }
   ngAfterViewInit() {
@@ -726,8 +725,6 @@ export class AppFormAComponent implements OnInit, AfterViewInit, OnDestroy {
     // console.log("\ntreeRecolorOnUpdateFields: ", treeRecolorOnUpdateFields,",  this.treeColorReset:",  this.treeColorReset,", tblCfg.treeRecolorOnUpdate: ",tblCfg.treeRecolorOnUpdate,"...",", tblCfg: ",tblCfg)
 
     let changed: boolean = false;
-
-    console.log("this.formRow:", this.formRow, ", this.formRowSub:", this.formRowSub, ', row:', row, ', form value:', frm.value)
 
     tbl.columns.forEach((c: ColumnInfo) => {
       const ctl: AbstractControl = frm.get(c.name);

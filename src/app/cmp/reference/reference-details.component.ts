@@ -2,6 +2,8 @@ import { FormGroup } from '@angular/forms';
 import { FileUploaderComponent } from './../../api/cmp/file-uploader/file-uploader.component';
 import { Component, KeyValueDiffers, ViewChild } from '@angular/core';
 import { DetailsCommon } from './../../cmp/details.common';
+import { DataGridComponent } from 'src/app/api/cmp/data-grid/data-grid.component';
+import { DataGridBComponent } from 'src/app/api/cmp/data-grid/data-grid-b.component';
 
 @Component({
   selector: 'app-reference-details',
@@ -17,8 +19,9 @@ export class ReferenceDetailsComponent extends DetailsCommon {
     super(differs);
 
     // this section will allow customized parameter settings for the details popup
-    this.popHeight = 335;
-    this.tabHeight = 247;
+    this.popWidth = 800;
+    this.tabHeight = 270;
+    this.popHeight = this.tabHeight + 65;
     // this.popButtons= []
     this.titleEdit = 'Edit Reference';
     this.titleNew = 'New Reference File';
@@ -30,7 +33,7 @@ export class ReferenceDetailsComponent extends DetailsCommon {
 
   modAfterViewInit() {
     console.log(
-      'fileUploader: ',
+      '##### fileUploader: ',
       this.fileUploader,
       ' type:',
       this.type,
@@ -45,6 +48,10 @@ export class ReferenceDetailsComponent extends DetailsCommon {
       // ', modulesInfo: ',this.data? this.data.moduleExchangeInfo : this.moduleExchangeInfo,
       // ', this.modulesInfo: ',this.moduleExchangeInfo
     );
+  }
+
+  OnRecordKeyChanged() {
+    console.log("local OnRecordKeyChanged!", this.dataKeyValue, this.moduleExchangeInfo, this.data);
   }
 
   FileSelected(event: any) {
@@ -80,14 +87,7 @@ export class ReferenceDetailsComponent extends DetailsCommon {
 
   AfterFormCreate(event: any) {
     const form: FormGroup = event.form;
-    console.log(
-      'AfterFormCreate this.ExtraDetailsSettings: ',
-      this.ExtraDetailsSettings,
-      ' PATH:',
-      this.path,
-      ' TYPE:',
-      this.type
-    );
+
     if (!form) return;
     if (this.ExtraDetailsSettings && this.AccessMode == 'add') {
       const pathKey = this.ExtraDetailsSettings.pathKey;
@@ -144,9 +144,45 @@ export class ReferenceDetailsComponent extends DetailsCommon {
     return true;
   }
 
-  get progress():number{
-    if(!this.fileUploader) return undefined;
-    if(this.fileUploader.forUpload0.files.length==0) return undefined;
+  get progress(): number {
+    if (!this.fileUploader) return undefined;
+    if (this.fileUploader.forUpload0.files.length == 0) return undefined;
     return parseInt(this.fileUploader.ProgressDisplaySingle);
+  }
+
+  get rfGrid(): DataGridComponent {
+    if (!this.moduleExchangeInfo) return null;
+    if (!this.moduleExchangeInfo.gridObject) return null;
+    if (!this.moduleExchangeInfo.gridObject.grid) return null;
+    return this.moduleExchangeInfo.gridObject.grid;
+  }
+
+  get previewUrl(): string {
+
+    if (!this.rfGrid) return '';
+
+    const row = this.rfGrid.currentRow;
+    const urlObj = row ? this.GetRefURL(row) : null;
+    return urlObj ? urlObj.url : '';
+
+  }
+
+  private GetRefURL(row?: any): any {
+    if(this.AccessMode != 'view') return '';
+    if (!row) {
+      if (!this.rfGrid) return null;
+      row = this.rfGrid.currentRow;
+    }
+    if (!row) return null;
+
+    let path = row.XTRA.RF_PATH_LOC.replace(/\\/gi, '/').trimStart();
+    if (path.indexOf('/') == 0) path = path.substr(1);
+
+    const tbl = row.parentTable;
+    const key = row.RF_ID;
+    let file = row.RF_FILENAME;
+    let title = row.RF_DESC;
+
+    return { key: key, title: title ? title : file, url: `${this.DataSet.referenceRoot}/${path}/${file}` };
   }
 }

@@ -153,6 +153,7 @@ export abstract class DetailsCommon implements OnInit, AfterViewInit {
         switch (key) {
           case '_dataKeyValue':
             if (this.form) this.form.dataKeyValue = this._dataKeyValue;
+            this.OnRecordKeyChanged();
             break;
           case '_RecordType':
             this.OnRecordTypeChanged();
@@ -420,5 +421,10 @@ export abstract class DetailsCommon implements OnInit, AfterViewInit {
     if (this.form) {
       this.form.recordType = this._RecordType;
     }
+  }
+
+
+  OnRecordKeyChanged():void{
+
   }
 }

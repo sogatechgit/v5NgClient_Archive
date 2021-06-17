@@ -1,5 +1,5 @@
 /***********************************************************************
-* Automatically generated on 6/15/2021 9:50:02 AM
+* Automatically generated on 6/16/2021 3:01:36 PM
 ***********************************************************************/
 
 import { AppCommonMethodsService } from '../api/svc/app-common-methods.service';
@@ -3399,7 +3399,8 @@ export class TblRefFiles extends TableBase {
     "RF_CLASS|cap=Classification;wd=100",
     "RF_UPDBY|cap=Updated By;wd=100",
     "RF_CONTRACTOR|cap=Contractor;wd=100",
-    "RF_REF_NO|cap=Reference no.;wd=100"
+    "RF_REF_NO|cap=Reference no.;wd=100",
+    "TBL_RF_PATH.LKP_MEMO_1@RF_PATH_LOC|cap=File Location;mnw=250"
   ],
   "gridColumnsAttachment-X": [
     "RF_DESC|cap=Title@;mnw=250",
@@ -3421,7 +3422,7 @@ export class TblRefFiles extends TableBase {
     "RF_REVDATE|cap=Rev.Date;wd=80;center",
     "RF_PATH|cap=Path;wd=100",
     "RF_FILENAME|cap=File;wd=100",
-    "TBL_RF_PATH.LKP_MEMO_1@RF_PATH_LOC|cap=Path;mnw=250"
+    "TBL_RF_PATH.LKP_MEMO_1@RF_PATH_LOC|cap=File Location;mnw=250"
   ]
 };
 

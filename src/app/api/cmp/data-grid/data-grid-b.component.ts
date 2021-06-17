@@ -1004,7 +1004,6 @@ export class DataGridBComponent
       reqParam.pageSize = pageSize;
     }
 
-    // this.dataSet.cl(['Grid-B reqParam: ', reqParam]);
     return reqParam;
   }
 
@@ -1733,8 +1732,6 @@ export class DataGridBComponent
 
     if (!noMask) this.ShowMask(message);
 
-    console.log("reqParam: ", reqParam)
-
     const subsb: Subscription = this.dataSet.Get([reqParam], {
       onSuccess: (data) => {
         // console.log('\nDataGrid-B ExtractData:', data);
@@ -2089,7 +2086,6 @@ export class DataGridBComponent
   OnTreeNodeChanged() {
     // this triggers initial loading of reacords when the component is initialized
     this._reqInfo.pageNumber = 1;
-    console.log('\nOnTreeNodeChanged ...');
     this.ExtractDataCall();
     // setTimeout(()=>{this.ExtractDataCall(),1000});
     if (this._ReportMode) this.reportSelected(this.ReportDetails)

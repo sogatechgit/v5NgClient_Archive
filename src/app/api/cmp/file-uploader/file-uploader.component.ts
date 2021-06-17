@@ -418,18 +418,6 @@ export class FileUploader {
     fd.append('object', file.file.slice(chunk.start, chunk.end), file.name);
 
     chunk.inprogress = true;
-    console.log(
-      'UploadChunk:',
-      fd,
-      'RootFolder:',
-      fd.get('RootFolder'),
-      ', fileInfo:',
-      fileInfo,
-      ', chunk: ',
-      chunk,
-      ', active:',
-      this.active
-    );
 
     this.http
       .post(this.urlUpload, fd, {
@@ -451,7 +439,6 @@ export class FileUploader {
           //   } file.total:${file.total}, file.uploaded: ${file.uploaded}, factor: ${fac}, newupl: ${newupl}, chunk total: ${chunk.total}`
           // );
         } else if (event.type === HttpEventType.Response) {
-          console.log('UploadChunk response: ', event);
           const body: any = event.body;
           const { status, message, chunk, FileInfo } = body;
 
@@ -470,7 +457,6 @@ export class FileUploader {
               file.pending = 0;
               file.uploaded += chk.total;
               // call another upload cycle
-              console.log('Another ... UploadChunks');
               this.UploadChunks(FileInfo);
             }
           }
@@ -516,7 +502,6 @@ export class FileUploader {
       (ch) => !ch.complete && !ch.existing && !ch.inprogress
     );
     if (unprocessed.length == 0) {
-      console.log('No unprocessed ...');
       return;
     }
 

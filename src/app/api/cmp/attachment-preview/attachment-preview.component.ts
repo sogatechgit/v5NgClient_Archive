@@ -51,8 +51,6 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
 
     const staObj = this.fileStatus[this.urlKey];
 
-    console.log("##### staObj: ", staObj);
-
     if (!staObj) {
       // get status
       const fd = new FormData();
@@ -124,7 +122,7 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
     return this._asxInfo;
   }
 
-  get videoTitle():string{
+  get videoTitle(): string {
     return this.url;
   }
 
@@ -135,7 +133,11 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
     if (asxArr.length == 2) this._asxInfo.title = asxArr[1].split('</TITLE>')[0];
     // get href
     asxArr = asxtext.split('<REF HREF ');
-    if (asxArr.length > 1) this._asxInfo.url = this.ds.extractFirstText(asxArr[1]);
+    if (asxArr.length > 1) {
+      const url = this.ds.extractFirstText(asxArr[1]);
+      // this._asxInfo.url = url;
+      this._asxInfo.url = url.startsWith('\\\\') ? 'file:' + url.replace(/\\/gi,'/') : url;
+    }
     // get start time 
     asxArr = asxtext.split('<StartTime Value');
     if (asxArr.length > 1) this._asxInfo.start = +this.ds.extractFirstText(asxArr[1]);
@@ -162,6 +164,7 @@ export class AttachmentPreviewComponent implements OnInit, AfterViewInit {
             video.currentTime = end;
             video.pause();
           } else if (video.currentTime == end) {
+            video.currentTime = start;
             video.pause();
           }
         }
