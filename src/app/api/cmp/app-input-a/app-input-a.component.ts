@@ -16,7 +16,7 @@ import {
   EventEmitter,
   ɵConsole,
 } from '@angular/core';
-import { FormGroup, AbstractControl } from '@angular/forms';
+import { FormGroup, Validators , AbstractControl } from '@angular/forms';
 import {
   ILookupMapInfo,
   ILookupTableParams,
