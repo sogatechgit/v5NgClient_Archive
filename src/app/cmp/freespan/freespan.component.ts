@@ -578,5 +578,12 @@ export enum SpanEvents {
   STRAKE = 1,  // SVY_HDR_EVT_ID=ADD FEATURE(1) WHERE SVY_TEXT_B = Strake
 }
 
+export enum EVENT_TYPE {
+  SPAN = 25,
+  BERM = 5,
+  STRAKE = 1,
+  STABILIZATION = 26,
+  SEABED = 41
+}
 
 

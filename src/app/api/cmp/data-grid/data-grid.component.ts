@@ -114,6 +114,15 @@ export class DataGridComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() SelectedIds: Array<number> = [];
   @Input() allowSelect: boolean = false;
 
+  private _gridParams:GridParams=null;
+  @Input() set gridParams(value:GridParams){
+    this._gridParams = value;
+    this._gridParams.grid  = this;
+  }
+  get gridParams():GridParams{
+    return this._gridParams;
+  }
+
   private _dataSource: Array<any> = [];
   private get dataSourceObject(): Array<any> {
     // return this._dataSource;
@@ -192,6 +201,9 @@ export class DataGridComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get options(): DataGridOption {
+    if(!this._options && this.gridParams){
+      this._options = this.gridParams.options;
+    }
     return this._options;
   }
 
@@ -1926,4 +1938,13 @@ export class DataGridOption extends DataOption {
       }
     );
   } // end of GUID method
+}
+
+
+export class GridParams{
+  constructor(public name:string, public dataSet:AppDataset){
+    this.options = new DataGridOption([])
+  }
+  public grid:DataGridComponent
+  public options: DataGridOption
 }

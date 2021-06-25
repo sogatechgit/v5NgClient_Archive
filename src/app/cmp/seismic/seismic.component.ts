@@ -585,7 +585,7 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
     this._zoomCustom.top = cp.y - this._zoomCustom.height * ratioY;
     this._zoomCustom.left = cp.x - this._zoomCustom.width * ratioX;
 
-    console.log(`LayerX: ${layerX}, LayerY: ${layerY}, svgX: ${cp.x}, svgY: ${cp.y}`)
+    // console.log(`LayerX: ${layerX}, LayerY: ${layerY}, svgX: ${cp.x}, svgY: ${cp.y}`)
     this.handleResize(null);
   }
 
@@ -757,31 +757,6 @@ export class SeismicComponent extends FormCommon implements OnInit, AfterViewIni
   }
 
   InitMap() {
-
-    // return new Promise<void>((resolve, reject) => {
-    //   ////do your initialisation stuff here
-    //   const path = './assets/seismic/worldmap.json';
-    //   const subs = this.http.get(path).subscribe(
-    //     (result: any) => {
-    //       console.log('\nSEISMIC SUCCESS RESULT', result);
-
-    //       // this._mapConfig = result.config;
-    //       // this._mapContours = result.data;
-
-    //       resolve();
-    //       subs.unsubscribe();
-    //     },
-    //     (error) => {
-    //       console.log('\nERROR RESULT', error);
-
-    //       subs.unsubscribe();
-    //       reject(error);
-    //     }
-    //   );
-    // }).catch((err) => {
-    //   console.log('\nERROR RESULT err', err);
-    // });
-
 
     return new Promise<void>((resolve, reject) => {
       ////do your initialisation stuff here

@@ -67,6 +67,7 @@ export class DataTabsComponent implements OnInit, AfterViewInit {
     // );
   }
 
+  @Input() tabClass: string = null;
   @Input() withClose: boolean = false;
   @Input() owner: string = 'none';
   @Input() name: string = 'data_tab';

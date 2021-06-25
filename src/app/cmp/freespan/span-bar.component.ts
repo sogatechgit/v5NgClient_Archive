@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, AfterViewInit, ElementRef, HostBinding, HostListener } from '@angular/core';
 import { QrySpansHeaderRow } from 'src/app/svc/app.tables';
-import { FreespanComponent, SpanColors } from './freespan.component';
+import { SpanColors, EVENT_TYPE } from './freespan.component';
 import { SpanPipeComponent } from './span-pipe.component';
 
 @Component({
@@ -191,12 +191,4 @@ export class SpanBarComponent implements OnInit, AfterViewInit {
     this.handleResize(null);
   }
 
-}
-
-export enum EVENT_TYPE {
-  SPAN = 25,
-  BERM = 5,
-  STRAKE = 1,
-  STABILIZATION = 26,
-  SEABED = 41
 }

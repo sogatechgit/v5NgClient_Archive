@@ -37,11 +37,15 @@ import { FilterListComponent } from './cmp/filter-parameters/filter-list.compone
 import { ProgressMaskComponent } from './cmp/progress-mask/progress-mask.component';
 import { LoginComponent } from './cmp/login/login.component';
 
+
 import { ToolbarComponent } from './cmp/toolbar/toolbar.component';
 import { ToolbarButtonComponent } from './cmp/toolbar/toolbar-button.component';
 
 import { AttachmentsComponent } from './../cmp/reference/attachments.component';
 import { ReferenceDetailsComponent } from './../cmp/reference/reference-details.component';
+
+import { ChartsComponent } from './cmp/charts/charts.component'
+import { StatsDetailsComponent } from './cmp/stats-details/stats-details.component'
 
 
 const declare = [
@@ -73,7 +77,9 @@ const declare = [
   ReferenceDetailsComponent,
   AttachmentPreviewComponent,
 
-  FileUploaderComponent
+  FileUploaderComponent,
+  ChartsComponent,
+  StatsDetailsComponent
 ];
 
 @NgModule({

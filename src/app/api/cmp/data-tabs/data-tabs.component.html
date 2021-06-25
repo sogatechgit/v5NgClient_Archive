@@ -11,7 +11,7 @@
 
   <ul class="nav nav-tabs" #tabs *ngIf="options != undefined && initialized" >
 
-    <li class="nav-item " *ngFor="let t of options.tabs">
+    <li [class]="'nav-item' +  (tabClass ? ' ' + tabClass : '')" *ngFor="let t of options.tabs">
       <button (click)="TabClicked(t)" [style.background]="t.active && activeBackground ? activeBackground : null"
         [style.color]="t.active && activeForeground ? activeForeground : null"
         [style.border-bottom]="t.active && activeBackground ? '1px solid ' + activeBackground : null"
