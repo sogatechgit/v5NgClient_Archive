@@ -1351,8 +1351,8 @@ export class DataGridBComponent
   }
 
   SetGridColumnDef(gridColumn: string) {
-    console.log("SetGridColumnDef ....")
-    // Define datagir column found in table configuration's  gridColumns or customGridColumns
+    // Define datagrid column found in table configuration's  gridColumns or customGridColumns
+    console.log("SetGridColumnDef ....", gridColumn)
     let opt: DataGridOption = this.options;
     let colDef: IDataGridColumn = {};
 
@@ -1420,22 +1420,6 @@ export class DataGridBComponent
           lookupValueField: 'object',
         };
 
-        /**
- *
- *       value: 'M{AN_RISK_RANK_SEVERITY}{AN_RISK_RANK_LIKELIHOOD}',
-      width: 40,
-      align: 'center',
-      caption: 'Risk',
-      colorParams: null,
-      lookupParams: {
-        lookupSource: null, // this will later be replaced with this.ds.riskMatrixData.mtx onSuccess of lookup retreival
-        lookupDisplayField: 'code',
-        lookupValueField: 'object',
-      },
-      displayFormat: '',
-      requiredFields: ['AN_RISK_RANK_SEVERITY', 'AN_RISK_RANK_LIKELIHOOD'],
- *
- */
       }
 
       // opt.AddColumn(colDef);

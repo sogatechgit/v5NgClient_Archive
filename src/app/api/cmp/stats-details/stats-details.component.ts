@@ -63,7 +63,7 @@ export class StatsDetailsComponent implements OnInit {
             this._tabLabels = labels.join(',');
             if ((tab.charts.length != 0 || tab.tables.length != 0) && (tab.fluid == undefined || tab.fluid)) this._fluidTabs.push(ctr);
 
-            tab.tables.forEach((tab) => tab.params = new GridParams(tab.name, this.ds));
+            tab.tables.forEach((tab) => tab.params = new GridParams(tab.name,tab.tableCode, this.ds));
             ctr++;
           });
 

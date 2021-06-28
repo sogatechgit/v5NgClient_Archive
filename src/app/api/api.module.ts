@@ -46,7 +46,9 @@ import { ReferenceDetailsComponent } from './../cmp/reference/reference-details.
 
 import { ChartsComponent } from './cmp/charts/charts.component'
 import { StatsDetailsComponent } from './cmp/stats-details/stats-details.component'
-
+import { LineChartComponent } from './cmp/stats-details/Charts/line-chart.component'
+import { PieChartComponent } from './cmp/stats-details/Charts/pie-chart.component'
+import { BarChartComponent } from './cmp/stats-details/Charts/bar-chart.component'
 
 const declare = [
   AppFormAComponent,
@@ -79,7 +81,11 @@ const declare = [
 
   FileUploaderComponent,
   ChartsComponent,
-  StatsDetailsComponent
+
+  StatsDetailsComponent,
+  LineChartComponent,
+  BarChartComponent,
+  PieChartComponent
 ];
 
 @NgModule({

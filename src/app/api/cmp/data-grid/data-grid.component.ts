@@ -1942,9 +1942,10 @@ export class DataGridOption extends DataOption {
 
 
 export class GridParams{
-  constructor(public name:string, public dataSet:AppDataset){
+  constructor(public name:string, public tableCode:string, public dataSet:AppDataset){
     this.options = new DataGridOption([])
   }
+
   public grid:DataGridComponent
   public options: DataGridOption
 }
